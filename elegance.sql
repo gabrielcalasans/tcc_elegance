@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 17-Jun-2019 às 15:23
+-- Data de Criação: 18-Jun-2019 às 12:22
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de Dados: `elegance`
 --
-CREATE DATABASE IF NOT EXISTS `elegance` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `elegance` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `elegance`;
 
 -- --------------------------------------------------------
@@ -5633,7 +5633,37 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `id_cidade` int(150) NOT NULL,
   `id_pais` int(150) NOT NULL,
   `id_estado` int(150) NOT NULL,
+  `ds_senha` varchar(150) NOT NULL,
   PRIMARY KEY (`cd_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_comentario`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_comentario` (
+  `cd_comentario` int(11) NOT NULL AUTO_INCREMENT,
+  `ds_comentario` varchar(200) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `st_comentario` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`cd_comentario`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_estadia`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_estadia` (
+  `cd_estadia` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cliente` int(150) NOT NULL,
+  `dt_checkin` date NOT NULL,
+  `dt_checkout` date NOT NULL,
+  PRIMARY KEY (`cd_estadia`),
+  KEY `id_cliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5687,6 +5717,18 @@ INSERT INTO `tb_estado` (`cd_estado`, `nm_estado`, `ds_uf`, `id_pais`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_forma`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_forma` (
+  `cd_forma` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_forma` varchar(150) NOT NULL,
+  PRIMARY KEY (`cd_forma`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_pais`
 --
 
@@ -5707,10 +5749,10 @@ INSERT INTO `tb_pais` (`cd_pais`, `nm_pais`, `ds_sigla`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_quartos`
+-- Estrutura da tabela `tb_quarto`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_quartos` (
+CREATE TABLE IF NOT EXISTS `tb_quarto` (
   `cd_quarto` int(11) NOT NULL,
   `nr_quarto` int(11) NOT NULL,
   `st_quarto` int(11) NOT NULL,
@@ -5751,6 +5793,7 @@ CREATE TABLE IF NOT EXISTS `tb_tipo` (
   `cd_tipo` int(11) NOT NULL AUTO_INCREMENT,
   `nm_tipo` varchar(150) NOT NULL,
   `ds_tipo` varchar(150) NOT NULL,
+  `vl_quarto` decimal(10,2) NOT NULL,
   PRIMARY KEY (`cd_tipo`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
@@ -5758,18 +5801,40 @@ CREATE TABLE IF NOT EXISTS `tb_tipo` (
 -- Extraindo dados da tabela `tb_tipo`
 --
 
-INSERT INTO `tb_tipo` (`cd_tipo`, `nm_tipo`, `ds_tipo`) VALUES
-(1, 'Deluxe', '• Frigobar• Chuveiro• Ar-condicionado• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso '),
-(2, 'Suíte de 1 Quarto', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo'),
-(3, 'Suíte Família', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo'),
-(4, 'Suíte Júnior', '• Frigobar• Chuveiro• Ar-condicionado• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo'),
-(5, 'Suíte King com Vista para o Mar', '• Frigobar• Chuveiro• Ar-condicionado• Mesa de trabalho• Vaso sanitário• Banheiro privativo• Camas extralongas (+ de 2 metros)'),
-(6, 'Suíte Standard', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo'),
-(7, 'Suíte Deluxe com Banheira de Hidromassagem', '• Frigobar• Chuveiro• Banheira• Ar-condicionado• Banheira de hidromassagem• Mesa de trabalho• Ventilador• Vaso sanitário• Banhei');
+INSERT INTO `tb_tipo` (`cd_tipo`, `nm_tipo`, `ds_tipo`, `vl_quarto`) VALUES
+(1, 'Deluxe', '• Frigobar• Chuveiro• Ar-condicionado• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso ', '0.00'),
+(2, 'Suíte de 1 Quarto', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '0.00'),
+(3, 'Suíte Família', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '0.00'),
+(4, 'Suíte Júnior', '• Frigobar• Chuveiro• Ar-condicionado• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '0.00'),
+(5, 'Suíte King com Vista para o Mar', '• Frigobar• Chuveiro• Ar-condicionado• Mesa de trabalho• Vaso sanitário• Banheiro privativo• Camas extralongas (+ de 2 metros)', '0.00'),
+(6, 'Suíte Standard', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '0.00'),
+(7, 'Suíte Deluxe com Banheira de Hidromassagem', '• Frigobar• Chuveiro• Banheira• Ar-condicionado• Banheira de hidromassagem• Mesa de trabalho• Ventilador• Vaso sanitário• Banhei', '0.00');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_transacoes`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_transacoes` (
+  `cd_transacoes` int(11) NOT NULL AUTO_INCREMENT,
+  `vl_transacao` decimal(20,2) NOT NULL,
+  `ds_transacao` varchar(150) NOT NULL,
+  `id_estadia` int(150) NOT NULL,
+  `id_forma` int(11) NOT NULL,
+  PRIMARY KEY (`cd_transacoes`),
+  KEY `id_estadia` (`id_estadia`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Limitadores para a tabela `tb_estadia`
+--
+ALTER TABLE `tb_estadia`
+  ADD CONSTRAINT `tb_estadia_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `tb_cliente` (`cd_cliente`);
 
 --
 -- Limitadores para a tabela `tb_estado`
@@ -5778,11 +5843,17 @@ ALTER TABLE `tb_estado`
   ADD CONSTRAINT `tb_estado_ibfk_1` FOREIGN KEY (`id_pais`) REFERENCES `tb_pais` (`cd_pais`);
 
 --
--- Limitadores para a tabela `tb_quartos`
+-- Limitadores para a tabela `tb_quarto`
 --
-ALTER TABLE `tb_quartos`
-  ADD CONSTRAINT `tb_quartos_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `tb_status` (`cd_status`),
-  ADD CONSTRAINT `tb_quartos_ibfk_1` FOREIGN KEY (`id_tipo`) REFERENCES `tb_tipo` (`cd_tipo`);
+ALTER TABLE `tb_quarto`
+  ADD CONSTRAINT `tb_quarto_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `tb_status` (`cd_status`),
+  ADD CONSTRAINT `tb_quarto_ibfk_1` FOREIGN KEY (`id_tipo`) REFERENCES `tb_tipo` (`cd_tipo`);
+
+--
+-- Limitadores para a tabela `tb_transacoes`
+--
+ALTER TABLE `tb_transacoes`
+  ADD CONSTRAINT `tb_transacoes_ibfk_1` FOREIGN KEY (`id_estadia`) REFERENCES `tb_estadia` (`cd_estadia`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
