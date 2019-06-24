@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 18-Jun-2019 às 12:22
+-- Data de Criação: 24-Jun-2019 às 15:06
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -29,12 +29,12 @@ USE `elegance`;
 --
 
 CREATE TABLE IF NOT EXISTS `tb_cidade` (
-  `cd_cidade` int(11) NOT NULL AUTO_INCREMENT,
+  `cd_cidade` int(11) NOT NULL,
   `nm_cidade` varchar(120) DEFAULT NULL,
   `id_estado` int(5) DEFAULT NULL,
   PRIMARY KEY (`cd_cidade`),
   KEY `fk_Cidade_estado` (`id_estado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5565 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `tb_cidade`
@@ -5631,10 +5631,9 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `nm_bairro` varchar(150) NOT NULL,
   `dt_nascimento` date NOT NULL,
   `id_cidade` int(150) NOT NULL,
-  `id_pais` int(150) NOT NULL,
-  `id_estado` int(150) NOT NULL,
   `ds_senha` varchar(150) NOT NULL,
-  PRIMARY KEY (`cd_cliente`)
+  PRIMARY KEY (`cd_cliente`),
+  KEY `id_cidade` (`id_cidade`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5648,7 +5647,8 @@ CREATE TABLE IF NOT EXISTS `tb_comentario` (
   `ds_comentario` varchar(200) NOT NULL,
   `id_cliente` int(11) NOT NULL,
   `st_comentario` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`cd_comentario`)
+  PRIMARY KEY (`cd_comentario`),
+  KEY `fk_comencliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5662,8 +5662,10 @@ CREATE TABLE IF NOT EXISTS `tb_estadia` (
   `id_cliente` int(150) NOT NULL,
   `dt_checkin` date NOT NULL,
   `dt_checkout` date NOT NULL,
+  `id_quarto` int(11) NOT NULL,
   PRIMARY KEY (`cd_estadia`),
-  KEY `id_cliente` (`id_cliente`)
+  KEY `id_cliente` (`id_cliente`),
+  KEY `id_quarto` (`id_quarto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5673,13 +5675,13 @@ CREATE TABLE IF NOT EXISTS `tb_estadia` (
 --
 
 CREATE TABLE IF NOT EXISTS `tb_estado` (
-  `cd_estado` int(11) NOT NULL AUTO_INCREMENT,
+  `cd_estado` int(11) NOT NULL,
   `nm_estado` varchar(75) DEFAULT NULL,
   `ds_uf` varchar(5) DEFAULT NULL,
   `id_pais` int(11) NOT NULL,
   PRIMARY KEY (`cd_estado`),
   KEY `id_pais` (`id_pais`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `tb_estado`
@@ -5753,15 +5755,16 @@ INSERT INTO `tb_pais` (`cd_pais`, `nm_pais`, `ds_sigla`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `tb_quarto` (
-  `cd_quarto` int(11) NOT NULL,
+  `cd_quarto` int(11) NOT NULL AUTO_INCREMENT,
   `nr_quarto` int(11) NOT NULL,
   `st_quarto` int(11) NOT NULL,
   `ds_quarto` varchar(150) NOT NULL,
   `id_tipo` int(11) NOT NULL,
   `id_status` int(11) NOT NULL,
+  PRIMARY KEY (`cd_quarto`),
   KEY `id_tipo` (`id_tipo`),
   KEY `id_status` (`id_status`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5813,17 +5816,18 @@ INSERT INTO `tb_tipo` (`cd_tipo`, `nm_tipo`, `ds_tipo`, `vl_quarto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_transacoes`
+-- Estrutura da tabela `tb_transacao`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_transacoes` (
-  `cd_transacoes` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `tb_transacao` (
+  `cd_transacao` int(11) NOT NULL AUTO_INCREMENT,
   `vl_transacao` decimal(20,2) NOT NULL,
   `ds_transacao` varchar(150) NOT NULL,
   `id_estadia` int(150) NOT NULL,
   `id_forma` int(11) NOT NULL,
-  PRIMARY KEY (`cd_transacoes`),
-  KEY `id_estadia` (`id_estadia`)
+  PRIMARY KEY (`cd_transacao`),
+  KEY `id_estadia` (`id_estadia`),
+  KEY `fk_transforma` (`id_forma`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
@@ -5831,9 +5835,29 @@ CREATE TABLE IF NOT EXISTS `tb_transacoes` (
 --
 
 --
+-- Limitadores para a tabela `tb_cidade`
+--
+ALTER TABLE `tb_cidade`
+  ADD CONSTRAINT `fk_cidade_estado` FOREIGN KEY (`id_estado`) REFERENCES `tb_estado` (`cd_estado`);
+
+--
+-- Limitadores para a tabela `tb_cliente`
+--
+ALTER TABLE `tb_cliente`
+  ADD CONSTRAINT `tb_cliente_ibfk_1` FOREIGN KEY (`id_cidade`) REFERENCES `tb_cidade` (`cd_cidade`);
+
+--
+-- Limitadores para a tabela `tb_comentario`
+--
+ALTER TABLE `tb_comentario`
+  ADD CONSTRAINT `fk_comencliente` FOREIGN KEY (`id_cliente`) REFERENCES `tb_cliente` (`cd_cliente`),
+  ADD CONSTRAINT `fk_comentario` FOREIGN KEY (`id_cliente`) REFERENCES `tb_cliente` (`cd_cliente`);
+
+--
 -- Limitadores para a tabela `tb_estadia`
 --
 ALTER TABLE `tb_estadia`
+  ADD CONSTRAINT `tb_estadia_ibfk_2` FOREIGN KEY (`id_quarto`) REFERENCES `tb_quarto` (`cd_quarto`),
   ADD CONSTRAINT `tb_estadia_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `tb_cliente` (`cd_cliente`);
 
 --
@@ -5846,14 +5870,15 @@ ALTER TABLE `tb_estado`
 -- Limitadores para a tabela `tb_quarto`
 --
 ALTER TABLE `tb_quarto`
-  ADD CONSTRAINT `tb_quarto_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `tb_status` (`cd_status`),
-  ADD CONSTRAINT `tb_quarto_ibfk_1` FOREIGN KEY (`id_tipo`) REFERENCES `tb_tipo` (`cd_tipo`);
+  ADD CONSTRAINT `tb_quarto_ibfk_1` FOREIGN KEY (`id_tipo`) REFERENCES `tb_tipo` (`cd_tipo`),
+  ADD CONSTRAINT `tb_quarto_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `tb_status` (`cd_status`);
 
 --
--- Limitadores para a tabela `tb_transacoes`
+-- Limitadores para a tabela `tb_transacao`
 --
-ALTER TABLE `tb_transacoes`
-  ADD CONSTRAINT `tb_transacoes_ibfk_1` FOREIGN KEY (`id_estadia`) REFERENCES `tb_estadia` (`cd_estadia`);
+ALTER TABLE `tb_transacao`
+  ADD CONSTRAINT `fk_transforma` FOREIGN KEY (`id_forma`) REFERENCES `tb_forma` (`cd_forma`),
+  ADD CONSTRAINT `tb_transacao_ibfk_1` FOREIGN KEY (`id_estadia`) REFERENCES `tb_estadia` (`cd_estadia`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
