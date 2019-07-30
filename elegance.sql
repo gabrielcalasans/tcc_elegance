@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 24-Jun-2019 às 15:06
+-- Data de Criação: 30-Jul-2019 às 12:36
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -30,7 +30,7 @@ USE `elegance`;
 
 CREATE TABLE IF NOT EXISTS `tb_cidade` (
   `cd_cidade` int(11) NOT NULL,
-  `nm_cidade` varchar(120) DEFAULT NULL,
+  `nm_cidade` varchar(120) NOT NULL,
   `id_estado` int(5) DEFAULT NULL,
   PRIMARY KEY (`cd_cidade`),
   KEY `fk_Cidade_estado` (`id_estado`)
@@ -5617,7 +5617,7 @@ INSERT INTO `tb_cidade` (`cd_cidade`, `nm_cidade`, `id_estado`) VALUES
 CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `cd_cliente` int(11) NOT NULL AUTO_INCREMENT,
   `nm_cliente` varchar(150) NOT NULL,
-  `nm_cpf` varchar(11) NOT NULL,
+  `nr_cpf` int(11) NOT NULL,
   `nm_email` varchar(150) NOT NULL,
   `nr_celular` int(15) NOT NULL,
   `nr_telefone` int(15) NOT NULL,
@@ -5625,13 +5625,13 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `nr_endereco` int(15) NOT NULL,
   `nr_cep` int(8) NOT NULL,
   `nm_profissao` varchar(150) NOT NULL,
-  `nr_identificacao` int(20) NOT NULL,
+  `nr_rg` int(20) NOT NULL,
   `ds_orgao` varchar(150) NOT NULL,
   `ds_nacionalidade` varchar(150) NOT NULL,
-  `nm_bairro` varchar(150) NOT NULL,
   `dt_nascimento` date NOT NULL,
   `id_cidade` int(150) NOT NULL,
   `ds_senha` varchar(150) NOT NULL,
+  `dthr_cadastro` datetime NOT NULL,
   PRIMARY KEY (`cd_cliente`),
   KEY `id_cidade` (`id_cidade`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -5649,6 +5649,22 @@ CREATE TABLE IF NOT EXISTS `tb_comentario` (
   `st_comentario` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`cd_comentario`),
   KEY `fk_comencliente` (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_endereco`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_endereco` (
+  `cd_endereco` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_endereco` varchar(150) NOT NULL,
+  `nr_endereco` int(10) NOT NULL,
+  `nr_cep` int(8) NOT NULL,
+  `nm_bairro` varchar(150) NOT NULL,
+  `id_cidade` int(11) NOT NULL,
+  PRIMARY KEY (`cd_endereco`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5676,8 +5692,8 @@ CREATE TABLE IF NOT EXISTS `tb_estadia` (
 
 CREATE TABLE IF NOT EXISTS `tb_estado` (
   `cd_estado` int(11) NOT NULL,
-  `nm_estado` varchar(75) DEFAULT NULL,
-  `ds_uf` varchar(5) DEFAULT NULL,
+  `nm_estado` varchar(75) NOT NULL,
+  `ds_uf` varchar(5) NOT NULL,
   `id_pais` int(11) NOT NULL,
   PRIMARY KEY (`cd_estado`),
   KEY `id_pais` (`id_pais`)
