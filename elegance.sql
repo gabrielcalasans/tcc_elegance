@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 30-Jul-2019 às 12:36
+-- Data de Criação: 30-Jul-2019 às 15:22
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5624,16 +5624,15 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `nm_endereco` varchar(150) NOT NULL,
   `nr_endereco` int(15) NOT NULL,
   `nr_cep` int(8) NOT NULL,
-  `nm_profissao` varchar(150) NOT NULL,
   `nr_rg` int(20) NOT NULL,
   `ds_orgao` varchar(150) NOT NULL,
   `ds_nacionalidade` varchar(150) NOT NULL,
   `dt_nascimento` date NOT NULL,
-  `id_cidade` int(150) NOT NULL,
   `ds_senha` varchar(150) NOT NULL,
   `dthr_cadastro` datetime NOT NULL,
+  `id_profissao` int(11) NOT NULL,
   PRIMARY KEY (`cd_cliente`),
-  KEY `id_cidade` (`id_cidade`)
+  KEY `fk_id_profissao` (`id_profissao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5767,6 +5766,18 @@ INSERT INTO `tb_pais` (`cd_pais`, `nm_pais`, `ds_sigla`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_profissao`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_profissao` (
+  `cd_profissao` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_profissao` varchar(150) NOT NULL,
+  PRIMARY KEY (`cd_profissao`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_quarto`
 --
 
@@ -5780,6 +5791,22 @@ CREATE TABLE IF NOT EXISTS `tb_quarto` (
   PRIMARY KEY (`cd_quarto`),
   KEY `id_tipo` (`id_tipo`),
   KEY `id_status` (`id_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_reserva`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_reserva` (
+  `cd_reserva` int(11) NOT NULL AUTO_INCREMENT,
+  `id_quarto` int(11) NOT NULL,
+  `dthr_checkin` datetime NOT NULL,
+  `dthr_checkout` datetime NOT NULL,
+  `vl_reserva` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`cd_reserva`),
+  KEY `fk_id_quarto` (`id_quarto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5860,7 +5887,7 @@ ALTER TABLE `tb_cidade`
 -- Limitadores para a tabela `tb_cliente`
 --
 ALTER TABLE `tb_cliente`
-  ADD CONSTRAINT `tb_cliente_ibfk_1` FOREIGN KEY (`id_cidade`) REFERENCES `tb_cidade` (`cd_cidade`);
+  ADD CONSTRAINT `fk_id_profissao` FOREIGN KEY (`id_profissao`) REFERENCES `tb_profissao` (`cd_profissao`);
 
 --
 -- Limitadores para a tabela `tb_comentario`
@@ -5888,6 +5915,12 @@ ALTER TABLE `tb_estado`
 ALTER TABLE `tb_quarto`
   ADD CONSTRAINT `tb_quarto_ibfk_1` FOREIGN KEY (`id_tipo`) REFERENCES `tb_tipo` (`cd_tipo`),
   ADD CONSTRAINT `tb_quarto_ibfk_2` FOREIGN KEY (`id_status`) REFERENCES `tb_status` (`cd_status`);
+
+--
+-- Limitadores para a tabela `tb_reserva`
+--
+ALTER TABLE `tb_reserva`
+  ADD CONSTRAINT `fk_id_quarto` FOREIGN KEY (`id_quarto`) REFERENCES `tb_quarto` (`cd_quarto`);
 
 --
 -- Limitadores para a tabela `tb_transacao`
