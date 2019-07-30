@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>teste</title>
-		<!-- Compiled and minified CSS -->
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<?php include('header.php'); ?>
+    <title>Home | Hospedagem Elegance</title></head>
+    <?php
+        include('conn.php');
+    ?>
+    <style type="text/css">
+            body{
+                background-color: #FFF7D9;
+            }
 
-    	<!-- Compiled and minified JavaScript -->
-    	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    	<style type="text/css">
-    		body{
-    			background-color: #FFF7D9;
-    		}
-
-    		nav{
-    			padding: 0 0 0 10px;
-    		}
+            nav{
+                padding: 0 0 0 10px;
+            }
 
             #i1{
                 text-align: center;
@@ -58,16 +51,13 @@
             #lfooter:hover{
                 color: #FFCA37; 
             }
-    	</style>
+        </style>
 
-        <script type="text/javascript">
-            document.addEventListener('DOMContentLoaded', function(){
-                var elems = document.querySelectorAll('.parallax');
-                var instances = M.Parallax.init(elems, options);
+        <script>
+            $(document).ready(function(){
+                $('.parallax').parallax();
             });
         </script>
-
-	</head>
 	<body>
 		<nav class="yellow darken-2">
             <div class="nav-wrapper">
@@ -80,7 +70,7 @@
             </div>
         </nav>
         <div class="parallax-container">
-            <div class="parallax"><img src="images/teste.jpg"></div>
+            <div class="parallax"><img src="images/teste.jpg" style="transform: translate3d(-50%, 50px, 0px); opacity: 1;"></div>
         </div>
         <br>
         <div class="row">  
@@ -138,35 +128,5 @@
             </div>
             </center>
         <div class="divider"></div>
-        <footer class="page-footer grey darken-2">
-            <div class="container">
-                <div class="row">
-                    <div class="col l4 s12">
-                        <h5 class="white-text">Hospedagem Elegance</h5>
-                        <p class="grey-text text-lighten-4">texto texto texto texto texto texto texto texto texto</p>
-                    </div>
-                    <div class="col l4 offset-l1 s12">
-                        <h5 class="white-text">Links</h5>
-                        <ul>
-                            <li><a href="#!" id="lfooter">Acomodações</a></li>
-                            <li><a href="#!" id="lfooter">Quem somos?</a></li>
-                            <li><a href="#!" id="lfooter">Contato</a></li>
-                        </ul>
-                    </div>
-                    <div class="col l3 s12">
-                        <p class="grey-text text-lighten-4">Avenida Presidente Vargas, 910 - Itanhaém, SP</p>
-                        <a href="#"><img src="images/facebook.png" class="icon"></a>
-                        <a href="#"><img src="images/email.png" class="icon"></a>
-                        <a href="#"><img src="images/instagram.png" class="icon"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-copyright">
-                <div class="container">
-                    <center>© 2019 Hospedagem Elegance - Todos os direitos reservados</center>
-                </div>
-            </div>
-        </footer>
-	</body>
-</html>
+<?php include('footer.php'); ?>
 
