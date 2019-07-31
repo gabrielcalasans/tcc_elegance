@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
+<?php include('header.php'); ?>
 		<title>Login | Pousada Hospedagem Elegance</title>
 	</head>
 	<?php include('conn.php'); ?>
@@ -29,6 +26,5 @@
 				
 			}
 		}
-
 	?>
-</html>
+<?php include('footer.php'); ?>

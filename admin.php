@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
+<?php include('header.php'); ?>
 	<title>Login Administrador</title>
 </head>
 <body>
@@ -40,4 +38,4 @@
 	</form>
 
 </body>
-</html>
+<?php include('footer.php'); ?>
