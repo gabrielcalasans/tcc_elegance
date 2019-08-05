@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 30-Jul-2019 às 17:48
+-- Data de Criação: 05-Ago-2019 às 15:23
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5622,10 +5622,7 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `nr_cpf` int(11) NOT NULL,
   `nm_email` varchar(150) NOT NULL,
   `nr_celular` int(15) NOT NULL,
-  `nr_telefone` int(15) NOT NULL,
-  `nm_endereco` varchar(150) NOT NULL,
-  `nr_endereco` int(15) NOT NULL,
-  `nr_cep` int(8) NOT NULL,
+  `nr_telefone` int(15) DEFAULT NULL,
   `nr_rg` int(20) NOT NULL,
   `ds_orgao` varchar(150) NOT NULL,
   `ds_nacionalidade` varchar(150) NOT NULL,
@@ -5771,6 +5768,22 @@ INSERT INTO `tb_pais` (`cd_pais`, `nm_pais`, `ds_sigla`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_pedido`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_pedido` (
+  `cd_pedido` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_pedido` varchar(150) NOT NULL,
+  `dt_pedido` datetime NOT NULL,
+  `id_reserva` int(11) NOT NULL,
+  `vl_pedido` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`cd_pedido`),
+  KEY `reserva_pedido` (`id_reserva`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_profissao`
 --
 
@@ -5778,7 +5791,14 @@ CREATE TABLE IF NOT EXISTS `tb_profissao` (
   `cd_profissao` int(11) NOT NULL AUTO_INCREMENT,
   `nm_profissao` varchar(150) NOT NULL,
   PRIMARY KEY (`cd_profissao`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `tb_profissao`
+--
+
+INSERT INTO `tb_profissao` (`cd_profissao`, `nm_profissao`) VALUES
+(1, 'Enfermeiro');
 
 -- --------------------------------------------------------
 
@@ -5854,12 +5874,12 @@ CREATE TABLE IF NOT EXISTS `tb_tipo` (
 --
 
 INSERT INTO `tb_tipo` (`cd_tipo`, `nm_tipo`, `ds_tipo`, `vl_quarto`, `ds_imagem`) VALUES
-(1, 'Deluxe', '• Frigobar• Chuveiro• Ar-condicionado• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso ', '0.00', ''),
-(2, 'Suíte de 1 Quarto', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '0.00', ''),
-(3, 'Suíte Família', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '0.00', ''),
+(1, 'Deluxe', '• Frigobar • Chuveiro • Ar-condicionado • Mesa de trabalho • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso ', '199.00', ''),
+(2, 'Suíte de 1 Quarto', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '189.00', ''),
+(3, 'Suíte Família', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '239.00', ''),
 (4, 'Suíte Júnior', '• Frigobar• Chuveiro• Ar-condicionado• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '0.00', ''),
 (5, 'Suíte King com Vista para o Mar', '• Frigobar• Chuveiro• Ar-condicionado• Mesa de trabalho• Vaso sanitário• Banheiro privativo• Camas extralongas (+ de 2 metros)', '0.00', ''),
-(6, 'Suíte Standard', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '0.00', ''),
+(6, 'Suíte Standard', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '149.00', ''),
 (7, 'Suíte Deluxe com Banheira de Hidromassagem', '• Frigobar• Chuveiro• Banheira• Ar-condicionado• Banheira de hidromassagem• Mesa de trabalho• Ventilador• Vaso sanitário• Banhei', '0.00', '');
 
 -- --------------------------------------------------------
@@ -5921,6 +5941,12 @@ ALTER TABLE `tb_estadia`
 --
 ALTER TABLE `tb_estado`
   ADD CONSTRAINT `tb_estado_ibfk_1` FOREIGN KEY (`id_pais`) REFERENCES `tb_pais` (`cd_pais`);
+
+--
+-- Limitadores para a tabela `tb_pedido`
+--
+ALTER TABLE `tb_pedido`
+  ADD CONSTRAINT `reserva_pedido` FOREIGN KEY (`id_reserva`) REFERENCES `tb_reserva` (`cd_reserva`);
 
 --
 -- Limitadores para a tabela `tb_quarto`
