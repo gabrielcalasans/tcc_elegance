@@ -1,0 +1,14 @@
+Sexta-Sabado || Sábado-Domingo 
+{
+standard->199;
+deluxe->249;
+suite 1 quarto->300;
+suite familia ->320;
+}
+Domingo-QUinta
+{
+standard->199;
+deluxe->249;
+suite 1 quarto->300;
+suite familia->320;
+}
