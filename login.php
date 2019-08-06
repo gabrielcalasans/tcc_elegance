@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<!-- Compiled and minified CSS -->
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    	<!-- Compiled and minified JavaScript -->
-    	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<?php include('header.php'); ?>
 		<title>Login | Pousada Elegance</title>
 		<style type="text/css">
 			body{
@@ -64,24 +56,23 @@
 				</div>
 	  		</div>
 	  		<div class="card-panel" style="width: 40%;">
-	  			Novo por aqui? <a href="#">Crie uma conta</a>
+	  			Novo por aqui? <a href="cadastro.php">Crie uma conta</a>
 	  		</div>
 		</center>
+		<?php
+			if(isset($_POST['cpf']) && isset($_POST['senha'])){
+				$cpf = $_POST['cpf'];
+				$senha = md5($_POST['senha']);
+				$sql = "SELECT * from tb_cliente where nr_cpf = '$cpf' and ds_senha = '$senha'";
+				$result = $mysqli->query($sql);
+				if($result->num_rows > 0){
+					$row = $result->fetch_object();
+					echo "Bem vindo, ".$row->nm_cliente;
+				}
+				else{
+					echo "tente novamente.";
+				}
+			}
+		?>
 	</body>
 </html>
-
-<?php
-	if(isset($_POST['cpf']) && isset($_POST['senha'])){
-		$cpf = $_POST['cpf'];
-		$senha = md5($_POST['senha']);
-		$sql = "SELECT * from tb_cliente where nr_cpf = '$cpf' and ds_senha = '$senha'";
-		$result = $mysqli->query($sql);
-		if($result->num_rows > 0){
-			$row = $result->fetch_object();
-			echo "Bem vindo, ".$row->nm_cliente;
-			}
-			else{
-				echo "tente novamente.";
-			}
-		}
-	?>
