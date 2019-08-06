@@ -33,6 +33,7 @@
 		</style>
 	</head>
 	<body>
+		<?php include('conn.php'); ?>
 		<center>
 			<nav class="grey darken-2">
 				<div class="nav-wrapper">
@@ -72,15 +73,15 @@
 <?php
 	if(isset($_POST['cpf']) && isset($_POST['senha'])){
 		$cpf = $_POST['cpf'];
-		$senha = $_POST['senha'];
+		$senha = md5($_POST['senha']);
 		$sql = "SELECT * from tb_cliente where nr_cpf = '$cpf' and ds_senha = '$senha'";
 		$result = $mysqli->query($sql);
 		if($result->num_rows > 0){
 			$row = $result->fetch_object();
-					
+			echo "Bem vindo, ".$row->nm_cliente;
 			}
 			else{
-				
+				echo "tente novamente.";
 			}
 		}
 	?>

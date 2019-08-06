@@ -14,6 +14,7 @@
 	<body>
 		<?php
 			include('conn.php');
+			date_default_timezone_set('UTC');
 		?>
 		<form method="post">
 			<fieldset>
@@ -35,7 +36,7 @@
 							echo "<option value='".$row->cd_profissao."'>".$row->nm_profissao."</option>";
 						}
 					?>
-				</select> Outra: <input type="text" name="profissao"></p>
+				</select> Outra: <input type="text" name="outra"></p>
 			</fieldset>
 			<fieldset>
 				<legend><b>Endereço</b></legend>
@@ -70,25 +71,26 @@
 		</form>
 		<?php
 			if(isset($_POST['nome']) && isset($_POST['endereco'])){
-				$nome = ucfirst($_POST['nome']);
-				$nacionalidade = ucfirst($_POST['nacionalidade']);
+				$nome = ucwords($_POST['nome']);
+				$nacionalidade = ucwords($_POST['nacionalidade']);
 				$cpf = $_POST['cpf'];
 				$email = $_POST['email'];
 				$celular = $_POST['celular'];
 				$telefone = $_POST['telefone'];
 				$rg = $_POST['rg'];
-				$orgao = $_POST['orgao'];
 				$datanasc = $_POST['datanasc'];
-				$profissao = $_POST['profissao'];
+				if(isset($_POST['profissao'])){
+					$profissao = $_POST['profissao'];
+				}
 				$cidade = $_POST['cidade'];
 				$cep = $_POST['cep'];
-				$bairro = ucfirst($_POST['bairro']);
+				$orgao = $_POST['orgao'];
+				$bairro = ucwords($_POST['bairro']);
 				$estado = $_POST['estado'];
-				$senha = $_POST['senha1'];
-				$outra = ucfirst($_POST['outra']);
+				$senha = md5($_POST['senha1']);
 				$endereco = $_POST['endereco'];
 				$numero = $_POST['numero'];
-				$senha1 = $_POST['senha'];
+				$senha1 = md5($_POST['senha']);
 				if(isset($_POST['termos'])){
 					if($senha != $senha1){
 						echo "Senhas não correspondentes digite novamente.";
@@ -99,23 +101,25 @@
 							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 						}
 						else{
-							$sql =  "SELECT * from tb_endereco where nm_endereco = '$endereco' and nr_endereco = '$numero' and nr_cep = '$cep' and nm_bairro = '$bairro' and id_cidade = '$cidade'";
+							$sql =  "SELECT * from tb_endereco where nm_endereco = '$endereco' and nr_endereco = '$numero' and nr_cep = '$cep' and nm_bairro = '$bairro' and id_cidade = '$cidade' LIMIT 1";
 							$result = $mysqli->query($sql);
 							$row = $result->fetch_object();
 							$endereco = $row->cd_endereco;
-							if(!empty($outra)){
-								$profissao = ucfirst($outra);
+							if(!empty($_POST['outra'])){
+								$profissao = ucwords($_POST['outra']);
 								$sql = "INSERT into tb_profissao values(null, '$profissao')";
 								if(!$mysqli->query($sql)){
 									echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 								}
-								$sql = "SELECT * from tb_profissao where nm_profissao = '$profissao'";
-								$result = $mysqli->query($sql);
-								$row = $result->fetch_object();
-								$profissao = $row->cd_profissao;	
+								else{
+									$sql = "SELECT * from tb_profissao where nm_profissao = '$profissao'";
+									$result = $mysqli->query($sql);
+									$row = $result->fetch_object();
+									$profissao = $row->cd_profissao;
+								}
 							}
-							$datetime = now();
-							$sql = "INSERT into tb_cliente values(null, '$nome', '$cpf', '$email', '$celular', '$telefone', '$rg', '$orgao', '$nacionalidade', '$datanasc', '$senha', '$datetime', '$tb_profissao', '$endereco')";
+							$datetime = date('Y-m-d H:i:s');
+							$sql = "INSERT into tb_cliente values(null, '$nome', '$cpf', '$email', '$celular', '$telefone', '$rg', '$orgao', '$nacionalidade', '$datanasc', '$senha', '$datetime', '$profissao', '$endereco')";
 							if(!$mysqli->query($sql)){
 								echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 							}
