@@ -67,7 +67,8 @@
 					<input id="termos" type="checkbox" name="termos" required=""> Li os <a href="#">termos de uso</a> e aceito todas as condições.
 				</label>
 			</fieldset></p>
-			<input type="submit">
+			<input type="submit" value="Cadastrar" id="cadastrar">
+			<input type="reset" value="Limpar" id="limpar">
 		</form>
 		<?php
 			if(isset($_POST['nome']) && isset($_POST['endereco'])){
@@ -163,6 +164,13 @@
 		    $("#cel").mask("(99) 99999-9999");
 		    $("#tel").mask("(99) 9999-9999");
 		    $("#rg").mask("99.999.999-9");
+		    $("#cadastrar").click(function(){
+				$("#cpf").val($("#cpf").cleanVal());
+				$("#cep").val($("#cep").cleanVal());
+				$("#tel").val($("#tel").cleanVal());
+				$("#cel").val($("#cel").cleanVal());
+				$("#rg").val($("#rg").cleanVal());
+			});
 		});
 	</script>
 </html>
