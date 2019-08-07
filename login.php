@@ -1,4 +1,5 @@
 <?php include('header.php'); ?>
+		<script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
 		<title>Login | Pousada Elegance</title>
 		<style type="text/css">
 			body{
@@ -39,17 +40,17 @@
 				    <form class="col s12" method="post">
 				      	<div class="row">
 				        	<div class="input-field col s12">
-				          		<input id="cpf" type="text" class="validate" name="cpf" required="">
+				          		<input id="cpf" type="text" class="validate" name="cpf" required="" placeholder="_ _ _ . _ _ _ . _ _ _ - _ _">
 				          		<label for="cpf">CPF</label>
 				        	</div>
 				    	</div>
 				    	<div class="row">
 				        	<div class="input-field col s12">
-				          		<input id="password" type="password" class="validate" name="senha" required="">
+				          		<input id="password" type="password" class="validate" name="senha" required="" placeholder="Password">
 				          		<label for="password">Senha</label>
 				        	</div>
 				    	</div>
-				    	<button class="btn waves-effect waves-light yellow darken-2" type="submit" name="action">Entrar
+				    	<button class="btn waves-effect waves-light yellow darken-2" id="logar" type="submit" name="action">Entrar
     						<i class="material-icons right">input</i>
   						</button>
 					</form>
@@ -75,4 +76,12 @@
 			}
 		?>
 	</body>
+	<script>
+		$(document).ready(function(){
+			$("#cpf").mask("999.999.999-99");
+			$("#logar").click(function(){
+				$("#cpf").val($("#cpf").cleanVal());
+			});
+		});
+	</script>
 </html>
