@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 05-Ago-2019 às 15:23
+-- Data de Criação: 08-Ago-2019 às 11:50
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5784,6 +5784,21 @@ CREATE TABLE IF NOT EXISTS `tb_pedido` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_pedidoquarto`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_pedidoquarto` (
+  `cd_pedidoquarto` int(11) NOT NULL AUTO_INCREMENT,
+  `id_quarto` int(11) NOT NULL,
+  `id_pedido` int(11) NOT NULL,
+  PRIMARY KEY (`cd_pedidoquarto`),
+  KEY `fk_quarto` (`id_quarto`),
+  KEY `fk_pedido` (`id_pedido`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_profissao`
 --
 
@@ -5809,10 +5824,10 @@ INSERT INTO `tb_profissao` (`cd_profissao`, `nm_profissao`) VALUES
 CREATE TABLE IF NOT EXISTS `tb_quarto` (
   `cd_quarto` int(11) NOT NULL AUTO_INCREMENT,
   `nr_quarto` int(11) NOT NULL,
-  `st_quarto` int(11) NOT NULL,
   `ds_quarto` varchar(150) NOT NULL,
   `id_tipo` int(11) NOT NULL,
   `id_status` int(11) NOT NULL,
+  `id_pedido` int(11) NOT NULL,
   PRIMARY KEY (`cd_quarto`),
   KEY `id_tipo` (`id_tipo`),
   KEY `id_status` (`id_status`)
@@ -5943,10 +5958,11 @@ ALTER TABLE `tb_estado`
   ADD CONSTRAINT `tb_estado_ibfk_1` FOREIGN KEY (`id_pais`) REFERENCES `tb_pais` (`cd_pais`);
 
 --
--- Limitadores para a tabela `tb_pedido`
+-- Limitadores para a tabela `tb_pedidoquarto`
 --
-ALTER TABLE `tb_pedido`
-  ADD CONSTRAINT `reserva_pedido` FOREIGN KEY (`id_reserva`) REFERENCES `tb_reserva` (`cd_reserva`);
+ALTER TABLE `tb_pedidoquarto`
+  ADD CONSTRAINT `fk_pedido` FOREIGN KEY (`id_pedido`) REFERENCES `tb_pedido` (`cd_pedido`),
+  ADD CONSTRAINT `fk_quarto` FOREIGN KEY (`id_quarto`) REFERENCES `tb_quarto` (`cd_quarto`);
 
 --
 -- Limitadores para a tabela `tb_quarto`
