@@ -123,6 +123,9 @@
 						if(!$mysqli->query($sql)){
 							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 						}
+						else{
+							echo "<script type='text/javascript'>alert('Cadastro efetuado com sucesso!!!'); window.location.href='login.php';</script>";
+						}
 					}
 				}
 			}
