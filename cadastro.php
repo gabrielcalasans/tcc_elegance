@@ -2,74 +2,118 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <!-- Compiled and minified CSS -->
-
-
-        <!-- Compiled and minified JavaScript -->
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<title>Cadastro | Pousada Hospedagem Elegance</title>
+		<style type="text/css">
+			
+		</style>
 	</head>
 	<body>
 		<?php
 			include('conn.php');
 			date_default_timezone_set('UTC');
 		?>
-		<form method="post">
-			<fieldset>
-				<legend><b>Dados pessoais</b></legend>
-				Nome:<input type="text" name="nome" required=""></p>
-				CPF:<input id="cpf" type="text" name="cpf" required=""></p>
-				E-Mail:<input type="email" name="email" required=""></p>
-				Celular:<input id="cel" type="text" name="celular" required=""> Telefone:<input id="tel" type="text" name="telefone"></p>
-				RG:<input id="rg" type="text" name="rg" required=""> Orgão Expeditor:<input type="text" name="orgao" required=""></p>
-				Nacionalidade:<input type="text" name="nacionalidade" required=""></p>
-				Data de nascimento: <input type="date" name="datanasc" required=""></p>
-				Profissão:
-				<select name="profissao">
-					<option value="" disabled selected>Selecione...</option>
-					<?php
-					$sql = "SELECT * from tb_profissao order by nm_profissao asc";
-						$result = $mysqli->query($sql);
-						while($row = $result->fetch_object()){
-							echo "<option value='".$row->cd_profissao."'>".$row->nm_profissao."</option>";
-						}
-					?>
-				</select> Outra: <input type="text" name="outra"></p>
-			</fieldset>
-			<fieldset>
-				<legend><b>Endereço</b></legend>
-				Endereço:<input type="text" name="endereco"> Nº:<input type="text" name="numero" required=""></p>
-				CEP:<input id="cep" type="text" name="cep" required=""></p>
-				Estado:
-				<select id="estado" name="estado" required="">
-					<option>Selecione...</option>
-					<?php
-						$sql = "SELECT * from tb_estado order by nm_estado asc";
-						$result = $mysqli->query($sql);
-						while($row = $result->fetch_object()){
-							echo "<option value='".$row->cd_estado."'>".$row->nm_estado."</option>";
-						}
-					?>
-				</select></p>
-				Cidade:
-				<select id="cidade" name="cidade" required="">
-					<option value="" disabled selected>Selecione...</option>
-				</select></p>
-				Bairro:<input type="text" name="bairro" required=""></p>
-			</fieldset>
-			<fieldset>
-				<legend><b>Confirmar conta</b></legend>
-				Senha: <input id="s1" type="password" name="senha" required=""><span class="senhas"></span></p>
-				Confrimar senha: <input id="s2" type="password" name="senha1" required=""><span class="senhas"></span></p>
-				<label for="termos">
-					<input id="termos" type="checkbox" name="termos" required=""> Li os <a href="#">termos de uso</a> e aceito todas as condições.
-				</label>
-			</fieldset></p>
-			<input type="submit" value="Cadastrar" id="cadastrar">
-			<input type="reset" value="Limpar" id="limpar">
+		<center>
+		<form class="col s12" method="post">
+			<div class="card-panel" style="width: 60%;">
+				<div class="input-field col s6">
+					<input id="nome" type="text" name="nome" required="" class="validate"><label for="nome">Nome</label></p>
+				</div>
+				<div class="input-field col s6">	
+					<input id="cpf" type="text" name="cpf" required="" class="validate"><label for="cpf">CPF</label></p>
+				</div>
+				<div class="input-field col s6">
+					<input id="email" type="email" name="email" required="" class="validate"><label for="email">E-mail</label></p>
+				</div>
+				<div class="input-field col s6">		
+					<input id="celular" type="text" name="celular" required="" class="validate"><label for="celular">Celular</label>
+				</div>
+				<div class="input-field col s6">
+					<input id="tel" type="text" name="telefone" required="" ><label for="telefone">Telefone</label></p>
+				</div>
+				<div class="input-field col s6">
+					<input id="rg" type="text" name="rg" required="" class="validate"><label for="rg">RG</label></p>
+				</div>
+				<div class="input-field col s6">
+					<input id="orgao" type="text" name="orgao" required="" class="validate"><label for="orgao">Orgão Expedidor</label></p>
+				</div>
+				<div class="input-field col s6">
+					<input id="nacionalidade" type="text" name="nacionalidade" required="" class="validate"><label for="nacionalidade">Nacionalidade</label></p>
+				</div>
+				<div class="input-field col s6">
+					<input type="date" name="datanasc" required="" class="validate"></p>
+				</div>
+					Profissão:
+					<select name="profissao">
+						<option value="" disabled selected>Selecione...</option>
+						<?php
+						$sql = "SELECT * from tb_profissao order by nm_profissao asc";
+							$result = $mysqli->query($sql);
+							while($row = $result->fetch_object()){
+								echo "<option value='".$row->cd_profissao."'>".$row->nm_profissao."</option>";
+							}
+						?>
+					</select>
+				<div class="input-field col s6"> 
+					<input id="outra" type="text" name="outra"><label for="outra">Outra</label></p>
+				</div>
+			</div>
+			<div class="card-panel" style="width: 60%;">
+				<div class="input-field col s6">
+					<input id="endereco" type="text" name="endereco" required="" class="validate"><label for="endereco">Endereço</label>
+				</div>
+				<div class="input-field col s6">
+					 <input type="text" name="numero" required="" class="validate"><label for="endereco">Número</label></p>
+				</div>
+				<div class="input-field col s6">
+					<input id="cep" type="text" name="cep" required="" class="validate"><label for="cep">CEP</label></p>
+				</div>
+					Estado:
+					<select id="estado" name="estado" required="">
+						<option>Selecione...</option>
+						<?php
+							$sql = "SELECT * from tb_estado order by nm_estado asc";
+							$result = $mysqli->query($sql);
+							while($row = $result->fetch_object()){
+								echo "<option value='".$row->cd_estado."'>".$row->nm_estado."</option>";
+							}
+						?>
+					</select></p>
+					Cidade:
+					<select id="cidade" name="cidade" required="">
+						<option value="" disabled selected>Selecione...</option>
+					</select></p>
+				<div class="input-field col s6">
+					<input id="bairro" type="text" name="bairro" required="" class="validate"><label for="bairro">Bairro</label></p>
+				</div>
+				</div>
+			</div>
+			<div class="card-panel" style="width: 60%;">
+				<div class="input-field col s6">
+					<input id="s1" type="password" name="senha" required="" class="validate"><label for="senha">Senha</label><span class="senhas"></span></p>
+				</div>
+				<div class="input-field col s6">
+					<input id="s2" type="password" name="senha1" required="" class="validate"><label for="senha1">Confirmar senha</label><span class="senhas"></span></p><br>
+				</div>
+					<label for="termos">
+						<div class="input-field col s12">
+							<input id="termos" type="checkbox" name="termos" required=""  class="filled-in"><span> Li os <a href="#">termos de uso</a> e aceito todas as condições.</span>
+						</div>
+					</label>
+			</div>
+				</p>
+			<button class="btn waves-effect waves-light #64dd17 light-green accent-4" type="submit" id="cadastrar" name="action">
+				Cadastrar
+			</button>
+			<button class="btn waves-effect waves-light #ff3d00 deep-orange accent-3" type="reset" id="limpar">
+				Limpar
+			</button>
 		</form>
+		</center>
 		<?php
 			if(isset($_POST['nome']) && isset($_POST['endereco'])){
 				$nome = ucwords($_POST['nome']);
@@ -148,17 +192,7 @@
 					$(".senhas").html(" <img src='images/errado.png' width='15px' height='15px' title=''> Senhas não correspondentes.");
 				}
 			});
-		    $("#estado").click(function(){
-		        var estado = {estado: $("#estado").val()};
-		        $.ajax({
-		            type: 'POST',
-		            url: 'php.php',
-		            data: estado,
-		            success: function(response){
-		                $("#cidade").html(response);
-		            }
-		        });
-		    });
+		   
 			$("#cancelar").click(function(){
 		    	$("#estado").val(null);
 		    });
@@ -175,5 +209,20 @@
 				$("#rg").val($("#rg").cleanVal());
 			});
 		});
+		 $(document).on('change', '#estado', function(){
+		        var estado = {estado: $("#estado").val()};
+		        $.ajax({
+		            type: 'POST',
+		            url: 'php.php',
+		            data: estado,
+		            success: function(response){
+		                console.log(response);
+		                $("#cidade").html(response);
+		                $('select').formSelect();
+		            }
+		        });
+		    });
+
+		  $('select').formSelect();
 	</script>
 </html>
