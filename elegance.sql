@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 08-Ago-2019 às 11:50
+-- Data de Criação: 12-Ago-2019 às 12:31
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5831,7 +5831,27 @@ CREATE TABLE IF NOT EXISTS `tb_quarto` (
   PRIMARY KEY (`cd_quarto`),
   KEY `id_tipo` (`id_tipo`),
   KEY `id_status` (`id_status`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+
+--
+-- Extraindo dados da tabela `tb_quarto`
+--
+
+INSERT INTO `tb_quarto` (`cd_quarto`, `nr_quarto`, `ds_quarto`, `id_tipo`, `id_status`, `id_pedido`) VALUES
+(1, 15, 'Quarto com banheira', 2, 2, 0),
+(2, 22, 'Quarto sem chao', 7, 1, 0),
+(3, 15, 'Quarto com banheira', 2, 2, 0),
+(4, 22, 'Quarto sem chao', 7, 1, 0),
+(5, 45, 'Quarto do frati', 3, 1, 0),
+(6, 34, 'Não tem descrição', 4, 2, 0),
+(7, 45, 'Quarto do frati', 3, 1, 0),
+(8, 34, 'Não tem descrição', 4, 2, 0),
+(9, 80, 'Sem nada', 5, 1, 0),
+(10, 44, 'Quarto sem cama', 6, 2, 0),
+(11, 80, 'Sem nada', 5, 1, 0),
+(12, 44, 'Quarto sem cama', 6, 2, 0),
+(13, 32, 'Quarto com dois aparelhos de ar condicionado', 7, 2, 0),
+(14, 32, 'Quarto com dois aparelhos de ar condicionado', 7, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -5845,6 +5865,7 @@ CREATE TABLE IF NOT EXISTS `tb_reserva` (
   `dthr_checkin` datetime NOT NULL,
   `dthr_checkout` datetime NOT NULL,
   `vl_reserva` decimal(10,2) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
   PRIMARY KEY (`cd_reserva`),
   KEY `fk_id_quarto` (`id_quarto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
