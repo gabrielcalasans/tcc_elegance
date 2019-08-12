@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 12-Ago-2019 às 12:31
+-- Data de Criação: 12-Ago-2019 às 14:44
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5634,7 +5634,14 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   PRIMARY KEY (`cd_cliente`),
   KEY `fk_id_profissao` (`id_profissao`),
   KEY `fk_cliente_endereco` (`id_endereco`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `tb_cliente`
+--
+
+INSERT INTO `tb_cliente` (`cd_cliente`, `nm_cliente`, `nr_cpf`, `nm_email`, `nr_celular`, `nr_telefone`, `nr_rg`, `ds_orgao`, `ds_nacionalidade`, `dt_nascimento`, `ds_senha`, `dthr_cadastro`, `id_profissao`, `id_endereco`) VALUES
+(1, 'Gabriel', 2147483647, 'gcalasans7@gmail.com', 2147483647, 1234567890, 123456789, 'SSP', 'Brasileira', '2019-08-30', '25d55ad283aa400af464c76d713c07ad', '2019-08-12 13:20:19', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5666,7 +5673,14 @@ CREATE TABLE IF NOT EXISTS `tb_endereco` (
   `id_cidade` int(11) NOT NULL,
   PRIMARY KEY (`cd_endereco`),
   KEY `fk_cidade_endereco` (`id_cidade`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `tb_endereco`
+--
+
+INSERT INTO `tb_endereco` (`cd_endereco`, `nm_endereco`, `nr_endereco`, `nr_cep`, `nm_bairro`, `id_cidade`) VALUES
+(1, 'Rua das Andorinhas', 1234, 12345678, 'Jd Lapa', 5348);
 
 -- --------------------------------------------------------
 
@@ -5866,9 +5880,23 @@ CREATE TABLE IF NOT EXISTS `tb_reserva` (
   `dthr_checkout` datetime NOT NULL,
   `vl_reserva` decimal(10,2) NOT NULL,
   `id_cliente` int(11) NOT NULL,
+  `dthr_registro` datetime NOT NULL,
   PRIMARY KEY (`cd_reserva`),
   KEY `fk_id_quarto` (`id_quarto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Extraindo dados da tabela `tb_reserva`
+--
+
+INSERT INTO `tb_reserva` (`cd_reserva`, `id_quarto`, `dthr_checkin`, `dthr_checkout`, `vl_reserva`, `id_cliente`, `dthr_registro`) VALUES
+(1, 1, '2019-08-28 00:00:00', '2019-08-31 00:00:00', '756.00', 1, '0000-00-00 00:00:00'),
+(2, 2, '2019-08-07 00:00:00', '2019-08-23 00:00:00', '0.00', 1, '0000-00-00 00:00:00'),
+(3, 1, '2019-08-21 00:00:00', '2019-08-30 00:00:00', '1890.00', 1, '0000-00-00 00:00:00'),
+(4, 1, '2019-08-21 00:00:00', '2019-08-30 00:00:00', '1890.00', 1, '0000-00-00 00:00:00'),
+(5, 3, '2019-08-12 00:00:00', '2019-08-15 00:00:00', '756.00', 1, '2019-08-12 11:32:10'),
+(6, 3, '2019-08-12 00:00:00', '2019-08-15 00:00:00', '756.00', 1, '2019-08-12 11:34:39'),
+(7, 1, '2019-08-22 00:00:00', '2019-08-29 00:00:00', '1512.00', 1, '2019-08-12 11:34:54');
 
 -- --------------------------------------------------------
 

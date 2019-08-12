@@ -6,7 +6,7 @@
 
 
 		include 'conn.php';
-		//include 'checarlogin.php';
+		include 'checarlogin.php';
 
 		?>
 
@@ -42,7 +42,7 @@
 			<p>
 			<h3>Quartos:</h3>
 				<?php
-
+					if(isset($_GET['id'])){
 						if($_GET['id']!=null)
 						{
 							$codtipo=$_GET['id'];
@@ -75,6 +75,7 @@
 								}
 							}
 						}
+					}
 						else
 						{
 							$sql = "SELECT * FROM tb_quarto";
@@ -125,49 +126,64 @@
 		if(isset($_POST['checkin']))
 		{
 
-			$checkin=$_POST['checkin'];
-			$checkout=$_POST['checkout'];
-			$idcliente = 5; // valor para teste
-			if($checkin<$checkout)
-			{
-					$idquarto=$_POST['quarto'];
-					echo '<br>'.$checkin;
-					echo '<br>'.$checkout;
-					echo '<p>'.$idquarto.'<p>';
-					$vlfinal=0;
+				$idcliente=$_SESSION['cliente'];
+				$checkin=$_POST['checkin'];
+				$checkout=$_POST['checkout'];
 
 
-					date_default_timezone_set('America/Sao_paulo');
-					$data1 = new datetime($_POST['checkin']);
-					$data2 = new datetime($_POST['checkout']);
-					while($data1<=$data2)
-					{
-						$sqltipo="SELECT * FROM tb_quarto WHERE cd_quarto=\"$idquarto\"";
-						$resulsql = $mysqli->query($sqltipo);
-						while($valor = $resulsql->fetch_object())
-						{
 
-								$sqlpreco = "SELECT vl_quarto FROM tb_tipo WHERE cd_tipo=\"$valor->id_tipo\"";
+				if($checkin<$checkout)
+				{
 
-								$resulsql2 = $mysqli->query($sqlpreco);
-								while($dado = $resulsql2->fetch_object())
+							$idquarto=$_POST['quarto'];
+							echo '<br>'.$checkin;
+							echo '<br>'.$checkout;
+							echo '<p>'.$idquarto.'<p>';
+							$vlfinal=0;
+
+
+							date_default_timezone_set('America/Sao_paulo');
+							$regdate = date('Y-m-d h:i:s a', time());
+							echo $regdate;
+
+							$data1 = new datetime($_POST['checkin']);
+							$data2 = new datetime($_POST['checkout']);
+							while($data1<=$data2)
+							{
+								$sqltipo="SELECT * FROM tb_quarto WHERE cd_quarto=\"$idquarto\"";
+								$resulsql = $mysqli->query($sqltipo);
+								while($valor = $resulsql->fetch_object())
 								{
-									//var_dump($dado->vl_quarto);
-									$vlfinal+=floatval ($dado->vl_quarto);
+
+										$sqlpreco = "SELECT vl_quarto FROM tb_tipo WHERE cd_tipo=\"$valor->id_tipo\"";
+
+										$resulsql2 = $mysqli->query($sqlpreco);
+										while($dado = $resulsql2->fetch_object())
+										{
+											//var_dump($dado->vl_quarto);
+											$vlfinal+=floatval ($dado->vl_quarto);
+
+										}
 
 								}
 
+								$data1->modify('+1 day');
+
+							}
+						echo $vlfinal;
+						$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$regdate')";
+						if(!$mysqli->query($sql)){
+							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+						}
+						else{
+							echo "<script type='text/javascript'>alert('Reserva Efetuada!!!');</script>";
 						}
 
-						$data1->modify('+1 day');
-
 					}
-				echo $vlfinal;
-
-				}
-				else {
-					 echo 'Data inválida';
-				}
+					else
+					{
+						 echo 'Data inválida';
+					}
 
 
 
