@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 12-Ago-2019 às 14:44
+-- Data de Criação: 12-Ago-2019 às 15:29
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5757,6 +5757,18 @@ CREATE TABLE IF NOT EXISTS `tb_forma` (
   `cd_forma` int(11) NOT NULL AUTO_INCREMENT,
   `nm_forma` varchar(150) NOT NULL,
   PRIMARY KEY (`cd_forma`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_galeria`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_galeria` (
+  `cd_foto` int(11) NOT NULL AUTO_INCREMENT,
+  `ds_endereco` int(200) NOT NULL,
+  PRIMARY KEY (`cd_foto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
