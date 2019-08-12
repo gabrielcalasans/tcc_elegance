@@ -68,26 +68,26 @@
 	  		<div class="card-panel" style="width: 40%;">
 	  			Novo por aqui? <a href="cadastro.php">Crie uma conta</a>
 	  		</div>
-			<?php
-				if(isset($_POST['cpf']) && isset($_POST['senha'])){
-					$cpf = $_POST['cpf'];
-					$senha = md5($_POST['senha']);
-					$sql = "SELECT * from tb_cliente where nr_cpf = '$cpf' and ds_senha = '$senha'";
-					$result = $mysqli->query($sql);
-					if($result->num_rows > 0){
-						$row = $result->fetch_object();
-						echo "Bem vindo, ".$row->nm_cliente;
-						$cdcliente=$row->cd_cliente;
-						session_start();
-						$_SESSION['cliente']=$cdcliente;
-						$_SESSION['status']='Logado';
-
-					}
-					else{
-						echo "Tente novamente.";
-					}
+		</center>
+		<?php
+			if(isset($_POST['cpf']) && isset($_POST['senha'])){
+				$cpf = $_POST['cpf'];
+				$senha = md5($_POST['senha']);
+				$sql = "SELECT * from tb_cliente where nr_cpf = '$cpf' and ds_senha = '$senha'";
+				$result = $mysqli->query($sql);
+				if($result->num_rows > 0){
+					$row = $result->fetch_object();
+					echo "Bem vindo, ".$row->nm_cliente;
+					$cdcliente=$row->cd_cliente;
+					session_start();
+					$_SESSION['cliente']=$cdcliente;
+					$_SESSION['status']='Logado';
 				}
-			?>
+				else{
+					echo "Tente novamente.";
+				}
+			}
+		?>
 	</body>
 	<script>
 		$(document).ready(function(){
