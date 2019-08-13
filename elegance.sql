@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 12-Ago-2019 às 15:29
+-- Data de Criação: 13-Ago-2019 às 12:39
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5619,10 +5619,10 @@ INSERT INTO `tb_cidade` (`cd_cidade`, `nm_cidade`, `id_estado`, `id_endereco`) V
 CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `cd_cliente` int(11) NOT NULL AUTO_INCREMENT,
   `nm_cliente` varchar(150) NOT NULL,
-  `nr_cpf` int(11) NOT NULL,
+  `nr_cpf` varchar(20) NOT NULL,
   `nm_email` varchar(150) NOT NULL,
-  `nr_celular` int(15) NOT NULL,
-  `nr_telefone` int(15) DEFAULT NULL,
+  `nr_celular` varchar(20) NOT NULL,
+  `nr_telefone` varchar(20) DEFAULT NULL,
   `nr_rg` int(20) NOT NULL,
   `ds_orgao` varchar(150) NOT NULL,
   `ds_nacionalidade` varchar(150) NOT NULL,
@@ -5634,14 +5634,17 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   PRIMARY KEY (`cd_cliente`),
   KEY `fk_id_profissao` (`id_profissao`),
   KEY `fk_cliente_endereco` (`id_endereco`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Extraindo dados da tabela `tb_cliente`
 --
 
 INSERT INTO `tb_cliente` (`cd_cliente`, `nm_cliente`, `nr_cpf`, `nm_email`, `nr_celular`, `nr_telefone`, `nr_rg`, `ds_orgao`, `ds_nacionalidade`, `dt_nascimento`, `ds_senha`, `dthr_cadastro`, `id_profissao`, `id_endereco`) VALUES
-(1, 'Gabriel', 2147483647, 'gcalasans7@gmail.com', 2147483647, 1234567890, 123456789, 'SSP', 'Brasileira', '2019-08-30', '25d55ad283aa400af464c76d713c07ad', '2019-08-12 13:20:19', 1, 1);
+(3, 'Gabriel', '2147483647', 'gab@gmail.com', '2147483647', '2147483647', 789789798, 'SSP', 'Britâncio', '2019-08-14', '202cb962ac59075b964b07152d234b70', '2019-08-13 12:19:51', 3, 3),
+(4, 'Guilherme', '2147483647', 'gui@gui.com', '2147483647', '2147483647', 446545645, 'SSP', 'Francesa', '2019-08-21', '202cb962ac59075b964b07152d234b70', '2019-08-13 12:25:54', 4, 4),
+(5, 'Ricardo Milos', '2147483647', 'igor@gmai.com', '2147483647', '2147483647', 777777777, 'SSP', 'Brasileira', '2019-08-30', '202cb962ac59075b964b07152d234b70', '2019-08-13 12:31:16', 5, 5),
+(6, 'Oliver Queen', '2147483647', 'gui@gmail.com', '2147483647', '2147483647', 333333333, 'SSP', 'Brasileira', '2019-08-20', '202cb962ac59075b964b07152d234b70', '2019-08-13 12:36:09', 6, 6);
 
 -- --------------------------------------------------------
 
@@ -5673,14 +5676,19 @@ CREATE TABLE IF NOT EXISTS `tb_endereco` (
   `id_cidade` int(11) NOT NULL,
   PRIMARY KEY (`cd_endereco`),
   KEY `fk_cidade_endereco` (`id_cidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Extraindo dados da tabela `tb_endereco`
 --
 
 INSERT INTO `tb_endereco` (`cd_endereco`, `nm_endereco`, `nr_endereco`, `nr_cep`, `nm_bairro`, `id_cidade`) VALUES
-(1, 'Rua das Andorinhas', 1234, 12345678, 'Jd Lapa', 5348);
+(1, 'Rua das Andorinhas', 1234, 12345678, 'Jd Lapa', 5348),
+(2, 'Av. São Paulo', 132, 11740000, 'Centro', 893),
+(3, 'Av. Olivaras', 456, 15641641, 'Centro', 890),
+(4, 'Av. Rio Branco', 789, 11745520, 'Centro', 10),
+(5, 'Av. Anchieta', 56, 88888888, 'Centro', 219),
+(6, 'Av. Tome Vergonha', 15, 66666666, 'Centro', 892);
 
 -- --------------------------------------------------------
 
@@ -5767,9 +5775,9 @@ CREATE TABLE IF NOT EXISTS `tb_forma` (
 
 CREATE TABLE IF NOT EXISTS `tb_galeria` (
   `cd_foto` int(11) NOT NULL AUTO_INCREMENT,
-  `ds_endereco` int(200) NOT NULL,
+  `ds_endereco` varchar(200) NOT NULL,
   PRIMARY KEY (`cd_foto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 -- --------------------------------------------------------
 
@@ -5832,14 +5840,19 @@ CREATE TABLE IF NOT EXISTS `tb_profissao` (
   `cd_profissao` int(11) NOT NULL AUTO_INCREMENT,
   `nm_profissao` varchar(150) NOT NULL,
   PRIMARY KEY (`cd_profissao`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Extraindo dados da tabela `tb_profissao`
 --
 
 INSERT INTO `tb_profissao` (`cd_profissao`, `nm_profissao`) VALUES
-(1, 'Enfermeiro');
+(1, 'Enfermeiro'),
+(2, 'Programador'),
+(3, 'Lenhador'),
+(4, 'Cozinheiro'),
+(5, 'Faxineiro'),
+(6, 'Pedreiro');
 
 -- --------------------------------------------------------
 
