@@ -33,7 +33,7 @@
 					<input id="celular" type="text" name="celular" required="" class="validate"><label for="celular">Celular</label>
 				</div>
 				<div class="input-field col s6">
-					<input id="tel" type="text" name="telefone" required="" ><label for="telefone">Telefone</label></p>
+					<input id="tel" type="text" name="telefone"><label for="tel">Telefone</label></p>
 				</div>
 				<div class="input-field col s6">
 					<input id="rg" type="text" name="rg" required="" class="validate"><label for="rg">RG</label></p>
@@ -67,7 +67,7 @@
 					<input id="endereco" type="text" name="endereco" required="" class="validate"><label for="endereco">Endereço</label>
 				</div>
 				<div class="input-field col s6">
-					 <input type="text" name="numero" required="" class="validate"><label for="endereco">Número</label></p>
+					 <input type="text" id="numero" name="numero" required="" class="validate"><label for="numero">Número</label></p>
 				</div>
 				<div class="input-field col s6">
 					<input id="cep" type="text" name="cep" required="" class="validate"><label for="cep">CEP</label></p>
@@ -94,10 +94,10 @@
 			</div>
 			<div class="card-panel" style="width: 60%;">
 				<div class="input-field col s6">
-					<input id="s1" type="password" name="senha" required="" class="validate"><label for="senha">Senha</label><span class="senhas"></span></p>
+					<input id="s1" type="password" name="senha" required="" class="validate"><label for="s1">Senha</label><span class="senhas"></span></p>
 				</div>
 				<div class="input-field col s6">
-					<input id="s2" type="password" name="senha1" required="" class="validate"><label for="senha1">Confirmar senha</label><span class="senhas"></span></p><br>
+					<input id="s2" type="password" name="senha1" required="" class="validate"><label for="s2">Confirmar senha</label><span class="senhas"></span></p><br>
 				</div>
 					<label for="termos">
 						<div class="input-field col s12">
@@ -192,20 +192,34 @@
 					$(".senhas").html(" <img src='images/errado.png' width='15px' height='15px' title=''> Senhas não correspondentes.");
 				}
 			});
-		   
+		   	$("#s1").change(function(){
+				var s1 = $("#s1").val();
+				var s2 = $("#s2").val();
+				if(s1 == s2){
+					if(s1){
+						$(".senhas").html(" <img src='images/certo.png' width='15px' height='15px' title='As senhas correspondentes'>");
+					}
+					else{
+						$(".senhas").html(null);
+					}
+				}
+				else{
+					$(".senhas").html(" <img src='images/errado.png' width='15px' height='15px' title=''> Senhas não correspondentes.");
+				}
+			});
 			$("#cancelar").click(function(){
 		    	$("#estado").val(null);
 		    });
 		    $("#cpf").mask("999.999.999-99");
 		    $("#cep").mask("99999-999");
-		    $("#cel").mask("(99) 99999-9999");
+		    $("#celular").mask("(99) 99999-9999");
 		    $("#tel").mask("(99) 9999-9999");
 		    $("#rg").mask("99.999.999-9");
 		    $("#cadastrar").click(function(){
 				$("#cpf").val($("#cpf").cleanVal());
 				$("#cep").val($("#cep").cleanVal());
 				$("#tel").val($("#tel").cleanVal());
-				$("#cel").val($("#cel").cleanVal());
+				$("#celular").val($("#celular").cleanVal());
 				$("#rg").val($("#rg").cleanVal());
 			});
 		});
