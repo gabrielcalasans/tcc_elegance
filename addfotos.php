@@ -36,7 +36,7 @@
 				}
 			?>
 		</table>
-		<br>
+		<br><center><a href="addfotos.php"><button>Atualizar</button></a></center>	
 		<form  action="addfotos.php" method="post" multipart="" enctype="multipart/form-data">
 			<label for="img">
 				<b>Adicionar fotos: </b><input type="file" name="img[]" id="img" multiple>
@@ -45,50 +45,36 @@
 			<button type="submit">Adicionar</button>
 		</form>
 		<?php
-			function reArrayFiles(&$file_post)
-			{
-			    $file_ary = array();
-			    $multiple = is_array($file_post['name']);
-
-			    $file_count = $multiple ? count($file_post['name']) : 1;
-			    $file_keys = array_keys($file_post);
-
-			    for ($i=0; $i<$file_count; $i++)
-			    {
-			        foreach ($file_keys as $key)
-			        {
-			            $file_ary[$i][$key] = $multiple ? $file_post[$key][$i] : $file_post[$key];
-			        }
-			    }
-
-			    return $file_ary;
-			}
 			if(isset($_FILES['img'])){
-				$img = $_FILES['img']['size'][0];
-				if($img > 0){
-					$img_desc = reArrayFiles($img);
-					foreach($img_desc as $val){
-						$ext = strtolower(substr($val['name'],-4));
-						$new_name = date("Y.m.d-H.i.s") . $ext;
+				$nomes = $_FILES['img']['name'];
+				if($_FILES['img']['size'][0] > 0){
+					for($i=0; $i<count($nomes); $i++){
+						$ext = explode('.', $nomes[$i]);
+						$ext = end($ext);
+						$new_name = date("Y.m.d-H.i.s.") . "0" . $i . "." .$ext;
 						$dir = "galeria/";
-        				move_uploaded_file($val['tmp_name'], $dir.$new_name);
-        				$sql = "INSERT into tb_galeria values(null, ".$dir.$new_name.")";
+        				move_uploaded_file($_FILES['img']['tmp_name'][$i], $dir.$new_name);
+        				$sql = "INSERT into tb_galeria values(null, '".$dir.$new_name."')";
         				if(!$mysqli->query($sql)){
         					echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
         				}
-        				else{
-        					echo "deu certo meu irmao";
-        				}
 					}
-
+					echo "<script type='text/javascript'>window.location.href='addfotos.php';</script>";
 				}
 				else{
-					echo "Selecione alguma foto para adicionar.";
+					echo "Selecione alguma foto para adicionar. nada mesmo";
 				}
 			}
-						
-			
-			
+			if(isset($_GET['codfoto'])){
+				$foto = $_GET['codfoto'];
+				$sql = "DELETE from tb_galeria where cd_foto = '$foto'";
+				if(!$mysqli->query($sql)){
+					echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+				}
+				else{
+					echo "<script type='text/javascript'>window.location.href='addfotos.php';</script>";
+				}
+			}
 		?>
 	</body>
 </html>
