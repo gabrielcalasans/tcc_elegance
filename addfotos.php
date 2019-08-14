@@ -9,7 +9,7 @@
 	</header>
 	<body>
 		<?php include('conn.php'); date_default_timezone_set('UTC');?>
-		<form method="POST">
+		<form method="post">
 			<table border="2">
 				<tr>
 					<th>#</th>
@@ -117,8 +117,13 @@
 	<script>
 		$(document).ready(function(){
 			$("#excluir").hide();
-			$(".fotos").click(function(){
-				$("#excluir").show();
+			$('.fotos').click(function(){
+				if($(".fotos").is(":checked")){
+					$("#excluir").show();
+				}
+				else{
+					$("#excluir").hide();
+				}  
 			});
 		});
 	</script>
