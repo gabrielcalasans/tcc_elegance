@@ -16,8 +16,7 @@
 					<th>Selecionar</th>
 					<th>Foto</th>
 					<th>Nome</th>
-					<th>Ação</th>
-					
+					<th>Ação</th>					
 				</tr>
 				<?php
 					$sql = "SELECT * from tb_galeria gal";
@@ -32,7 +31,7 @@
 									<td align='center'><label for='fotos".$c."'><input type='checkbox' name='fotos[]' id='fotos".$c."' class='fotos filled-in' value='".$row->cd_foto."'><span></span></label></td>
 									<td><label for='fotos".$c."'><img class='mini' src='".$row->ds_endereco."' title='".substr($row->ds_endereco, 8)."'></label></td>
 									<td>".substr($row->ds_endereco, 8)."</td>
-									<td><a href='addfotos.php?codfoto=".$row->cd_foto."'><button id='apagar'>Apagar</button></a></td>
+									<td><a href='addfotos.php?codfoto=".$row->cd_foto."'><div id='apagar'>Apagar</button></a></td>
 									
 								</tr>";
 						}
