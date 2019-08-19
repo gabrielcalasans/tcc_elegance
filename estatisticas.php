@@ -49,20 +49,19 @@
 
   ?>
 	<body>
+    <h1> Estatísticas da Pousada</h1>
     Total de reservas:
-    <?php
-    echo $reservas_totais;
-
-		?>
+    <?php echo $reservas_totais; ?>
+    <p>
+    Lucro total:
+    <?php echo $lucro_total; ?>
+    <p>
     Reservas no último mês:
-    <?php
-    echo $reservas_mes;
-
-    ?>
+    <?php echo $reservas_mes;   ?>
+    <p>
     Lucro do último mês:
-    <?php
-    echo $lucro_mes;
-    ?>
+    <?php echo $lucro_mes;   ?>
+    <p>
 
 	</body>
 

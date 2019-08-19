@@ -10,12 +10,13 @@
 		$resultado = $mysqli->query($sql);
 		while($dados = $resultado->fetch_object())
 		{
-			$nome=$dados->nm_cliente;			
+			$nome=$dados->nm_cliente;
 		}
 	}
 	else
 	{
-		header('location:login.php');
+		echo "<script type='text/javascript'>alert('É NECESSÁRIO ESTAR LOGADO!!'); window.location.href='login.php';</script>";
+		
 	}
 
 ?>
