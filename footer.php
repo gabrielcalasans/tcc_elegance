@@ -2,7 +2,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col l4 s12">
-                        <h4 class="white-text">Hospedagem Elegance</h4>
+                        <img style="width: 50%" src="images/logotipo.png">
                         <p class="grey-text text-lighten-4">Celular: (13) 99662-3243</p>
                         <p class="grey-text text-lighten-4">Celular: (13) 98116-1914</p>
                         <p class="grey-text text-lighten-4">E-mail: pousadaelegance@gmail.com</p>
@@ -14,6 +14,7 @@
                             <li><a href="#!" id="lfooter">Acomodações</a></li>
                             <li><a href="#!" id="lfooter">Quem somos?</a></li>
                             <li><a href="#!" id="lfooter">Contato</a></li>
+                            <li><a href="login.php" id="lfooter">Login</a></li>
                         </ul>
                     </div>
                     <div class="col l3 s12">
@@ -30,6 +31,5 @@
                 </div>
             </div>
         </footer>
-	</body>
+    </body>
 </html>
-
