@@ -32,12 +32,12 @@
 									<td><label for='fotos".$c."'><img class='mini' src='".$row->ds_endereco."' title='".substr($row->ds_endereco, 8)."'></label></td>
 									<td>".substr($row->ds_endereco, 8)."</td>
 									<td><a href='addfotos.php?codfoto=".$row->cd_foto."'><div id='apagar'>Apagar</button></a></td>
-									
+			 						
 								</tr>";
 						}
 					}
 					else{
-						echo "<tr><td></td><td></td><td>Nenhuma foto adicionada.</td><td></tr>";
+						echo "<tr><td></td><td></td><td></td><td>Nenhuma foto adicionada.</td><td></tr>";
 					}
 				?>
 			</table>

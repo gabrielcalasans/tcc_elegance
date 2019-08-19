@@ -82,6 +82,7 @@
 					session_start();
 					$_SESSION['cliente']=$cdcliente;
 					$_SESSION['status']='Logado';
+					echo "<script type='text/javascript'>window.location.href='index.php';</script>";
 				}
 				else{
 					echo "Tente novamente.";
