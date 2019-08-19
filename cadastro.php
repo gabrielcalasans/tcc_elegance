@@ -9,103 +9,155 @@
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<title>Cadastro | Pousada Hospedagem Elegance</title>
 		<style type="text/css">
+			body{
+				background-color: #FFF7D9; 
+			}
+			#logo{
+				width: 8%;
+				transition: 0.5s;
+			}
+
+			#logo:hover{
+				width: 8.5%;
+			}
+
+			 /* label focus color */
+			.input-field input:focus + label {
+			    color: #fbc02d !important;
+			}
+			.input-field input:focus {
+			    border-bottom: 1px solid #fbc02d !important;
+			    box-shadow: 0 1px 0 0 #fbc02d !important;
+			}
 			
 		</style>
 	</head>
 	<body>
+		<center>
+		<nav class="grey darken-2">
+			<div class="nav-wrapper">
+				<a href="index.php"><img id="logo" src="images/logotipo2.png"></a>
+			</div>			
+		</nav>
 		<?php
 			include('conn.php');
 			date_default_timezone_set('UTC');
 		?>
-		<center>
+		</br>
+			<b style="font-size: 24px;">CADASTRO</b>
+		<p>
 		<form class="col s12" method="post">
 			<div class="card-panel" style="width: 60%;">
-				<div class="input-field col s6">
-					<input id="nome" type="text" name="nome" required="" class="validate"><label for="nome">Nome</label></p>
-				</div>
-				<div class="input-field col s6">	
-					<input id="cpf" type="text" name="cpf" required="" class="validate"><label for="cpf">CPF</label></p>
-				</div>
-				<div class="input-field col s6">
-					<input id="email" type="email" name="email" required="" class="validate"><label for="email">E-mail</label></p>
-				</div>
-				<div class="input-field col s6">		
-					<input id="celular" type="text" name="celular" required="" class="validate"><label for="celular">Celular</label>
-				</div>
-				<div class="input-field col s6">
-					<input id="tel" type="text" name="telefone"><label for="tel">Telefone</label></p>
-				</div>
-				<div class="input-field col s6">
-					<input id="rg" type="text" name="rg" required="" class="validate"><label for="rg">RG</label></p>
-				</div>
-				<div class="input-field col s6">
-					<input id="orgao" type="text" name="orgao" required="" class="validate"><label for="orgao">Orgão Expedidor</label></p>
-				</div>
-				<div class="input-field col s6">
-					<input id="nacionalidade" type="text" name="nacionalidade" required="" class="validate"><label for="nacionalidade">Nacionalidade</label></p>
-				</div>
-				<div class="input-field col s6">
-					<input type="date" name="datanasc" required="" class="validate"></p>
-				</div>
-					Profissão:
-					<select name="profissao">
-						<option value="" disabled selected>Selecione...</option>
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="nome" type="text" name="nome" required="" class="validate"><label for="nome">Nome</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="sobrenome" type="text" name="sobrenome" required="" class="validate"><label for="sobrenome">Sobrenome</label>
+					</div>
+					<div class="input-field col s12">	
+						Gênero:<p>
 						<?php
-						$sql = "SELECT * from tb_profissao order by nm_profissao asc";
+							$sql = "SELECT * from tb_genero";
 							$result = $mysqli->query($sql);
 							while($row = $result->fetch_object()){
-								echo "<option value='".$row->cd_profissao."'>".$row->nm_profissao."</option>";
+								echo "<label for='".$row->cd_genero."'>
+										<input class='with-gap' id='".$row->cd_genero."' type='radio' name='genero' value='".$row->cd_genero."'><span>".$row->nm_genero."</span>
+									</label>";
 							}
-						?>
-					</select>
-				<div class="input-field col s6"> 
-					<input id="outra" type="text" name="outra"><label for="outra">Outra</label></p>
+						?>	
+				    	</p>
+					</div>
+					<div class="input-field col s6">	
+						<input id="cpf" type="text" name="cpf" required="" class="validate"><label for="cpf">CPF</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="email" type="email" name="email" required="" class="validate"><label for="email">E-mail</label>
+					</div>
+					
+					<div class="input-field col s6">		
+						<input id="celular" type="text" name="celular" required="" class="validate"><label for="celular">Celular</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="tel" type="text" name="telefone"><label for="tel">Telefone</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="rg" type="text" name="rg" required="" class="validate"><label for="rg">RG</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="orgao" type="text" name="orgao" required="" class="validate"><label for="orgao">Orgão Expedidor</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="nacionalidade" type="text" name="nacionalidade" required="" class="validate"><label for="nacionalidade">Nacionalidade</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="data" type="text" class="datepicker" name="datanasc" required="" class="validate"><label for="data">Data de Nascimento</label>
+					</div>
+					<div class="input-field col s6">
+						<select name="profissao">
+							<option value="" disabled selected><label for="profissao">Profissão</label></option>
+							<?php
+								$sql = "SELECT * from tb_profissao order by nm_profissao asc";
+								$result = $mysqli->query($sql);
+								while($row = $result->fetch_object()){
+									echo "<option value='".$row->cd_profissao."'>".$row->nm_profissao."</option>";
+								}
+							?>
+						</select>
+					</div>
+						<div class="input-field col s6"> 
+							<input id="outra" type="text" name="outra"><label for="outra">Outra</label></p>
+					</div>
 				</div>
-			</div>
-			<div class="card-panel" style="width: 60%;">
-				<div class="input-field col s6">
-					<input id="endereco" type="text" name="endereco" required="" class="validate"><label for="endereco">Endereço</label>
 				</div>
-				<div class="input-field col s6">
-					 <input type="text" id="numero" name="numero" required="" class="validate"><label for="numero">Número</label></p>
-				</div>
-				<div class="input-field col s6">
-					<input id="cep" type="text" name="cep" required="" class="validate"><label for="cep">CEP</label></p>
-				</div>
-					Estado:
-					<select id="estado" name="estado" required="">
-						<option>Selecione...</option>
-						<?php
-							$sql = "SELECT * from tb_estado order by nm_estado asc";
-							$result = $mysqli->query($sql);
-							while($row = $result->fetch_object()){
-								echo "<option value='".$row->cd_estado."'>".$row->nm_estado."</option>";
-							}
-						?>
-					</select></p>
-					Cidade:
-					<select id="cidade" name="cidade" required="">
-						<option value="" disabled selected>Selecione...</option>
-					</select></p>
-				<div class="input-field col s6">
-					<input id="bairro" type="text" name="bairro" required="" class="validate"><label for="bairro">Bairro</label></p>
-				</div>
-				</div>
-			</div>
-			<div class="card-panel" style="width: 60%;">
-				<div class="input-field col s6">
-					<input id="s1" type="password" name="senha" required="" class="validate"><label for="s1">Senha</label><span class="senhas"></span></p>
-				</div>
-				<div class="input-field col s6">
-					<input id="s2" type="password" name="senha1" required="" class="validate"><label for="s2">Confirmar senha</label><span class="senhas"></span></p><br>
-				</div>
-					<label for="termos">
-						<div class="input-field col s12">
-							<input id="termos" type="checkbox" name="termos" required=""  class="filled-in"><span> Li os <a href="#">termos de uso</a> e aceito todas as condições.</span>
+					<div class="card-panel" style="width: 60%;">
+						<div class="row">
+							<div class="input-field col s8">
+								<input id="endereco" type="text" name="endereco" required="" class="validate"><label for="endereco">Endereço</label>
+							</div>
+							<div class="input-field col s4">
+								 <input type="text" id="numero" name="numero" required="" class="validate"><label for="numero">Número</label>
+							</div>
+							<div class="input-field col s6">
+								<select id="estado" name="estado" required="">
+									<option value="" disabled selected>Estado</option>
+									<?php
+										$sql = "SELECT * from tb_estado order by nm_estado asc";
+										$result = $mysqli->query($sql);
+										while($row = $result->fetch_object()){
+											echo "<option value='".$row->cd_estado."'>".$row->nm_estado."</option>";
+										}
+									?>
+								</select>
+							</div>
+							<div class="input-field col s6">
+								<select id="cidade" name="cidade" required="">
+									<option value="" disabled selected>Cidade</option>
+								</select></p>
+							</div>
+							<div class="input-field col s6">
+								<input id="bairro" type="text" name="bairro" required="" class="validate"><label for="bairro">Bairro</label></p>
+							</div>
+							<div class="input-field col s6">
+								<input id="cep" type="text" name="cep" required="" class="validate"><label for="cep">CEP</label></p>
+							</div>
 						</div>
-					</label>
+					</div>
+			<div class="card-panel" style="width: 60%;">
+				<div class="row">
+						<div class="input-field col s6">
+							<input id="s1" type="password" name="senha" required="" class="validate"><label for="s1">Senha</label><span class="senhas"></span></p>
+						</div>
+						<div class="input-field col s6">
+							<input id="s2" type="password" name="senha1" required="" class="validate"><label for="s2">Confirmar senha</label><span class="senhas"></span></p>
+						</div>
+							<label for="termos">
+								<div class="input-field col s12">
+									<input id="termos" type="checkbox" name="termos" required=""  class="filled-in"><span> Li os <a href="#">termos de uso</a> e aceito todas as condições.</span>
+								</div>
+							</label>
+				</div>
 			</div>
-				</p>
 			<button class="btn waves-effect waves-light #64dd17 light-green accent-4" type="submit" id="cadastrar" name="action">
 				Cadastrar
 			</button>
@@ -177,22 +229,8 @@
 	</body>
 	<script>
 		$(document).ready(function(){
+			$('.datepicker').datepicker();
 			$("#s2").change(function(){
-				var s1 = $("#s1").val();
-				var s2 = $("#s2").val();
-				if(s1 == s2){
-					if(s1){
-						$(".senhas").html(" <img src='images/certo.png' width='15px' height='15px' title='As senhas correspondentes'>");
-					}
-					else{
-						$(".senhas").html(null);
-					}
-				}
-				else{
-					$(".senhas").html(" <img src='images/errado.png' width='15px' height='15px' title=''> Senhas não correspondentes.");
-				}
-			});
-		   	$("#s1").change(function(){
 				var s1 = $("#s1").val();
 				var s2 = $("#s2").val();
 				if(s1 == s2){

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 13-Ago-2019 às 12:39
+-- Data de Criação: 19-Ago-2019 às 15:26
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5631,20 +5631,12 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `dthr_cadastro` datetime NOT NULL,
   `id_profissao` int(11) NOT NULL,
   `id_endereco` int(11) NOT NULL,
+  `nm_sobrenome` varchar(200) NOT NULL,
+  `id_genero` int(11) NOT NULL,
   PRIMARY KEY (`cd_cliente`),
   KEY `fk_id_profissao` (`id_profissao`),
   KEY `fk_cliente_endereco` (`id_endereco`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
---
--- Extraindo dados da tabela `tb_cliente`
---
-
-INSERT INTO `tb_cliente` (`cd_cliente`, `nm_cliente`, `nr_cpf`, `nm_email`, `nr_celular`, `nr_telefone`, `nr_rg`, `ds_orgao`, `ds_nacionalidade`, `dt_nascimento`, `ds_senha`, `dthr_cadastro`, `id_profissao`, `id_endereco`) VALUES
-(3, 'Gabriel', '2147483647', 'gab@gmail.com', '2147483647', '2147483647', 789789798, 'SSP', 'Britâncio', '2019-08-14', '202cb962ac59075b964b07152d234b70', '2019-08-13 12:19:51', 3, 3),
-(4, 'Guilherme', '2147483647', 'gui@gui.com', '2147483647', '2147483647', 446545645, 'SSP', 'Francesa', '2019-08-21', '202cb962ac59075b964b07152d234b70', '2019-08-13 12:25:54', 4, 4),
-(5, 'Ricardo Milos', '2147483647', 'igor@gmai.com', '2147483647', '2147483647', 777777777, 'SSP', 'Brasileira', '2019-08-30', '202cb962ac59075b964b07152d234b70', '2019-08-13 12:31:16', 5, 5),
-(6, 'Oliver Queen', '2147483647', 'gui@gmail.com', '2147483647', '2147483647', 333333333, 'SSP', 'Brasileira', '2019-08-20', '202cb962ac59075b964b07152d234b70', '2019-08-13 12:36:09', 6, 6);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -5676,7 +5668,7 @@ CREATE TABLE IF NOT EXISTS `tb_endereco` (
   `id_cidade` int(11) NOT NULL,
   PRIMARY KEY (`cd_endereco`),
   KEY `fk_cidade_endereco` (`id_cidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Extraindo dados da tabela `tb_endereco`
@@ -5688,7 +5680,8 @@ INSERT INTO `tb_endereco` (`cd_endereco`, `nm_endereco`, `nr_endereco`, `nr_cep`
 (3, 'Av. Olivaras', 456, 15641641, 'Centro', 890),
 (4, 'Av. Rio Branco', 789, 11745520, 'Centro', 10),
 (5, 'Av. Anchieta', 56, 88888888, 'Centro', 219),
-(6, 'Av. Tome Vergonha', 15, 66666666, 'Centro', 892);
+(6, 'Av. Tome Vergonha', 15, 66666666, 'Centro', 892),
+(7, 'Rua Santos', 270, 11740000, 'Praia Do Sonho', 4960);
 
 -- --------------------------------------------------------
 
@@ -5777,7 +5770,28 @@ CREATE TABLE IF NOT EXISTS `tb_galeria` (
   `cd_foto` int(11) NOT NULL AUTO_INCREMENT,
   `ds_endereco` varchar(200) NOT NULL,
   PRIMARY KEY (`cd_foto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_genero`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_genero` (
+  `cd_genero` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_genero` varchar(200) NOT NULL,
+  PRIMARY KEY (`cd_genero`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Extraindo dados da tabela `tb_genero`
+--
+
+INSERT INTO `tb_genero` (`cd_genero`, `nm_genero`) VALUES
+(1, 'Masculino'),
+(2, 'Feminino'),
+(3, 'Outro');
 
 -- --------------------------------------------------------
 
@@ -5840,7 +5854,7 @@ CREATE TABLE IF NOT EXISTS `tb_profissao` (
   `cd_profissao` int(11) NOT NULL AUTO_INCREMENT,
   `nm_profissao` varchar(150) NOT NULL,
   PRIMARY KEY (`cd_profissao`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Extraindo dados da tabela `tb_profissao`
@@ -5852,7 +5866,8 @@ INSERT INTO `tb_profissao` (`cd_profissao`, `nm_profissao`) VALUES
 (3, 'Lenhador'),
 (4, 'Cozinheiro'),
 (5, 'Faxineiro'),
-(6, 'Pedreiro');
+(6, 'Pedreiro'),
+(7, 'Imprensa');
 
 -- --------------------------------------------------------
 
