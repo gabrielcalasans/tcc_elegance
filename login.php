@@ -77,7 +77,6 @@
 				$result = $mysqli->query($sql);
 				if($result->num_rows > 0){
 					$row = $result->fetch_object();
-					echo "Bem vindo, ".$row->nm_cliente;
 					$cdcliente=$row->cd_cliente;
 					session_start();
 					$_SESSION['cliente']=$cdcliente;

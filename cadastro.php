@@ -62,7 +62,7 @@
 							$result = $mysqli->query($sql);
 							while($row = $result->fetch_object()){
 								echo "<label for='".$row->cd_genero."'>
-										<input class='with-gap' id='".$row->cd_genero."' type='radio' name='genero' value='".$row->cd_genero."'><span>".$row->nm_genero."</span>
+										<input class='with-gap' id='".$row->cd_genero."' type='radio' name='genero' value='".$row->cd_genero."' required=''><span>".$row->nm_genero."</span>
 									</label>";
 							}
 						?>	
@@ -79,7 +79,7 @@
 						<input id="celular" type="text" name="celular" required="" class="validate"><label for="celular">Celular</label>
 					</div>
 					<div class="input-field col s6">
-						<input id="tel" type="text" name="telefone"><label for="tel">Telefone</label>
+						<input id="tel" type="text" name="telefone"><label for="tel">Telefone (opcional)</label>
 					</div>
 					<div class="input-field col s6">
 						<input id="rg" type="text" name="rg" required="" class="validate"><label for="rg">RG</label>
@@ -179,6 +179,8 @@
 				if(isset($_POST['profissao'])){
 					$profissao = $_POST['profissao'];
 				}
+				$sobrenome = ucwords($_POST['sobrenome']);
+				$genero = $_POST['genero'];
 				$cidade = $_POST['cidade'];
 				$cep = $_POST['cep'];
 				$orgao = $_POST['orgao'];
@@ -215,7 +217,7 @@
 							}
 						}
 						$datetime = date('Y-m-d H:i:s');
-						$sql = "INSERT into tb_cliente values(null, '$nome', '$cpf', '$email', '$celular', '$telefone', '$rg', '$orgao', '$nacionalidade', '$datanasc', '$senha', '$datetime', '$profissao', '$endereco')";
+						$sql = "INSERT into tb_cliente values(null, '$nome', '$cpf', '$email', '$celular', '$telefone', '$rg', '$orgao', '$nacionalidade', '$datanasc', '$senha', '$datetime', '$profissao', '$endereco', '$sobrenome', '$genero')";
 						if(!$mysqli->query($sql)){
 							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 						}
@@ -229,7 +231,27 @@
 	</body>
 	<script>
 		$(document).ready(function(){
-			$('.datepicker').datepicker();
+			var data = new Date();
+			$('.datepicker').datepicker({
+				format: 'yyyy-mm-dd',
+				labelMonthNext: 'Próximo Mês',
+  				labelMonthPrev: 'Mês Anterior',
+  				labelMonthSelect: 'Selecione o Mês',
+  				labelYearSelect: 'Selecione o Ano',
+  				monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+  				monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+  				weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+  				weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+  				weekdaysLetter: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+  				today: 'Hoje',
+  				clear: 'Limpar',
+  				close: 'Fechar',
+				min: new Date(data.getFullYear() - 1, 0, 1),
+    			max: new Date(data.getFullYear() + 1, 11, 31),
+    			onClose: function() {
+  				  	$(document.activeElement).blur()
+  				}
+			});
 			$("#s2").change(function(){
 				var s1 = $("#s1").val();
 				var s2 = $("#s2").val();

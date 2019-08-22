@@ -92,10 +92,20 @@
                             $sql = "SELECT * from tb_cliente where cd_cliente =".$_SESSION['cliente'];
                             $result = $mysqli->query($sql);
                             $row = $result->fetch_object();
-                            echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><b>Sr(a). '.$row->nm_cliente.'</b><i class="material-icons right">account_circle</i></a></li>';
+                            if($row->id_genero == 1){
+                                $pronome = "Sr. ";
+                            }
+                            else if ($row->id_genero == 2) {
+                                $pronome = "Sra. ";
+                            }
+                            else{
+                                $pronome = "Sr(a). ";
+                            }
+                            echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><b>'.
+                            $pronome.$row->nm_cliente.'</b><i class="material-icons right">account_circle</i></a></li>';
                         }
                         else{
-                            echo '<li><a href="login.php"><b>Login<i class="material-icons right">account_circle</i></b></a></li>';
+                            echo '<li><a href="login.php"><b>Fazer login<i class="material-icons right">account_circle</i></b></a></li>';
                         }
                     ?>
                 </ul>
@@ -184,7 +194,9 @@
         ?>
         <script>
             $(document).ready(function(){
-                $('.datepicker').datepicker();
+                $('.datepicker').datepicker({
+                    format: 'yyyy-mm-dd',  
+                });
                 $(".dropdown-trigger").dropdown();
                 $('.parallax').parallax();
             });
