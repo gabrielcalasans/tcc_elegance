@@ -23,7 +23,8 @@
 
     while($row = $executar->fetch_object())
     {
-      $cod = $row->cd_reserva;
+      //echo $row->cd_reserva.'<p>';
+      $codres = $row->cd_reserva;
       $idquarto = $row->id_quarto;
       $checkin = $row->dthr_checkin;
       $checkout = $row->dthr_checkout;
@@ -32,13 +33,14 @@
       $registro = $row->dthr_registro;
 
       //Consulta nome do usuário----------------------
-      $consultausuario = "SELECT nm_cliente FROM tb_cliente WHERE cd_cliente = \"$idcliente\"";
-      echo $consultausuario.'<p>';
+      $consultausuario = "SELECT nm_cliente, nm_sobrenome FROM tb_cliente WHERE cd_cliente = \"$idcliente\"";
+      //echo $consultausuario.'<p>';
       $resultado = $mysqli->query($consultausuario);
       while($dado = $resultado->fetch_object())
       {
         $nome=$dado->nm_cliente;
-        echo $nome;
+        $sobrenome = $dado->nm_sobrenome;
+        //echo $nome;
       }
       //----------------------------------------------
 
@@ -65,7 +67,9 @@
       }
       //---------------------------------------------- fim consulta quarto
 
-      //$div="<div>Cliente:".$nome."<p>"."<img src='$endimagem'";
+      $div="<div><fieldset><legend>Informações Reserva</legend>Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>"."<img src='$endimagem'>"."<p>Número: ".$num." | Tipo de Quarto: ".$tipo;
+      $botoes = "<p><button><a href=excluir_reserva.php?id=".$codres.">Excluir</a></button> <button><a href=alterar_reserva.php?id=".$codres.">Alterar</a></button></fieldset></div>";
+      echo $div.$botoes;
 
 
     }
