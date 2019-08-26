@@ -1,5 +1,5 @@
 <?php include('header.php'); ?>
-    <title>Sobre | Hospedagem Elegance</title></head>
+    <title>Sobre | Hospedagem Elegance</title>
     <?php
         include('conn.php');
     ?>
@@ -45,23 +45,12 @@
                 width: 80%;
             }
         </style>
-
-        <script>
-            $(document).ready(function(){
-                $('.parallax').parallax();
-            });
-        </script>
+    </head>
 	<body>
 		<nav class="grey darken-2">
-            <div class="nav-wrapper">
-                <a href="index.php"><img id="logo" src="images/logotipo.png"></a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="#">Acomodações</a></li>
-                    <li><a href="quemsomos.php">Quem somos?</a></li>
-                    <li><a href="#">Contato</a></li>
-                    <li><a href="login.php">Login</a></li>
-                </ul>
-            </div>
+            <?php
+                include('menu.php');
+            ?>
         </nav>
         <center>
             <div class="section">
