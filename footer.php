@@ -2,7 +2,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col l4 s12">
-                        <h4 class="white-text">Hospedagem Elegance</h4>
+                        <a href="index.php"><img style="width: 50%" src="images/logotipo.png"></a>
                         <p class="grey-text text-lighten-4">Celular: (13) 99662-3243</p>
                         <p class="grey-text text-lighten-4">Celular: (13) 98116-1914</p>
                         <p class="grey-text text-lighten-4">E-mail: pousadaelegance@gmail.com</p>
@@ -31,6 +31,8 @@
             </div>
         </footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	</body>
 </html>
+
 
