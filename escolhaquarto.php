@@ -17,6 +17,7 @@
 	<form method="POST">
 			Check in<input type="date" name="checkin"><p>
 			Check out<input type="date" name="checkout"><p>
+	
 
 			<h3>Escolha seu tipo de quarto</h3>
 			<ul>

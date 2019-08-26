@@ -68,7 +68,7 @@
       //---------------------------------------------- fim consulta quarto
 
       $div="<div><fieldset><legend>Informações Reserva</legend>Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>"."<img src='$endimagem'>"."<p>Número: ".$num." | Tipo de Quarto: ".$tipo;
-      $botoes = "<p><button><a href=excluir_reserva.php?id=".$codres.">Excluir</a></button> <button><a href=alterar_reserva.php?id=".$codres.">Alterar</a></button></fieldset></div>";
+      $botoes = "<p><button><a href=excluir_reserva.php?id=".$codres.">Excluir</a></button> <button><a href=alteracao.php?idreserva=".$codres.">Alterar</a></button></fieldset></div>";
       echo $div.$botoes;
 
 
