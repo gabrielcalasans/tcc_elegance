@@ -39,6 +39,10 @@
             #logo{
                 width: 9%;
             }
+            .foto{
+                width: 200px;
+                height: 200px;
+            }
 	    </style>
 	</head>
 	<body>
@@ -50,13 +54,23 @@
         <div class="section">
         	<h4 style="text-align: center;">Galeria</h4>
         	<div class="container">
-				<div class="row">
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?beach" alt="" class="materialboxed responsive-img"></div>  
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?sand" alt="" class="materialboxed responsive-img"></div>
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?boat" alt="" class="materialboxed responsive-img"></div>
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?cruise" alt="" class="materialboxed responsive-img"></div>
-				</div>
-				<div class="row">
+                <?php 
+                    $sql = "SELECT * from tb_galeria";
+                    $result = $mysqli->query($sql);
+                    if($result->num_rows > 0){
+                        $c = 3;
+                        while($row = $result->fetch_object()){
+                            if($c%3 == 0){
+                                echo '<div class="col s4 m4"><img src="'.$row->ds_endereco.'" alt="" class="foto materialboxed responsive-img"></div><br><br>';
+                            }
+                            else{
+                                echo '<div class="col s4 m4"><img src="'.$row->ds_endereco.'" alt="" class="foto materialboxed responsive-img"></div>';
+                            }
+                            $c++;
+                        }
+                    }
+                ?>
+				<!-- <div class="row">
 					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?forest" alt="" class="materialboxed responsive-img"></div>  
 					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?snow" alt="" class="materialboxed responsive-img"></div>
 					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?storm" alt="" class="materialboxed responsive-img"></div>
@@ -67,7 +81,7 @@
 					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?fox" alt="" class="materialboxed responsive-img"></div>
 					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?eagle" alt="" class="materialboxed responsive-img"></div>
 					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?penguin" alt="" class="materialboxed responsive-img"></div>
-				</div>
+				</div> -->
 			</div>
         </div>
         <script type="text/javascript">
