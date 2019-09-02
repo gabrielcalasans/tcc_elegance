@@ -16,7 +16,7 @@ while($dados = $execucao->fetch_object())
 
 ?>
 <form method="POST">
-    Cód. da Reserva: <?php echo $codreserva; ?> <p>
+    Cód. da Reserva: <?php echo $codreserva; ?> <p>    
     Check in: <input type="date" value='<?php echo $checkin_db; ?>' name="checkin"><p>
     Check out: <input type="date" value='<?php echo $checkout_db; ?>' name="checkout"><p>
 

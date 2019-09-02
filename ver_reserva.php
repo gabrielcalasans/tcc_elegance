@@ -35,7 +35,7 @@
       //Consulta nome do usuário----------------------
       $consultausuario = "SELECT nm_cliente, nm_sobrenome FROM tb_cliente WHERE cd_cliente = \"$idcliente\"";
       //echo $consultausuario.'<p>';
-      $resultado = $mysqli->query($consultausuario);
+      $resultado = $mysqli->query($consultausuario);      
       while($dado = $resultado->fetch_object())
       {
         $nome=$dado->nm_cliente;
@@ -46,6 +46,7 @@
 
       //Consulta de quarto----------------------
       $consultaquarto = "SELECT * FROM tb_quarto WHERE cd_quarto = \"$idquarto\"";
+
       $resultado2 = $mysqli->query($consultaquarto);
       while($dado2 = $resultado2->fetch_object())
       {
