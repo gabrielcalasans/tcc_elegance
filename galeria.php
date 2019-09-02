@@ -46,30 +46,26 @@
 	    </style>
 	</head>
 	<body>
-		<nav class="grey darken-2">
-           <?php
-                include('menu.php');
-            ?>
-        </nav>
+        <?php
+            include('menu.php');
+        ?>
         <div class="section">
         	<h4 style="text-align: center;">Galeria</h4>
         	<div class="container">
-                <?php 
-                    $sql = "SELECT * from tb_galeria";
-                    $result = $mysqli->query($sql);
-                    if($result->num_rows > 0){
-                        $c = 3;
-                        while($row = $result->fetch_object()){
-                            if($c%3 == 0){
-                                echo '<div class="col s4 m4"><img src="'.$row->ds_endereco.'" alt="" class="foto materialboxed responsive-img"></div><br><br>';
+                <div class="row">              
+                    <?php 
+                        $sql = "SELECT * from tb_galeria";
+                        $result = $mysqli->query($sql);
+                        if($result->num_rows > 0){
+                            while($row = $result->fetch_object()){
+                                echo '<div class="col s4 m4"><img style="width: 800px; height: 200px; border-radius: 5px;" src="'.$row->ds_endereco.'" alt="" class="foto materialboxed responsive-img"></div>';
                             }
-                            else{
-                                echo '<div class="col s4 m4"><img src="'.$row->ds_endereco.'" alt="" class="foto materialboxed responsive-img"></div>';
-                            }
-                            $c++;
                         }
-                    }
-                ?>
+                        else{
+                            echo "Não há fotos adicionadas na galeria.";
+                        }
+                    ?>
+                </div>
 				<!-- <div class="row">
 					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?forest" alt="" class="materialboxed responsive-img"></div>  
 					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?snow" alt="" class="materialboxed responsive-img"></div>
@@ -84,11 +80,10 @@
 				</div> -->
 			</div>
         </div>
-        <script type="text/javascript">
-			var mb = document.querySelectorAll('.materialboxed');
-		      M.Materialbox.init(mb,{
-
-		      })
+        <script>
+			$(document).ready(function(){
+                $('.materialboxed').materialbox();
+                $(".dropdown-trigger").dropdown();
+            });
 		</script>
-
 <?php include('footer.php'); ?>

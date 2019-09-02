@@ -189,6 +189,7 @@
 				$senha = md5($_POST['senha1']);
 				$endereco = $_POST['endereco'];
 				$numero = $_POST['numero'];
+				$avatar = "images/avatar".$genero.".png";
 				$senha1 = md5($_POST['senha']);
 				if($senha != $senha1){
 					echo "Senhas não correspondentes digite novamente.";
@@ -217,7 +218,7 @@
 							}
 						}
 						$datetime = date('Y-m-d H:i:s');
-						$sql = "INSERT into tb_cliente values(null, '$nome', '$cpf', '$email', '$celular', '$telefone', '$rg', '$orgao', '$nacionalidade', '$datanasc', '$senha', '$datetime', '$profissao', '$endereco', '$sobrenome', '$genero')";
+						$sql = "INSERT into tb_cliente values(null, '$nome', '$cpf', '$email', '$celular', '$telefone', '$rg', '$orgao', '$nacionalidade', '$datanasc', '$senha', '$datetime', '$profissao', '$endereco', '$sobrenome', '$genero', '$avatar')";
 						if(!$mysqli->query($sql)){
 							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 						}

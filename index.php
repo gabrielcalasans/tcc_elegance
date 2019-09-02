@@ -2,7 +2,6 @@
     <title>Home | Hospedagem Elegance</title></head>
     <?php
         include('conn.php');
-        session_start();
     ?>
     <style type="text/css">
             body{
@@ -71,46 +70,16 @@
             #reserva{
                 margin-top: 9%; 
             }
+            .star{
+                height: 30px;
+                width:30px;
+            }
+            #comentario{
+                font-size: 12px;
+            }
         </style>
 	<body>
-        
-		<nav class="grey darken-2">
-            <ul id="dropdown1" class="drop dropdown-content">
-                <li><a href="#!">Minha conta</a></li>
-                <li class="divider"></li>
-                <li><a href="index.php?id=1">Sair</a></li>
-            </ul>
-            <div class="nav-wrapper">
-                <a href="index.php"><img id="logo" src="images/logotipo.png"></a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="#">Acomodações</a></li>
-                    <li><a href="#">Quem somos?</a></li>
-                     <li><a href="#">Galeria</a></li>
-                    <li><a href="#">Contato</a></li>
-                    <?php
-                        if(!empty($_SESSION['cliente'])){
-                            $sql = "SELECT * from tb_cliente where cd_cliente =".$_SESSION['cliente'];
-                            $result = $mysqli->query($sql);
-                            $row = $result->fetch_object();
-                            if($row->id_genero == 1){
-                                $pronome = "Sr. ";
-                            }
-                            else if ($row->id_genero == 2) {
-                                $pronome = "Sra. ";
-                            }
-                            else{
-                                $pronome = "Sr(a). ";
-                            }
-                            echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><b>'.
-                            $pronome.$row->nm_cliente.'</b><i class="material-icons right">account_circle</i></a></li>';
-                        }
-                        else{
-                            echo '<li><a href="login.php"><b>Fazer login<i class="material-icons right">account_circle</i></b></a></li>';
-                        }
-                    ?>
-                </ul>
-            </div>
-        </nav>
+		<?php include('menu.php'); ?>
         <div class="parallax-container">    
             <div class="parallax"><img src="images/teste.jpg"></div>
             <div class="row">  
@@ -150,7 +119,7 @@
                             <div class="center promo promo-example">
                                 <i class="large material-icons">wifi</i>
                                 <br>
-                                <p class="promo-caption">Wifi</p>  
+                                <p class="promo-caption">Wi-fi</p>  
                             </div>
                         </span>
                     </div>
@@ -182,6 +151,39 @@
         <div class="divider"></div>
         <div class="section">
             <h3>Depoimentos</h3>
+            <div class="row">
+                <div class="col s12">
+                    <div class="carousel carousel-slider center">
+                        <?php 
+                            $sql = "SELECT
+                                    com.cd_comentario as codcomentario,
+                                    concat(cli.nm_cliente, ' ' ,cli.nm_sobrenome) as nome,
+                                    com.ds_comentario as comentario,
+                                    com.nr_nota as nota,
+                                    cli.ds_avatar as avatar,
+                                    date_format(com.dthr_comentario, '%e de %M de %Y, às %Hh%i.') as data
+                                    from tb_comentario com
+                                    inner join tb_cliente cli on(cli.cd_cliente = com.id_cliente)
+                                    where com.st_comentario = 1
+                                    order by data";
+                            $mysqli->query('SET lc_time_names = "pt_br"');
+                            $result = $mysqli->query($sql);
+                            if($result->num_rows > 0){
+                                while($row = $result->fetch_object()){
+                                    echo '<div class="carousel-item" href="'.$row->codcomentario.'!">
+                                            <div class="card-panel" style="width: 50%; margin-left: 25%; margin-top: 115px;">
+                                                <p align="left"><b>'.$row->nome.'</b></p>
+                                                <p align="center">"<i>'.$row->comentario.'</i>" - '.$row->nota.' estrelas</p>
+                                                <p id="comentario" align="right">'.$row->data.'</p>
+                                            </div>  
+                                        </div>';
+                                }  
+                            }
+                            
+                        ?>
+                    </div>
+                </div>
+            </div>
         </div>
         </center>
         <?php
@@ -199,6 +201,15 @@
                 });
                 $(".dropdown-trigger").dropdown();
                 $('.parallax').parallax();
+                $('.carousel.carousel-slider').carousel({
+                    fullWidth: true,
+                    indicators: false
+                });
+                autoplay();
+                function autoplay() {
+                    $('.carousel.carousel-slider').carousel('next');
+                    setTimeout(autoplay, 4000);
+                }
             });
         </script>
 <?php include('footer.php'); ?>

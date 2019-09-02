@@ -47,11 +47,9 @@
         </style>
     </head>
 	<body>
-		<nav class="grey darken-2">
-            <?php
-                include('menu.php');
-            ?>
-        </nav>
+        <?php
+            include('menu.php');
+        ?>
         <center>
             <div class="section">
                 <h4>Quem somos?</h4>
