@@ -26,8 +26,8 @@
       //echo $row->cd_reserva.'<p>';
       $codres = $row->cd_reserva;
       $idquarto = $row->id_quarto;
-      $checkin = $row->dthr_checkin;
-      $checkout = $row->dthr_checkout;
+      $checkin = $row->dt_checkin;
+      $checkout = $row->dt_checkout;
       $valor = $row->vl_reserva;
       $idcliente = $row->id_cliente;
       $registro = $row->dthr_registro;

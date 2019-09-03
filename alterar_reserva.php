@@ -7,8 +7,8 @@ $consultareserva = "SELECT * FROM tb_reserva WHERE cd_reserva=\"$codreserva\"";
 $execucao = $mysqli->query($consultareserva);
 while($dados = $execucao->fetch_object())
 {
-  $checkin_db = $dados->dthr_checkin;
-  $checkout_db = $dados->dthr_checkout;
+  $checkin_db = $dados->dt_checkin;
+  $checkout_db = $dados->dt_checkout;
   $quarto_db = $dados->id_quarto;
   $valor_db = $dados->vl_reserva;
 

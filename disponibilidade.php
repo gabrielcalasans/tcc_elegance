@@ -12,20 +12,37 @@ date_default_timezone_set('America/Sao_paulo');
       $nrlinhas = $linhas->qtde;
       echo $nrlinhas.'<br>';
     }
-    $consulta_reserva = "SELECT * FROM tb_reserva GROUP BY id_quarto ORDER BY dt_checkout DESC ";
-    $resultado_reserva = $mysqli->query($consulta_reserva);
-    while($inf = $resultado_reserva->fetch_object())
-        {
-          $checkout = $inf->dt_checkout;
-          $idquarto = $inf->id_quarto;
-          $hoje = date('Y-m-d');
-          echo $checkout." Quarto : ".$idquarto.' '. $hoje .'<br>';
-
-
-          if($checkout < $hoje)
+    for($c = 1 ; $c<=$nrlinhas ; $c++)
+    {
+        $consulta_reserva = "SELECT * FROM tb_reserva WHERE id_quarto = \"$c\" ORDER BY dt_checkout DESC LIMIT 1";
+        $resultado_reserva = $mysqli->query($consulta_reserva);
+        while($inf = $resultado_reserva->fetch_object())
             {
+              $checkout = $inf->dt_checkout;
+              $hoje = date('Y-m-d');
+              $idquarto = $inf->id_quarto;
+              echo $checkout." Quarto : ".$idquarto.' '. $hoje .' ';
+
+              if($checkout < $hoje)
+               {
+                  $sql = "UPDATE tb_quarto
+                          SET id_status = 1
+                          WHERE cd_quarto = \"$idquarto\"";
+
+                  if(!$mysqli->query($sql))
+                    {
+                      echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+                    }
+                  else
+                    {
+                      echo "Disponível<br>";
+                    }
+
+               }
+            else if($checkout > $hoje)
+              {
                 $sql = "UPDATE tb_quarto
-                        SET id_status = 1
+                        SET id_status = 2
                         WHERE cd_quarto = \"$idquarto\"";
 
                 if(!$mysqli->query($sql))
@@ -34,28 +51,19 @@ date_default_timezone_set('America/Sao_paulo');
                   }
                 else
                   {
-                    echo "alterado";
+                    echo "Não Disponível<br>";
                   }
 
-            }
-            else if($checkout > $hoje)
-            {
-              $sql = "UPDATE tb_quarto
-                      SET id_status = 2
-                      WHERE cd_quarto = \"$idquarto\"";
+                }
 
-              if(!$mysqli->query($sql))
-                {
-                  echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-                }
-              else
-                {
-                  echo "alteradinho";
-                }
+
 
             }
 
-        }
+          }
+
+
+   
 
 
 
