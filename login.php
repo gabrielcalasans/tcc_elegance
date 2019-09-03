@@ -78,7 +78,6 @@
 				if($result->num_rows > 0){
 					$row = $result->fetch_object();
 					$cdcliente=$row->cd_cliente;
-					session_start();
 					$_SESSION['cliente']=$cdcliente;
 					$_SESSION['status']='Logado';
 					echo "<script type='text/javascript'>window.location.href='index.php';</script>";

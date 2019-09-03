@@ -94,7 +94,7 @@
         </style>
 		<?php include('conn.php'); ?>
         <body>
-            <?php include('menu.php'); ?>
+        <?php include('menu.php'); ?>
 		<div class="container-fluid">
         <div class="row">
             <div class="col s12">

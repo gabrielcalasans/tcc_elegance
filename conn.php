@@ -7,5 +7,6 @@
 	if ($mysqli->connect_errno) {
 	    echo "Falha ao conectar: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 	}
-	$mysqli->set_charset("utf8");                                                                                                                  
+	$mysqli->set_charset("utf8");
+	session_start();                                                                                                                  
 ?>

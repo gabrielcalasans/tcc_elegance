@@ -1,20 +1,31 @@
+
+        <!-- Modal Structure -->
+        <div id="sair" class="modal" style="width: 40%;">
+            <div class="modal-content">
+              <center><h4>Deseja sair?</h4></center>
+            </div>
+            <div class="modal-footer">
+              <center><a href="index.php?id=1" title="Sim" class="btn green modal-close waves-effect waves-green">Sim</a>
+              <a href="#!" title="Não" class="btn red modal-close waves-effect waves-green">Não</a></center>
+            </div>
+        </div>
+
         <nav class="grey darken-2">
             <ul id="dropdown1" class="drop dropdown-content">
+                <li><a href="reservas_cliente.php">Área de reserva</a></li>
+                <li class="divider"></li>
                 <li><a href="cliente.php">Minha conta</a></li>
                 <li class="divider"></li>
-                <li><a href="index.php?id=1">Sair</a></li>
+                <li><a class="waves-effect waves-light modal-trigger" href="#sair">Sair</a></li>
             </ul>
             <div class="nav-wrapper">
                 <a href="index.php"><img id="logo" src="images/logotipo.png"></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="#" title="Acomodações">Acomodações</a></li>
                     <li><a href="quemsomos.php" title="Quem somos?">Quem somos?</a></li>
-                     <li><a href="galeria.php" title="Galeria">Galeria</a></li>
+                    <li><a href="galeria.php" title="Galeria">Galeria</a></li>
                     <li><a href="contato.php" title="Contato">Contato</a></li>
                     <?php
-                        if(!isset($_SESSION['cliente'])){
-                            session_start();
-                        }
                         if(!empty($_SESSION['cliente'])){
                             $sql = "SELECT * from tb_cliente where cd_cliente =".$_SESSION['cliente'];
                             $result = $mysqli->query($sql);
@@ -39,3 +50,8 @@
                 </ul>
             </div>
         </nav>
+    <script>
+        $(document).ready(function(){
+            $('.modal').modal();
+        });
+    </script>

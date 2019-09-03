@@ -18,6 +18,7 @@
 		}
 		if(isset($_GET['id']) and $_GET['id'] == 0){
 			session_destroy();
+			header('Location: index.php');
 		}
 	?>
 	<body>

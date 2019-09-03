@@ -66,18 +66,6 @@
                         }
                     ?>
                 </div>
-				<!-- <div class="row">
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?forest" alt="" class="materialboxed responsive-img"></div>  
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?snow" alt="" class="materialboxed responsive-img"></div>
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?storm" alt="" class="materialboxed responsive-img"></div>
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?ocean" alt="" class="materialboxed responsive-img"></div>
-				</div>
-				<div class="row">
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?lion" alt="" class="materialboxed responsive-img"></div>  
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?fox" alt="" class="materialboxed responsive-img"></div>
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?eagle" alt="" class="materialboxed responsive-img"></div>
-					<div class="col s3 m3"><img src="https://source.unsplash.com/800x600/?penguin" alt="" class="materialboxed responsive-img"></div>
-				</div> -->
 			</div>
         </div>
         <script>
