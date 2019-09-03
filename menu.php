@@ -2,7 +2,17 @@
         <!-- Modal Structure -->
         <div id="sair" class="modal" style="width: 40%;">
             <div class="modal-content">
-              <center><h4>Deseja sair?</h4></center>
+                <center><h4>Deseja sair?</h4></center>
+                <p align="center">
+                <?php 
+                    if(!empty($_SESSION['cliente'])){
+                        $sql = "SELECT * from tb_cliente where cd_usuario =".$_SESSION['cliente'];
+                        $result = $mysqli->query($sql);
+                        $row = $result->fetch_object();
+                    } 
+                ?>
+                            
+                </p>
             </div>
             <div class="modal-footer">
               <center><a href="index.php?id=1" title="Sim" class="btn green modal-close waves-effect waves-green">Sim</a>
