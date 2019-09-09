@@ -3,16 +3,18 @@
         <div id="sair" class="modal" style="width: 40%;">
             <div class="modal-content">
                 <center><h4>Deseja sair?</h4></center>
-                <p align="center">
+                
                 <?php 
                     if(!empty($_SESSION['cliente'])){
-                        $sql = "SELECT * from tb_cliente where cd_usuario =".$_SESSION['cliente'];
+                        $sql = "SELECT * from tb_cliente where cd_cliente = ".$_SESSION['cliente'];
                         $result = $mysqli->query($sql);
                         $row = $result->fetch_object();
+                        echo '<p align="center"><img style="width: 20%; border-radius: 100%;" src="'.$row->ds_avatar.'"></p>';
+                        echo '<p align="center">'.$row->nm_cliente.' '.$row->nm_sobrenome.'</p>';
                     } 
                 ?>
                             
-                </p>
+               
             </div>
             <div class="modal-footer">
               <center><a href="index.php?id=1" title="Sim" class="btn green modal-close waves-effect waves-green">Sim</a>
