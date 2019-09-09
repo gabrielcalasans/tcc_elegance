@@ -42,25 +42,26 @@
 		$login = $_POST['login'];
 		$senha = $_POST['senha'];
 		
-		$sql = "SELECT * FROM tb_administrador";
+		$sql = "SELECT * FROM tb_funcionario WHERE ds_login = \"$login\" AND ds_senha = \"$senha\"";
 		$tipo = $mysqli->query($sql);
-		if($tipo)
+		if($tipo->num_rows>0)
 		{	
 			while($linha = $tipo->fetch_object())
 			{
-				$administrador=$linha->nm_usuario;
-				$senhaadmin=$linha->ds_senha;				
+				session_start();				
+				$_SESSION['cdfuncionario'] = $linha->cd_funcionario;
+				$_SESSION['nmfuncionario'] = $linha->nm_funcionario;
+				$_SESSION['login'] = $linha->ds_login;
+				$_SESSION['senha'] = $linha->ds_senha;
+				header('Location:painel_admin.php');				
+							
 			}
-		}
-
-		if($login==$administrador && $senha==$senhaadmin)
-		{
-			echo "Funcionou";
 		}
 		else
 		{
-			echo "Tente novamente";
-		}
+				echo "<script>alert('Tente novamente');</script>";
+		} 		
+		
 	}
 	?>
 

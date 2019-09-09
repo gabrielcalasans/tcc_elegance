@@ -18,7 +18,7 @@
       ?>
 	</head>
 	<body>
-    <h1>Quarto</h1>
+    <h1>Quarto</h1><a href="painel_admin.php"><button>Painel de controle</button></a>
     <?php
 
       while($row = $executar->fetch_object())

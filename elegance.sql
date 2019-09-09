@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 02-Set-2019 às 15:27
+-- Data de Criação: 09-Set-2019 às 15:20
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5613,6 +5613,26 @@ INSERT INTO `tb_cidade` (`cd_cidade`, `nm_cidade`, `id_estado`, `id_endereco`) V
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_classe`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_classe` (
+  `cd_classe` int(11) NOT NULL AUTO_INCREMENT,
+  `ds_classe` varchar(225) NOT NULL,
+  PRIMARY KEY (`cd_classe`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Extraindo dados da tabela `tb_classe`
+--
+
+INSERT INTO `tb_classe` (`cd_classe`, `ds_classe`) VALUES
+(1, 'Administrador'),
+(2, 'Funcionario');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_cliente`
 --
 
@@ -5637,16 +5657,17 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   PRIMARY KEY (`cd_cliente`),
   KEY `fk_id_profissao` (`id_profissao`),
   KEY `fk_cliente_endereco` (`id_endereco`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Extraindo dados da tabela `tb_cliente`
 --
 
 INSERT INTO `tb_cliente` (`cd_cliente`, `nm_cliente`, `nr_cpf`, `nm_email`, `nr_celular`, `nr_telefone`, `nr_rg`, `ds_orgao`, `ds_nacionalidade`, `dt_nascimento`, `ds_senha`, `dthr_cadastro`, `id_profissao`, `id_endereco`, `nm_sobrenome`, `id_genero`, `ds_avatar`) VALUES
-(8, 'Igor', '11111111111', 'igor@gmail.com', '41654865468', '', 222222222, 'SSP', 'Brasileira', '2019-09-10', '202cb962ac59075b964b07152d234b70', '2019-09-02 11:31:57', 2, 8, 'Oliveira', 1, ''),
+(8, 'Igor', '11111111111', 'igor@gmail.com', '41654865468', '', 222222222, 'SSP', 'Brasileira', '2019-09-10', '202cb962ac59075b964b07152d234b70', '2019-09-02 11:31:57', 2, 8, 'Oliveira', 1, 'images/avatar1.png'),
 (9, 'Thalya', '22222222222', 'thalyalinda@gmail.com', '48648646486', '', 161321321, 'SSP', 'Indiana', '2019-09-18', '202cb962ac59075b964b07152d234b70', '2019-09-02 14:07:18', 8, 9, 'Rangel', 2, 'images/avatar2.png'),
-(10, 'Lucas', '12312312312', 'lucas@gmail.com', '46586564844', '', 456498648, 'SSP', 'Brasileira', '2019-09-19', '202cb962ac59075b964b07152d234b70', '2019-09-02 14:50:02', 4, 10, 'Souza', 1, 'images/avatar1.png');
+(10, 'Lucas', '12312312312', 'lucas@gmail.com', '46586564844', '', 456498648, 'SSP', 'Brasileira', '2019-09-19', '202cb962ac59075b964b07152d234b70', '2019-09-02 14:50:02', 4, 10, 'Souza', 3, 'images/avatar3.png'),
+(11, 'Gabriel', '77777777777', 'DASDas@gmail.com', '11111111111', '1111111111', 111111111, '11111111111', 'Sovietica', '2019-09-10', '81dc9bdb52d04dc20036dbd8313ed055', '2019-09-09 13:31:43', 8, 11, 'Calas', 1, 'images/avatar1.png');
 
 -- --------------------------------------------------------
 
@@ -5694,7 +5715,7 @@ CREATE TABLE IF NOT EXISTS `tb_endereco` (
   `id_cidade` int(11) NOT NULL,
   PRIMARY KEY (`cd_endereco`),
   KEY `fk_cidade_endereco` (`id_cidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Extraindo dados da tabela `tb_endereco`
@@ -5710,7 +5731,8 @@ INSERT INTO `tb_endereco` (`cd_endereco`, `nm_endereco`, `nr_endereco`, `nr_cep`
 (7, 'Rua Santos', 270, 11740000, 'Praia Do Sonho', 4960),
 (8, 'Av. Tô Cansado', 112, 11740000, 'Centro', 286),
 (9, 'Rua Meu Deus do Céu', 24, 48418616, 'Centro', 205),
-(10, 'Rua Oliva', 456, 16464586, 'Centro', 890);
+(10, 'Rua Oliva', 456, 16464586, 'Centro', 890),
+(11, 'R. Comunista', 132, 11111111, 'Jd. Paulista', 102);
 
 -- --------------------------------------------------------
 
@@ -5792,6 +5814,31 @@ CREATE TABLE IF NOT EXISTS `tb_forma` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_funcionario`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_funcionario` (
+  `cd_funcionario` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_funcionario` varchar(225) NOT NULL,
+  `ds_login` varchar(225) NOT NULL,
+  `ds_senha` varchar(225) NOT NULL,
+  `id_classe` int(11) NOT NULL,
+  PRIMARY KEY (`cd_funcionario`),
+  KEY `fk_func_classe` (`id_classe`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Extraindo dados da tabela `tb_funcionario`
+--
+
+INSERT INTO `tb_funcionario` (`cd_funcionario`, `nm_funcionario`, `ds_login`, `ds_senha`, `id_classe`) VALUES
+(1, 'Alf', 'Lavoisier', 'quimica', 1),
+(4, 'kekule', 'kekule', 'organica', 2),
+(5, 'thomson', 'thomson', 'pudim', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_galeria`
 --
 
@@ -5800,6 +5847,19 @@ CREATE TABLE IF NOT EXISTS `tb_galeria` (
   `ds_endereco` varchar(200) NOT NULL,
   PRIMARY KEY (`cd_foto`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_garagem`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_garagem` (
+  `cd_garagem` int(11) NOT NULL AUTO_INCREMENT,
+  `id_reserva` int(11) NOT NULL,
+  `nr_vagas_reservadas` int(11) NOT NULL,
+  PRIMARY KEY (`cd_garagem`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5922,16 +5982,10 @@ CREATE TABLE IF NOT EXISTS `tb_quarto` (
 --
 
 INSERT INTO `tb_quarto` (`cd_quarto`, `nr_quarto`, `ds_quarto`, `id_tipo`, `id_status`, `id_pedido`) VALUES
-(1, 15, 'Quarto com banheira', 2, 2, 0),
+(1, 199, 'Quartodascom muitas banheira', 1, 1, 0),
 (2, 22, 'Quarto sem chao', 7, 1, 0),
 (3, 15, 'Quarto com banheira', 2, 2, 0),
-(4, 22, 'Quarto sem chao', 7, 1, 0),
-(5, 45, 'Quarto do frati', 3, 1, 0),
-(6, 34, 'Não tem descrição', 4, 2, 0),
-(7, 45, 'Quarto do frati', 3, 1, 0),
-(8, 34, 'Não tem descrição', 4, 2, 0),
-(9, 80, 'Sem nada', 5, 1, 0),
-(10, 44, 'Quarto sem cama', 6, 2, 0),
+(9, 81, 'ASDSDADAS', 5, 1, 0),
 (11, 80, 'Sem nada', 5, 1, 0),
 (12, 44, 'Quarto sem cama', 6, 2, 0),
 (13, 32, 'Quarto com dois aparelhos de ar condicionado', 7, 2, 0),
@@ -5953,20 +6007,26 @@ CREATE TABLE IF NOT EXISTS `tb_reserva` (
   `dthr_registro` datetime NOT NULL,
   PRIMARY KEY (`cd_reserva`),
   KEY `fk_id_quarto` (`id_quarto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Extraindo dados da tabela `tb_reserva`
 --
 
 INSERT INTO `tb_reserva` (`cd_reserva`, `id_quarto`, `dt_checkin`, `dt_checkout`, `vl_reserva`, `id_cliente`, `dthr_registro`) VALUES
-(1, 1, '2019-08-28', '2019-08-31', '756.00', 1, '0000-00-00 00:00:00'),
-(2, 2, '2019-08-07', '2019-08-23', '0.00', 1, '0000-00-00 00:00:00'),
-(3, 1, '2019-08-21', '2019-08-30', '1890.00', 1, '0000-00-00 00:00:00'),
+(3, 3, '2019-08-06', '2019-09-21', '8883.00', 1, '2019-09-09 09:32:19'),
 (4, 1, '2019-08-21', '2019-08-30', '1890.00', 1, '0000-00-00 00:00:00'),
-(5, 3, '2019-08-12', '2019-08-15', '756.00', 1, '2019-08-12 11:32:10'),
-(6, 3, '2019-08-12', '2019-08-15', '756.00', 1, '2019-08-12 11:34:39'),
-(7, 1, '2019-08-22', '2019-08-29', '1512.00', 1, '2019-08-12 11:34:54');
+(7, 1, '2019-08-22', '2019-08-29', '1512.00', 1, '2019-08-12 11:34:54'),
+(8, 3, '2019-09-04', '2019-09-26', '4347.00', 11, '2019-09-09 11:50:45'),
+(9, 3, '2019-09-04', '2019-09-26', '4347.00', 11, '2019-09-09 11:51:25'),
+(10, 3, '2019-09-04', '2019-09-26', '4347.00', 11, '2019-09-09 11:51:45'),
+(11, 3, '2019-09-04', '2019-09-26', '4347.00', 11, '2019-09-09 11:57:49'),
+(12, 3, '2019-09-04', '2019-09-26', '4347.00', 11, '2019-09-09 11:58:42'),
+(13, 3, '2019-09-04', '2019-09-26', '4347.00', 11, '2019-09-09 11:59:47'),
+(14, 3, '2019-09-04', '2019-09-26', '4347.00', 11, '2019-09-09 12:00:39'),
+(15, 3, '2019-09-04', '2019-09-26', '4347.00', 11, '2019-09-09 12:01:02'),
+(16, 3, '2019-09-04', '2019-09-26', '4347.00', 11, '2019-09-09 12:01:27'),
+(17, 3, '2019-09-04', '2019-09-26', '4347.00', 11, '2019-09-09 12:03:15');
 
 -- --------------------------------------------------------
 
@@ -6075,6 +6135,12 @@ ALTER TABLE `tb_estadia`
 --
 ALTER TABLE `tb_estado`
   ADD CONSTRAINT `tb_estado_ibfk_1` FOREIGN KEY (`id_pais`) REFERENCES `tb_pais` (`cd_pais`);
+
+--
+-- Limitadores para a tabela `tb_funcionario`
+--
+ALTER TABLE `tb_funcionario`
+  ADD CONSTRAINT `fk_func_classe` FOREIGN KEY (`id_classe`) REFERENCES `tb_classe` (`cd_classe`);
 
 --
 -- Limitadores para a tabela `tb_pedidoquarto`

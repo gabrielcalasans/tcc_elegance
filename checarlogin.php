@@ -1,6 +1,6 @@
 <?php
 
-	session_start();
+	//session_start();
 	$statussessao=$_SESSION['status'];
 	$cdcliente=$_SESSION['cliente'];
 	$statuslogin="Logado";

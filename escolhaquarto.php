@@ -2,6 +2,7 @@
 <html>
 <meta charset="utf-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 		<?php
 
 
@@ -40,6 +41,11 @@
 
 				?>
 			</ul>
+				<!--<fieldset>
+					Garagem <input type="checkbox" id="garagem" name="garagem"> <span id="garagemconfirmada"> Quantidade de Vagas <input type="number" name="nrvagas"></span>
+				</fieldset>-->
+
+			<p>
 			<p>
 			<h3>Quartos:</h3>
 				<?php
@@ -114,7 +120,7 @@
 
 				?>
 			<p>
-
+ 
 
 
 
@@ -137,15 +143,15 @@
 				{
 
 							$idquarto=$_POST['quarto'];
-							echo '<br>'.$checkin;
-							echo '<br>'.$checkout;
-							echo '<p>'.$idquarto.'<p>';
+							//echo '<br>'.$checkin;
+							//echo '<br>'.$checkout;
+							//echo '<p>'.$idquarto.'<p>';
 							$vlfinal=0;
 
 
 							date_default_timezone_set('America/Sao_paulo');
 							$regdate = date('Y-m-d h:i:s a', time());
-							echo $regdate;
+							//echo $regdate;
 
 							$data1 = new datetime($_POST['checkin']);
 							$data2 = new datetime($_POST['checkout']);
@@ -171,13 +177,13 @@
 								$data1->modify('+1 day');
 
 							}
-						echo $vlfinal;
+						//echo $vlfinal;
 						$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$regdate')";
 						if(!$mysqli->query($sql)){
 							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 						}
 						else{
-							echo "<script type='text/javascript'>alert('Reserva Efetuada!!!');</script>";
+							echo "<script type='text/javascript'>alert('Reserva Efetuada, opções adicionais!!!'); window.location.href='garagem.php';</script>";
 						}
 
 					}
@@ -197,6 +203,7 @@
 
 
 </html>
+
 <style type="text/css">
 	img{
 		width: 10%;

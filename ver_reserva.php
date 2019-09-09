@@ -18,7 +18,7 @@
       ?>
 	</head>
 	<body>
-    <h1>Reservas</h1>
+    <h1>Reservas</h1><a href="painel_admin.php"><button>Painel de controle</button></a>
     <?php
 
     while($row = $executar->fetch_object())
@@ -35,13 +35,22 @@
       //Consulta nome do usuário----------------------
       $consultausuario = "SELECT nm_cliente, nm_sobrenome FROM tb_cliente WHERE cd_cliente = \"$idcliente\"";
       //echo $consultausuario.'<p>';
-      $resultado = $mysqli->query($consultausuario);      
-      while($dado = $resultado->fetch_object())
+      $resultado = $mysqli->query($consultausuario);
+      if($resultado->num_rows > 0)
       {
-        $nome=$dado->nm_cliente;
-        $sobrenome = $dado->nm_sobrenome;
-        //echo $nome;
-      }
+           while($dado = $resultado->fetch_object())
+            {               
+                $nome=$dado->nm_cliente;
+                $sobrenome = $dado->nm_sobrenome;
+                //echo $nome;
+            }
+      }         
+      else
+      {
+          $nome = "Cliente não cadastrado";
+          $sobrenome = "";
+      }      
+      
       //----------------------------------------------
 
       //Consulta de quarto----------------------
