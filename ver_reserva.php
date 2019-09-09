@@ -72,6 +72,26 @@
       $botoes = "<p><button><a href=excluir_reserva.php?id=".$codres.">Excluir</a></button> <button><a href=alteracao.php?idreserva=".$codres.">Alterar</a></button></fieldset></div>";
       echo $div.$botoes;
 
+      if(isset($_GET['id']))
+      {
+
+        $codreserva=$_GET['id'];
+        $deletar_reserva="DELETE FROM tb_reserva WHERE cd_reserva=\"$codreserva\"";
+        if(!$mysqli->query($deletar_reserva))
+          {
+            echo "<script>alert('Não é possível excluir!!');
+                    window.location.href='ver_reserva.php';
+               </script>";
+          }
+          else
+          {
+           echo "<script>alert('Reserva excluída!!');
+                    window.location.href='ver_reserva.php';
+               </script>";
+          }
+
+      }
+
 
     }
 

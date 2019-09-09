@@ -1,7 +1,6 @@
 <meta charset="utf-8">
 <?php
 include('conn.php');
-session_start();
 $codreserva = $_SESSION['idreserva'];
 $consultareserva = "SELECT * FROM tb_reserva WHERE cd_reserva=\"$codreserva\"";
 $execucao = $mysqli->query($consultareserva);
@@ -185,8 +184,8 @@ if(isset($_POST['checkin']))
 
         $sql = "UPDATE tb_reserva
                 SET id_quarto = \"$idquarto\",
-                    dthr_checkin = \"$checkin\",
-                    dthr_checkout = \"$checkout\",
+                    dt_checkin = \"$checkin\",
+                    dt_checkout = \"$checkout\",
                     vl_reserva = \"$vlfinal\",
                     dthr_registro = \"$regdate\"
                 WHERE cd_reserva = \"$codreserva\"";
@@ -194,7 +193,7 @@ if(isset($_POST['checkin']))
           echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
         }
         else{
-          echo "<script type='text/javascript'>alert('Concluído');</script>";
+          echo "<script type='text/javascript'>alert('Concluído'); window.location.href='alterar_reserva.php';</script>";
         }
 
       }

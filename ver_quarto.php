@@ -65,11 +65,34 @@
 
 
       $div="<div><fieldset><legend>Informações Quarto</legend>Cód. Quarto: ".$codquarto." Número: ".$nrquarto."<p> Status: ".$status."<p> Descrição:".$dsquarto." <p> Reservado por:".$nome."<p> Check-in: ".$checkin. "<p> Check-out: ".$checkout;
-      $botoes = "<p><button><a href=excluir_quarto.php?idquarto_del=".$codquarto.">Excluir</a></button> <button><a href=alteracao_quarto.php?idquarto=".$codquarto.">Alterar</a></button></fieldset></div>";
+      $botoes = "<p><button><a href=ver_quarto.php?idquarto_del=".$codquarto.">Excluir</a></button> <button><a href=alteracao_quarto.php?idquarto=".$codquarto.">Alterar</a></button></fieldset></div>";
       echo $div.$botoes;
 
 
     }
+
+    if(isset($_GET['idquarto_del']))
+    {
+        $codquarto=$_GET['idquarto_del'];
+        //
+        //Juntar na mesma página;
+        //
+        $deletar_quarto="DELETE FROM tb_quarto WHERE cd_quarto=\"$codquarto\"";
+
+          if(!$mysqli->query($deletar_quarto))
+          {
+            echo "<script>alert('Não é possível excluir, há uma reserva ativa!!');
+                    window.location.href='ver_quarto.php';
+               </script>";
+          }
+          else
+          {
+           echo "<script>alert('Quarto excluído!!');
+                    window.location.href='ver_quarto.php';
+               </script>";
+          }
+
+      }
 
     ?>
 
