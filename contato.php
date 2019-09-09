@@ -38,7 +38,7 @@
             }
 
             .icon1:hover{
-                width: 10%;
+                filter: invert(25%);
             }
              .icon{
                 padding: 5px;
@@ -66,12 +66,12 @@
             }
 
              /* label focus color */
-            .input-field input[type=text]:focus + label {
+            .input-field input:focus + label {
                 color: #fbc02d !important;
             }
 
             /* label underline focus color */
-            .input-field input[type=text]:focus {
+            .input-field input:focus {
                 border-bottom: 1px solid #fbc02d !important;
                 box-shadow: 0 1px 0 0 #fbc02d !important;
             }
@@ -167,7 +167,7 @@
 							</div>
                             <div class="row">
                                 <div class="col s12">
-                                    <center><button title="Enviar" class="btn waves-effect waves-light accent-4 validate" type="submit" id="enviar" name="action">
+                                    <center><button title="Enviar" class="btn waves-effect waves-light yellow darken-2" type="submit" id="enviar" name="action">
                                         Enviar
                                     </button></center>
                                 </div>
