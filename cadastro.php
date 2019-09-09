@@ -30,6 +30,26 @@
 			    box-shadow: 0 1px 0 0 #fbc02d !important;
 			}
 			
+			[type="radio"]:checked + span:after,
+			[type="radio"].with-gap:checked + span:before,
+			[type="radio"].with-gap:checked + span:after {
+			  border: 2px solid #fbc02d;
+			}
+
+			[type="radio"]:checked + span:after,
+			[type="radio"].with-gap:checked + span:after {
+			  background-color: #fbc02d;
+			}
+
+			.dropdown-content li > a, .dropdown-content li > span {
+				color: #fbc02d !important;
+			}
+
+			.checkbox-yellow[type="checkbox"].filled-in:checked + span:not(.lever):after 
+			{
+			    border: 2px solid #fbc02d;  
+			    background-color: #fbc02d;
+			}
 		</style>
 	</head>
 	<body>
@@ -143,8 +163,8 @@
 							</div>
 						</div>
 					</div>
-			<div class="card-panel" style="width: 60%;">
-				<div class="row">
+				<div class="card-panel" style="width: 60%;">
+					<div class="row">
 						<div class="input-field col s6">
 							<input id="s1" type="password" name="senha" required="" class="validate"><label for="s1">Senha</label><span class="senhas"></span></p>
 						</div>
@@ -153,15 +173,15 @@
 						</div>
 							<label for="termos">
 								<div class="input-field col s12">
-									<input id="termos" type="checkbox" name="termos" required=""  class="filled-in"><span> Li os <a href="#">termos de uso</a> e aceito todas as condições.</span>
+									<input id="termos" type="checkbox" name="termos" required=""  class="filled-in checkbox-yellow"><span> Li os <a href="#">termos de uso</a> e aceito todas as condições.</span>
 								</div>
 							</label>
+					</div>
 				</div>
-			</div>
-			<button class="btn waves-effect waves-light #64dd17 light-green accent-4" type="submit" id="cadastrar" name="action">
+			<button class="btn waves-effect waves-light green accent-4" type="submit" id="cadastrar" name="action">
 				Cadastrar
 			</button>
-			<button class="btn waves-effect waves-light #ff3d00 deep-orange accent-3" type="reset" id="limpar">
+			<button class="btn waves-effect waves-light red" type="reset" id="limpar">
 				Limpar
 			</button>
 		</form>
@@ -229,6 +249,7 @@
 				}
 			}
 		?>
+		<div class="section"></div>
 	</body>
 	<script>
 		$(document).ready(function(){
