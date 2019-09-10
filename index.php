@@ -1,9 +1,9 @@
-<?php include('header.php'); ?>
-    <title>Home | Hospedagem Elegance</title></head>
-    <?php
-        include('conn.php');
-    ?>
-    <style type="text/css">
+    <?php include('header.php'); ?>
+        <title>Home | Hospedagem Elegance</title>
+        <?php
+            include('conn.php');
+        ?>
+        <style type="text/css">
             body{
                 background-color: #FFF7D9;
             }
@@ -78,6 +78,7 @@
                 font-size: 12px;
             }
         </style>
+    </head>
 	<body>
 		<?php include('menu.php'); ?>
         <div class="parallax-container">    
@@ -110,7 +111,7 @@
         </div>
         <center>
         <div id="i1" class="section">
-            <h5>Inclusos</h5>
+            <h4>Inclusos</h4>
             <br>
             <div class="row">
                 <div class="col m4">
@@ -150,7 +151,7 @@
         </div>
         <div class="divider"></div>
         <div class="section">
-            <h3>Depoimentos</h3>
+            <h4>Depoimentos</h4>
             <div class="row">
                 <div class="col s12">
                     <div class="carousel carousel-slider center">
@@ -212,5 +213,6 @@
                 }
             });
         </script>
+
 <?php include('footer.php'); ?>
 
