@@ -41,10 +41,7 @@
 
 				?>
 			</ul>
-				<!--<fieldset>
-					Garagem <input type="checkbox" id="garagem" name="garagem"> <span id="garagemconfirmada"> Quantidade de Vagas <input type="number" name="nrvagas"></span>
-				</fieldset>-->
-
+				
 			<p>
 			<p>
 			<h3>Quartos:</h3>

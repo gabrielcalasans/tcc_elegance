@@ -10,4 +10,5 @@
 <a href="estatisticas.php"><button>Visualizar estatísticas</button></a>
 
 <?php 
+
 ?>
