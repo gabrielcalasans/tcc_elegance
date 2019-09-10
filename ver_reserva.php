@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
+<?php include('header.php'); ?>
 		    <title>Visualizar Reservas | Pousada Hospedagem Elegance</title>
         <?php
     			include('conn.php');
@@ -9,6 +6,9 @@
     			date_default_timezone_set('UTC');
     		?>
 		<style type="text/css">
+      body{
+          background-color: #758DA3;
+        }
 		</style>
       <?php
           $consulta = "SELECT * FROM tb_reserva";
@@ -18,7 +18,14 @@
       ?>
 	</head>
 	<body>
-    <h1>Reservas</h1><a href="painel_admin.php"><button>Painel de controle</button></a>
+    <center>
+      <nav class="black darken-2">
+        <div class="nav-wrapper">
+          <i class="large material-icons">account_circle</i>
+        </div>
+      </nav>
+    </center>
+    <center><h1>Reservas</h1><a href="painel_admin.php" class="waves-effect waves-light btn">Painel de controle</a></center>
     <?php
 
     while($row = $executar->fetch_object())
@@ -77,8 +84,8 @@
       }
       //---------------------------------------------- fim consulta quarto
 
-      $div="<div><fieldset><legend>Informações Reserva</legend>Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>"."<img src='$endimagem'>"."<p>Número: ".$num." | Tipo de Quarto: ".$tipo;
-      $botoes = "<p><button><a href=excluir_reserva.php?id=".$codres.">Excluir</a></button> <button><a href=alteracao.php?idreserva=".$codres.">Alterar</a></button></fieldset></div>";
+      $div="<div class='container'><div class='card-panel' ><legend>Informações Reserva</legend>Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>"."<img src='$endimagem'>"."<p>Número: ".$num." | Tipo de Quarto: ".$tipo;
+      $botoes = "<p><a class='waves-effect waves-light btn' href=excluir_reserva.php?id=".$codres.">Excluir</a> <a class='waves-effect waves-light btn' href=alteracao.php?idreserva=".$codres.">Alterar</a></div></div>";
       echo $div.$botoes;
 
       if(isset($_GET['id']))
