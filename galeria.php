@@ -52,13 +52,13 @@
         <div class="section">
         	<h4 style="text-align: center;">Galeria</h4>
         	<div class="container">
-                <div class="row">              
+                <div class="row" align="center" style="min-height: 500px;">              
                     <?php 
                         $sql = "SELECT * from tb_galeria";
                         $result = $mysqli->query($sql);
                         if($result->num_rows > 0){
                             while($row = $result->fetch_object()){
-                                echo '<div class="col s4 m4"><img style="width: 800px; height: 200px; border-radius: 5px;" src="'.$row->ds_endereco.'" alt="" class="foto materialboxed responsive-img"></div>';
+                                echo '<div class="col s4 m4"><img style="width: 800px; height: 220px; border-radius: 3px; padding-top: 20px;" src="'.$row->ds_endereco.'" alt="" class="foto materialboxed responsive-img"></div>';
                             }
                         }
                         else{
