@@ -109,7 +109,7 @@
 							<input id="nacionalidade" type="text" name="nacionalidade" required="" class="validate"><label for="nacionalidade">Nacionalidade</label>
 						</div>
 						<div class="input-field col s6">
-							<input id="data" type="text" class="datepicker" name="datanasc" required="" class="validate"><label for="data">Data de Nascimento</label>
+							<input id="data" type="date" name="datanasc" required="" class="validate"><label for="data">Data de Nascimento</label>
 						</div>
 						<div class="input-field col s6">
 							<select name="profissao">
@@ -251,27 +251,6 @@
 	</body>
 	<script>
 		$(document).ready(function(){
-			var data = new Date();
-			$('.datepicker').datepicker({
-				format: 'yyyy-mm-dd',
-				labelMonthNext: 'Próximo Mês',
-  				labelMonthPrev: 'Mês Anterior',
-  				labelMonthSelect: 'Selecione o Mês',
-  				labelYearSelect: 'Selecione o Ano',
-  				monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-  				monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-  				weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-  				weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-  				weekdaysLetter: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-  				today: 'Hoje',
-  				clear: 'Limpar',
-  				close: 'Fechar',
-				min: new Date(data.getFullYear() - 1, 0, 1),
-    			max: new Date(data.getFullYear() + 1, 11, 31),
-    			onClose: function() {
-  				  	$(document.activeElement).blur()
-  				}
-			});
 			$("#s2").change(function(){
 				var s1 = $("#s1").val();
 				var s2 = $("#s2").val();

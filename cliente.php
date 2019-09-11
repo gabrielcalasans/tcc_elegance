@@ -12,15 +12,37 @@
 	</style>
 	<?php
 		include('conn.php');
-		session_start();
 		if(empty($_SESSION['cliente'])){
 			header('Location: index.php');
 		}
 		if(isset($_GET['id']) and $_GET['id'] == 0){
 			session_destroy();
+			header('Location: index.php');
 		}
 	?>
 	<body>
+		<!-- Modal Structure -->
+        <div id="sair" class="modal" style="width: 40%;">
+            <div class="modal-content">
+                <center><h4>Deseja sair?</h4></center>
+                
+                <?php 
+                    if(!empty($_SESSION['cliente'])){
+                        $sql = "SELECT * from tb_cliente where cd_cliente = ".$_SESSION['cliente'];
+                        $result = $mysqli->query($sql);
+                        $row = $result->fetch_object();
+                        echo '<p align="center"><img style="width: 20%; border-radius: 100%;" src="'.$row->ds_avatar.'"></p>';
+                        echo '<p align="center">'.$row->nm_cliente.' '.$row->nm_sobrenome.'</p>';
+                    } 
+                ?>
+                            
+               
+            </div>
+            <div class="modal-footer">
+              <center><a href="cliente.php?id=0" title="Sim" class="btn green modal-close waves-effect waves-green">Sim</a>
+              <a href="#!" title="Não" class="btn red modal-close waves-effect waves-green">Não</a></center>
+            </div>
+        </div>
 		<nav class="grey darken-2">
 			<ul id="dropdown1" class="drop dropdown-content">
                 <li><a href="cliente.php">Minha conta</a></li>
@@ -31,7 +53,7 @@
                 <a href="index.php"><img id="logo" src="images/logotipo.png"></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                    <li><a href="">Configurações</a></li>
-                   <li><a href="cliente.php?id=0">Sair</a></li>
+                   <li><a class="modal-trigger" href="#sair">Sair</a></li>
                 </ul>
             </div>
 	    </nav>
@@ -65,5 +87,11 @@
 		        </div>
 	        </div>
 		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script>
+            $(document).ready(function(){
+                $('.modal').modal();
+            });
+        </script>
 	</body>
 </html>
