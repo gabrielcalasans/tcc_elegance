@@ -54,7 +54,7 @@
 			//echo '<option>'..'</option>';
 
 			?><p>
-		<input type="submit" name="">
+		<input type="submit" name="enviar"><a href="ver_quarto.php">Ver quartos</a>
 	</form>
 
 </body>
@@ -83,7 +83,7 @@
 					}
 				else
 				{
-					echo "<script type='text/javascript'>alert('QUARTO CADASTRADO COM SUCESSO!!');</script>";
+					echo "<script type='text/javascript'>alert('QUARTO CADASTRADO COM SUCESSO!!');window.location.href='cadastroquarto.php';</script>";
 				}
 
 			}

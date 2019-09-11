@@ -42,15 +42,15 @@
 		$login = $_POST['login'];
 		$senha = $_POST['senha'];
 		
-		$sql = "SELECT * FROM tb_funcionario WHERE ds_login = \"$login\" AND ds_senha = \"$senha\"";
+		$sql = "SELECT * FROM tb_admin WHERE nm_login = \"$login\" AND ds_senha = \"$senha\"";
 		$tipo = $mysqli->query($sql);
 		if($tipo->num_rows>0)
 		{	
 			while($linha = $tipo->fetch_object())
 			{
 				session_start();				
-				$_SESSION['cdfuncionario'] = $linha->cd_funcionario;
-				$_SESSION['nmfuncionario'] = $linha->nm_funcionario;
+				$_SESSION['cdadmin'] = $linha->cd_admin;
+				$_SESSION['nmadmin'] = $linha->nm_admin;
 				$_SESSION['login'] = $linha->ds_login;
 				$_SESSION['senha'] = $linha->ds_senha;
 				header('Location:painel_admin.php');				

@@ -4,7 +4,8 @@
         <meta charset="utf-8">
 		    <title>Visualizar Quartos | Pousada Hospedagem Elegance</title>
         <?php
-    			include('conn.php');
+          include('conn.php');
+          include('disponibilidade.php');
           //include('checarlogin.php');
     			date_default_timezone_set('UTC');
     		?>
@@ -18,7 +19,7 @@
       ?>
 	</head>
 	<body>
-    <h1>Quarto</h1><a href="painel_admin.php"><button>Painel de controle</button></a>
+    <h1>Quarto</h1><a href="painel_admin.php"><button>Painel de controle</button></a> <a href="cadastroquarto.php"><button>Cadastrar novo quarto</button></a>
     <?php
 
       while($row = $executar->fetch_object())
@@ -27,6 +28,7 @@
           $nrquarto = $row->nr_quarto;
           $dsquarto = $row->ds_quarto;
           $id_status = $row->id_status;
+          
 
           $consulta_status = "SELECT * FROM tb_status WHERE cd_status = \"$id_status\"";
           $resultado_status = $mysqli->query($consulta_status);
@@ -35,7 +37,8 @@
                 $status = $rw->ds_status;
                 if($id_status==2)
                 {
-
+                    //Consertar aqui
+                    //Realizar consulta certo
                     $consulta_reserva = "SELECT * FROM tb_reserva WHERE id_quarto = \"$codquarto\" ORDER BY dt_checkout DESC LIMIT 1";
                     $resultado_reserva = $mysqli->query($consulta_reserva);
                     while($rw2 = $resultado_reserva->fetch_object())
@@ -45,10 +48,20 @@
                       $idcliente = $rw2->id_cliente;
                       $consulta_cliente = "SELECT * FROM tb_cliente WHERE cd_cliente = \"$idcliente\"";
                       $resultado_cliente = $mysqli->query($consulta_cliente);
-                      while($rw3 = $resultado_cliente->fetch_object())
+                      if($resultado_cliente->num_rows>0)
                       {
-                        $nome = $rw3->nm_cliente." ".$rw3->nm_sobrenome;
+                        while($rw3 = $resultado_cliente->fetch_object())
+                        {
+                          $nome = $rw3->nm_cliente." ".$rw3->nm_sobrenome;
+                        }
                       }
+                      else
+                      {
+                        $nome = "Não reservado";
+                        $checkin = $nome;
+                        $checkout = $nome;
+                      }
+                        
                     }
                     //Criar Rotina de Troca de Disponibilidade
 

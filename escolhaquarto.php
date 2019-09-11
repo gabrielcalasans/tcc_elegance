@@ -8,6 +8,7 @@
 
 		include 'conn.php';
 		include 'checarlogin.php';
+		include 'disponibilidade.php';
 
 		?>
 
@@ -50,7 +51,7 @@
 						if($_GET['id']!=null)
 						{
 							$codtipo=$_GET['id'];
-							$sql = "SELECT * FROM tb_quarto WHERE id_tipo=\"$codtipo\"";
+							$sql = "SELECT * FROM tb_quarto WHERE id_tipo=\"$codtipo\" AND id_status = 1 ";
 							$quarto = $mysqli->query($sql);
 							if($quarto)
 							{
@@ -82,7 +83,7 @@
 					}
 						else
 						{
-							$sql = "SELECT * FROM tb_quarto";
+							$sql = "SELECT * FROM tb_quarto WHERE id_status = 1";
 							$quarto = $mysqli->query($sql);
 							if($quarto)
 							{
@@ -144,49 +145,118 @@
 							//echo '<br>'.$checkout;
 							//echo '<p>'.$idquarto.'<p>';
 							$vlfinal=0;
-
-
-							date_default_timezone_set('America/Sao_paulo');
-							$regdate = date('Y-m-d h:i:s a', time());
-							//echo $regdate;
-
-							$data1 = new datetime($_POST['checkin']);
-							$data2 = new datetime($_POST['checkout']);
-							while($data1<=$data2)
-							{
-								$sqltipo="SELECT * FROM tb_quarto WHERE cd_quarto=\"$idquarto\"";
-								$resulsql = $mysqli->query($sqltipo);
-								while($valor = $resulsql->fetch_object())
-								{
-
-										$sqlpreco = "SELECT vl_quarto FROM tb_tipo WHERE cd_tipo=\"$valor->id_tipo\"";
-
-										$resulsql2 = $mysqli->query($sqlpreco);
-										while($dado = $resulsql2->fetch_object())
+							
+							$sqlquartoexistente = "SELECT * FROM `tb_reserva` WHERE id_quarto = \"$idquarto\" ORDER BY dt_checkout DESC	LIMIT 1";
+							$queryquarto = $mysqli->query($sqlquartoexistente);
+							if($queryquarto->num_rows>0)
+							{	
+								while($linhaquarto = $queryquarto->fetch_object())
 										{
-											//var_dump($dado->vl_quarto);
-											$vlfinal+=floatval ($dado->vl_quarto);
+											
+											$checkout_banco = $linhaquarto->dt_checkout;
+											if($checkin < $checkout_banco)
+											{
+												echo "<script>alert('Não foi possível reservar: Há um quarto já reservado nessa data');</script>";
+											}
 
-										}
+											else
+											{
+
+												date_default_timezone_set('America/Sao_paulo');
+												$regdate = date('Y-m-d h:i:s a', time());
+												//echo $regdate;
+
+												$data1 = new datetime($_POST['checkin']);
+												$data2 = new datetime($_POST['checkout']);
+												while($data1<=$data2)
+												{
+													$sqltipo="SELECT * FROM tb_quarto WHERE cd_quarto=\"$idquarto\"";
+													$resulsql = $mysqli->query($sqltipo);
+													while($valor = $resulsql->fetch_object())
+													{
+
+															$sqlpreco = "SELECT vl_quarto FROM tb_tipo WHERE cd_tipo=\"$valor->id_tipo\"";
+
+															$resulsql2 = $mysqli->query($sqlpreco);
+															while($dado = $resulsql2->fetch_object())
+															{
+																//var_dump($dado->vl_quarto);
+																$vlfinal+=floatval ($dado->vl_quarto);
+
+															}
+
+													}
+
+													$data1->modify('+1 day');
+
+												}
+												//echo $vlfinal;
+												$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$regdate')";
+												if(!$mysqli->query($sql)){
+													echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+												}
+												else{
+													$atualizarquarto = "UPDATE tb_quarto SET id_status = 2 WHERE cd_quarto =\"$idquarto\"";
+													if(!$mysqli->query($atualizarquarto)){
+														echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+													}
+													echo "<script type='text/javascript'>alert('Reserva Efetuada!!'); window.location.href='escolhaquarto.php'; </script>";
+												}
+											}
+
+									}
+							}
+							else
+							{
+												
+								date_default_timezone_set('America/Sao_paulo');
+								$regdate = date('Y-m-d h:i:s a', time());
+								//echo $regdate;
+
+								$data1 = new datetime($_POST['checkin']);
+								$data2 = new datetime($_POST['checkout']);
+								while($data1<=$data2)
+								{
+									$sqltipo="SELECT * FROM tb_quarto WHERE cd_quarto=\"$idquarto\"";
+									$resulsql = $mysqli->query($sqltipo);
+									while($valor = $resulsql->fetch_object())
+									{
+											$sqlpreco = "SELECT vl_quarto FROM tb_tipo WHERE cd_tipo=\"$valor->id_tipo\"";
+
+											$resulsql2 = $mysqli->query($sqlpreco);
+											while($dado = $resulsql2->fetch_object())
+											{
+												//var_dump($dado->vl_quarto);
+												$vlfinal+=floatval ($dado->vl_quarto);
+
+											}
+
+									}
+
+									$data1->modify('+1 day');
 
 								}
-
-								$data1->modify('+1 day');
-
+								//echo $vlfinal;
+								$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$regdate')";
+								if(!$mysqli->query($sql))
+								{
+									echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+								}
+								else
+								{
+									$atualizarquarto = "UPDATE tb_quarto SET id_status = 2 WHERE cd_quarto =\"$idquarto\"";
+													if(!$mysqli->query($atualizarquarto)){
+														echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+													}
+									echo "<script type='text/javascript'>alert('Reserva Efetuada!!!'); window.location.href='escolhaquarto.php'; </script>";
+								}
+				
 							}
-						//echo $vlfinal;
-						$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$regdate')";
-						if(!$mysqli->query($sql)){
-							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-						}
-						else{
-							echo "<script type='text/javascript'>alert('Reserva Efetuada, opções adicionais!!!'); window.location.href='garagem.php';</script>";
-						}
 
 					}
 					else
 					{
-						 echo 'Data inválida';
+						 echo "<script>alert('Data inválida, o check-in está maior que o check-out');</script>";
 					}
 
 

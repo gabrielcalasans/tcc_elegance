@@ -2,7 +2,7 @@
 <h1>Painel de controle</h1>
 <?php 
 	include('conn.php');	
-	$nmfuncionario = $_SESSION['nmfuncionario'];
+	$nmfuncionario = $_SESSION['nmadmin'];
 ?>
 <h3>Funcionário: <?php echo $nmfuncionario; ?></h3>
 <a href="ver_reserva.php"><button>Visualizar reservas</button></a><p>

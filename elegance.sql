@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 11-Set-2019 às 02:38
+-- Data de Criação: 11-Set-2019 às 06:51
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5658,7 +5658,7 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   PRIMARY KEY (`cd_cliente`),
   KEY `fk_id_profissao` (`id_profissao`),
   KEY `fk_cliente_endereco` (`id_endereco`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Extraindo dados da tabela `tb_cliente`
@@ -5668,7 +5668,8 @@ INSERT INTO `tb_cliente` (`cd_cliente`, `nm_cliente`, `nr_cpf`, `nm_email`, `nr_
 (8, 'Igor', '11111111111', 'igor@gmail.com', '41654865468', '', 222222222, 'SSP', 'Brasileira', '2019-09-10', '202cb962ac59075b964b07152d234b70', '2019-09-02 11:31:57', 2, 8, 'Oliveira', 1, 'images/avatar1.png'),
 (9, 'Thalya', '22222222222', 'thalyalinda@gmail.com', '48648646486', '', 161321321, 'SSP', 'Indiana', '2019-09-18', '202cb962ac59075b964b07152d234b70', '2019-09-02 14:07:18', 8, 9, 'Rangel', 2, 'images/avatar2.png'),
 (10, 'Lucas', '12312312312', 'lucas@gmail.com', '46586564844', '', 456498648, 'SSP', 'Brasileira', '2019-09-19', '202cb962ac59075b964b07152d234b70', '2019-09-02 14:50:02', 4, 10, 'Souza', 1, 'images/avatar1.png'),
-(11, 'Gilberto', '44444444444', 'gil@gilmail.com', '45645465456', '', 154545454, 'SSP', 'Brasileira', '2000-04-25', '202cb962ac59075b964b07152d234b70', '2019-09-11 02:21:13', 4, 12, 'Gil', 1, 'images/avatar1.png');
+(11, 'Gilberto', '44444444444', 'gil@gilmail.com', '45645465456', '', 154545454, 'SSP', 'Brasileira', '2000-04-25', '202cb962ac59075b964b07152d234b70', '2019-09-11 02:21:13', 4, 12, 'Gil', 1, 'images/avatar1.png'),
+(12, 'Gabriel', '5187882009', 'gcalasans71@gmail.com', '11111111111', '1111111111', 999999999, 'SSP', 'Brasileira', '2019-09-11', '81dc9bdb52d04dc20036dbd8313ed055', '2019-09-11 04:57:40', 1, 13, 'Calasans', 1, 'images/avatar1.png');
 
 -- --------------------------------------------------------
 
@@ -5712,7 +5713,7 @@ CREATE TABLE IF NOT EXISTS `tb_endereco` (
   `id_cidade` int(11) NOT NULL,
   PRIMARY KEY (`cd_endereco`),
   KEY `fk_cidade_endereco` (`id_cidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Extraindo dados da tabela `tb_endereco`
@@ -5730,7 +5731,8 @@ INSERT INTO `tb_endereco` (`cd_endereco`, `nm_endereco`, `nr_endereco`, `nr_cep`
 (9, 'Rua Meu Deus do Céu', 24, 48418616, 'Centro', 205),
 (10, 'Rua Oliva', 456, 16464586, 'Centro', 890),
 (11, 'Av. Tô Cansado', 123, 11744410, 'Centro', 704),
-(12, 'Av. Tô Cansado', 789, 54654564, 'Jequitiba', 80);
+(12, 'Av. Tô Cansado', 789, 54654564, 'Jequitiba', 80),
+(13, 'Rua dos Bobos', 0, 12345678, 'Jd Tupinambá', 80);
 
 -- --------------------------------------------------------
 
@@ -5936,27 +5938,21 @@ CREATE TABLE IF NOT EXISTS `tb_quarto` (
   PRIMARY KEY (`cd_quarto`),
   KEY `id_tipo` (`id_tipo`),
   KEY `id_status` (`id_status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Extraindo dados da tabela `tb_quarto`
 --
 
 INSERT INTO `tb_quarto` (`cd_quarto`, `nr_quarto`, `ds_quarto`, `id_tipo`, `id_status`, `id_pedido`) VALUES
-(1, 15, 'Quarto com banheira', 2, 2, 0),
+(1, 16, 'Quarto com banheira', 2, 2, 0),
 (2, 22, 'Quarto sem chao', 7, 1, 0),
-(3, 15, 'Quarto com banheira', 2, 2, 0),
-(4, 22, 'Quarto sem chao', 7, 1, 0),
 (5, 45, 'Quarto do frati', 3, 1, 0),
-(6, 34, 'Não tem descrição', 4, 2, 0),
-(7, 45, 'Quarto do frati', 3, 1, 0),
-(8, 34, 'Não tem descrição', 4, 2, 0),
+(6, 34, 'Não tem descrição', 4, 1, 0),
 (9, 80, 'Sem nada', 5, 1, 0),
-(10, 44, 'Quarto sem cama', 6, 2, 0),
-(11, 80, 'Sem nada', 5, 1, 0),
-(12, 44, 'Quarto sem cama', 6, 2, 0),
-(13, 32, 'Quarto com dois aparelhos de ar condicionado', 7, 2, 0),
-(14, 32, 'Quarto com dois aparelhos de ar condicionado', 7, 2, 0);
+(14, 32, 'Quarto com dois aparelhos de ar condicionado', 7, 1, 0),
+(15, 1234, 'Quarto de frente pro mar', 2, 1, 0),
+(16, 600, 'Quarto com jacuzi', 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -5974,21 +5970,7 @@ CREATE TABLE IF NOT EXISTS `tb_reserva` (
   `dthr_registro` datetime NOT NULL,
   PRIMARY KEY (`cd_reserva`),
   KEY `fk_id_quarto` (`id_quarto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
-
---
--- Extraindo dados da tabela `tb_reserva`
---
-
-INSERT INTO `tb_reserva` (`cd_reserva`, `id_quarto`, `dt_checkin`, `dt_checkout`, `vl_reserva`, `id_cliente`, `dthr_registro`) VALUES
-(1, 1, '2019-08-28', '2019-08-31', '756.00', 1, '0000-00-00 00:00:00'),
-(2, 2, '2019-08-07', '2019-08-23', '0.00', 1, '0000-00-00 00:00:00'),
-(3, 1, '2019-08-21', '2019-08-30', '1890.00', 1, '0000-00-00 00:00:00'),
-(4, 1, '2019-08-21', '2019-08-30', '1890.00', 1, '0000-00-00 00:00:00'),
-(5, 3, '2019-08-12', '2019-08-15', '756.00', 1, '2019-08-12 11:32:10'),
-(6, 3, '2019-08-12', '2019-08-15', '756.00', 1, '2019-08-12 11:34:39'),
-(7, 1, '2019-08-22', '2019-08-29', '1512.00', 1, '2019-08-12 11:34:54'),
-(8, 6, '2019-09-28', '2019-10-26', '0.00', 8, '2019-09-10 10:28:46');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
 
 -- --------------------------------------------------------
 

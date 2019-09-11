@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <?php
-include('conn.php');
+//include('conn.php');
 date_default_timezone_set('America/Sao_paulo');
 //criar rotina para verificar disponibilidade td vez que entrar na página
 //Criar laço para percorrer a tabela reserva checando os ultimos checkouts
@@ -10,7 +10,7 @@ date_default_timezone_set('America/Sao_paulo');
     while($linhas = $resultado_linhas->fetch_object())
     {
       $nrlinhas = $linhas->qtde;
-      echo $nrlinhas.'<br>';
+      //echo $nrlinhas.'<br>';
     }
     for($c = 1 ; $c<=$nrlinhas ; $c++)
     {
@@ -21,7 +21,7 @@ date_default_timezone_set('America/Sao_paulo');
               $checkout = $inf->dt_checkout;
               $hoje = date('Y-m-d');
               $idquarto = $inf->id_quarto;
-              echo $checkout." Quarto : ".$idquarto.' '. $hoje .' ';
+              //echo $checkout." Quarto : ".$idquarto.' '. $hoje .' ';
 
               if($checkout < $hoje)
                {
@@ -35,7 +35,7 @@ date_default_timezone_set('America/Sao_paulo');
                     }
                   else
                     {
-                      echo "Disponível<br>";
+                      //echo "Disponível<br>";
                     }
 
                }
@@ -51,7 +51,7 @@ date_default_timezone_set('America/Sao_paulo');
                   }
                 else
                   {
-                    echo "Não Disponível<br>";
+                   // echo "Não Disponível<br>";
                   }
 
                 }
