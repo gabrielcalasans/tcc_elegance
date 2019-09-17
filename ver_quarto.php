@@ -41,27 +41,35 @@
                     //Realizar consulta certo
                     $consulta_reserva = "SELECT * FROM tb_reserva WHERE id_quarto = \"$codquarto\" ORDER BY dt_checkout DESC LIMIT 1";
                     $resultado_reserva = $mysqli->query($consulta_reserva);
-                    while($rw2 = $resultado_reserva->fetch_object())
+                    if($resultado_reserva->num_rows>0)
                     {
-                      $checkin = $rw2->dt_checkin;
-                      $checkout = $rw2->dt_checkout;
-                      $idcliente = $rw2->id_cliente;
-                      $consulta_cliente = "SELECT * FROM tb_cliente WHERE cd_cliente = \"$idcliente\"";
-                      $resultado_cliente = $mysqli->query($consulta_cliente);
-                      if($resultado_cliente->num_rows>0)
-                      {
-                        while($rw3 = $resultado_cliente->fetch_object())
+                        while($rw2 = $resultado_reserva->fetch_object())
                         {
-                          $nome = $rw3->nm_cliente." ".$rw3->nm_sobrenome;
-                        }
-                      }
-                      else
-                      {
-                        $nome = "Não reservado";
-                        $checkin = $nome;
-                        $checkout = $nome;
-                      }
-                        
+                          $checkin = $rw2->dt_checkin;
+                          $checkout = $rw2->dt_checkout;
+                          $idcliente = $rw2->id_cliente;
+                          $consulta_cliente = "SELECT * FROM tb_cliente WHERE cd_cliente = \"$idcliente\"";
+                          $resultado_cliente = $mysqli->query($consulta_cliente);
+                          if($resultado_cliente->num_rows>0)
+                          {
+                            while($rw3 = $resultado_cliente->fetch_object())
+                            {
+                              $nome = $rw3->nm_cliente." ".$rw3->nm_sobrenome;
+                            }
+                          }
+                          else
+                          {
+                            $nome = "Não reservado";
+                            $checkin = $nome;
+                            $checkout = $nome;
+                          }
+                        }                        
+                    }
+                    else
+                    {
+                            $nome = "Não reservado";
+                            $checkin = $nome;
+                            $checkout = $nome;
                     }
                     //Criar Rotina de Troca de Disponibilidade
 
@@ -78,7 +86,14 @@
 
 
       $div="<div><fieldset><legend>Informações Quarto</legend>Cód. Quarto: ".$codquarto." Número: ".$nrquarto."<p> Status: ".$status."<p> Descrição:".$dsquarto." <p> Reservado por:".$nome."<p> Check-in: ".$checkin. "<p> Check-out: ".$checkout;
+      if($status == "Disponível" || $nome == "Não reservado" )
+      {
       $botoes = "<p><button><a href=ver_quarto.php?idquarto_del=".$codquarto.">Excluir</a></button> <button><a href=alteracao_quarto.php?idquarto=".$codquarto.">Alterar</a></button></fieldset></div>";
+      }
+      else
+      {
+      $botoes = "<p><b>Não é possível alterar ou excluir um quarto com reserva ativa</b><p><button disabled>Excluir</button> <button disabled>Alterar</button></fieldset></div>";
+      }
       echo $div.$botoes;
 
 
