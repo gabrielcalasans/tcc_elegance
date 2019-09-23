@@ -43,6 +43,10 @@
                 width: 200px;
                 height: 200px;
             }
+
+            .dropdown-content li > a, .dropdown-content li > span {
+                color: #fbc02d !important;
+            }
 	    </style>
 	</head>
 	<body>
