@@ -44,6 +44,10 @@
             #historia{
                 width: 80%;
             }
+
+            .dropdown-content li > a, .dropdown-content li > span {
+                color: #fbc02d !important;
+            }
         </style>
     </head>
 	<body>
