@@ -1,6 +1,5 @@
 <?php include('header.php'); setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese'); date_default_timezone_set('America/Sao_Paulo'); ?>
 	<title>Contato | Hospedagem Elegance</title>
-	</header>
 	<style type="text/css">
             body{
                 background-color: #FFF7D9;
@@ -79,21 +78,48 @@
             #reserva{
                 margin-top: 9%; 
             }
+
             #email1{
             	margin-left: 10%;
             	margin-top: -8%;
             }
+
             #instagram{
             	margin-left: 10%;
             	margin-top: -8%;
             }
+
             #facebook{
             	margin-left: 10%;
             	margin-top: -8%;
             }
+
+            [type="radio"]:checked + span:after,
+            [type="radio"].with-gap:checked + span:before,
+            [type="radio"].with-gap:checked + span:after {
+              border: 2px solid #fbc02d;
+            }
+
+            [type="radio"]:checked + span:after,
+            [type="radio"].with-gap:checked + span:after {
+              background-color: #fbc02d;
+            }
+
+            .dropdown-content li > a, .dropdown-content li > span {
+                color: #fbc02d !important;
+            }
+
+            .input-field textarea:focus + label {
+                color: #fbc02d !important;
+            }
+            .input-field textarea:focus {
+                border-bottom: 1px solid #fbc02d !important;
+                box-shadow: 0 1px 0 0 #fbc02d !important
+            }
         </style>
 		<?php include('conn.php'); ?>
-        <body>
+    </head
+    <body>
         <?php include('menu.php'); ?>
 		<div class="container-fluid" style="margin-left: -11px;">
         <div class="row">
