@@ -9,6 +9,13 @@
             	background-color: #FFF7D9;
             }
             
+            #panel{
+                transition: 0.4s;
+            }
+
+            #panel:hover{
+                box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 9px 40px 0 rgba(0,0,0,0.19);
+            }
 	</style>
 	<?php
 		include('conn.php');
@@ -39,8 +46,8 @@
                
             </div>
             <div class="modal-footer">
-              <center><a href="cliente.php?id=0" title="Sim" class="btn green modal-close waves-effect waves-green">Sim</a>
-              <a href="#!" title="Não" class="btn red modal-close waves-effect waves-green">Não</a></center>
+              <center><a href="cliente.php?id=0" title="Sim" class="btn modal-close waves-effect waves-light green accent-4">Sim</a>
+              <a href="#!" title="Não" class="btn modal-close waves-effect waves-light red">Não</a></center>
             </div>
         </div>
 		<nav class="grey darken-2">

@@ -9,6 +9,13 @@
             	background-color: #FFF7D9;
             }
             
+            #panel{
+                transition: 0.4s;
+            }
+
+            #panel:hover{
+                box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 9px 40px 0 rgba(0,0,0,0.19);
+            }
 	</style>
 	<?php
 		include('conn.php');
