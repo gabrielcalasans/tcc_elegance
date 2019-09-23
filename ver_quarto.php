@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
+<?php include('header.php'); ?>
+        <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 		    <title>Visualizar Quartos | Pousada Hospedagem Elegance</title>
         <?php
           include('conn.php');
@@ -10,16 +8,35 @@
     			date_default_timezone_set('UTC');
     		?>
 		<style type="text/css">
-		</style>
+      body{
+        background-color: #758DA3; 
+      }
+      .mini{
+      width: 80px;
+      height: 50px;
+      }
+      #logo{
+        width: 9%;
+      }
+      .qua{
+      font-family: 'Lobster', cursive;
+      }
+      b{
+        font-size: 15px;
+      }
+    </style>
       <?php
           $consulta = "SELECT * FROM tb_quarto";
           $executar = $mysqli->query($consulta);
-
-
       ?>
 	</head>
 	<body>
-    <h1>Quarto</h1><a href="painel_admin.php"><button>Painel de controle</button></a> <a href="cadastroquarto.php"><button>Cadastrar novo quarto</button></a>
+    <nav class="black darken-2">
+      <div class="nav-wrapper" align="center">
+        <a href="painel_admin.php"><img id="logo" src="images/logotipo2.png"></a>
+      </div>      
+    </nav>
+    <center><div class="qua"><h1>Quarto</h1></div><a class="waves-effect waves-light teal darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a> <a href="cadastroquarto.php" class="waves-effect waves-light teal darken-3 btn">Cadastrar novo quarto</a></p></center>
     <?php
 
       while($row = $executar->fetch_object())
@@ -85,14 +102,14 @@
 
 
 
-      $div="<div><fieldset><legend>Informações Quarto</legend>Cód. Quarto: ".$codquarto." Número: ".$nrquarto."<p> Status: ".$status."<p> Descrição:".$dsquarto." <p> Reservado por:".$nome."<p> Check-in: ".$checkin. "<p> Check-out: ".$checkout;
+      $div="<div class='container'><div><div class='card-panel' style='width: 100%;'><legend><b><h3>Informações do Quarto</h3></b></legend> <b> Cód. Quarto: </b>".$codquarto." <p><b> Número: </b> ".$nrquarto."<p><b> Status: </b> ".$status."<p><b> Descrição: </b>".$dsquarto." <p><b> Reservado por: </b>".$nome."<p><b> Check-in: </b>".$checkin. "<p><b> Check-out: </b>".$checkout;
       if($status == "Disponível" || $nome == "Não reservado" )
       {
-      $botoes = "<p><button><a href=ver_quarto.php?idquarto_del=".$codquarto.">Excluir</a></button> <button><a href=alteracao_quarto.php?idquarto=".$codquarto.">Alterar</a></button></fieldset></div>";
+      $botoes = "<p><a class='waves-effect waves-light red accent-4 btn' href=ver_quarto.php?idquarto_del=".$codquarto.">Excluir</a> <a class='waves-effect waves-light orange btn' href=alteracao_quarto.php?idquarto=".$codquarto.">Alterar</a></div></div></div>";
       }
       else
       {
-      $botoes = "<p><b>Não é possível alterar ou excluir um quarto com reserva ativa</b><p><button disabled>Excluir</button> <button disabled>Alterar</button></fieldset></div>";
+      $botoes = "<p><b>Não é possível alterar ou excluir um quarto com reserva ativa</b><p><button disabled>Excluir</button> <button disabled>Alterar</button></div></div></div>";
       }
       echo $div.$botoes;
 

@@ -8,7 +8,7 @@
 			width: 9%;
 		}
 		body{
-			background-color: #FFF7D9;
+			background-color: #758DA3;
 		}
 		#lista{
 			min-height: 600px; 

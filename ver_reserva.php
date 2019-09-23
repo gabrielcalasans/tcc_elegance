@@ -25,7 +25,7 @@
         </div>
       </nav>
     </center>
-    <center><h1>Reservas</h1><a href="painel_admin.php" class="waves-effect waves-light btn">Painel de controle</a></center>
+    <center><h1>Reservas</h1><a href="painel_admin.php" class="waves-effect waves-light teal darken-3 btn">Painel de controle</a></center>
     <?php
 
     while($row = $executar->fetch_object())
