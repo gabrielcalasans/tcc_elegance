@@ -11,10 +11,18 @@
             
             #panel{
                 transition: 0.4s;
+                width: 80%;
             }
 
             #panel:hover{
                 box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 9px 40px 0 rgba(0,0,0,0.19);
+            }
+
+            .promo-caption{
+                font-size: 1.2rem;
+                font-weight: 500;
+                margin-top: 5px;
+            	margin-bottom: 0;
             }
 	</style>
 	<?php
@@ -67,7 +75,7 @@
 		<div class="container">
 	        <div class="row">
 	        	<div class="card-panel col s12">
-		    
+		    	<center>
 				    <div class="col s6">
 				    	<a href="escolhaquarto.php"><div id="panel" class="card-panel yellow darken-3">
 		                    <span>
@@ -90,7 +98,7 @@
 		                    </span>
 		                </div></a>
 				    </div>
-		     
+		     	</center>
 		        </div>
 	        </div>
 		</div>
