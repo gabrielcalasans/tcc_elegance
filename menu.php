@@ -17,8 +17,8 @@
                
             </div>
             <div class="modal-footer">
-              <center><a href="index.php?id=1" title="Sim" class="btn green modal-close waves-effect waves-green">Sim</a>
-              <a href="#!" title="Não" class="btn red modal-close waves-effect waves-green">Não</a></center>
+              <center><a href="index.php?id=1" title="Sim" class="btn modal-close waves-effect waves-light green accent-4">Sim</a>
+              <a href="#!" title="Não" class="btn modal-close waves-effect waves-light red">Não</a></center>
             </div>
         </div>
 
