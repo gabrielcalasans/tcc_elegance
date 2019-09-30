@@ -1,6 +1,7 @@
 <?php include('header.php'); ?>
 		<title>Cliente | Hospedagem Elegance</title>
 	</head>
+	<script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
 	<style type="text/css">
 		#logo{
                 width: 9%;
@@ -67,6 +68,7 @@
 						inner join tb_cliente cli on ( ende.cd_endereco = cli.id_endereco )
 						inner join tb_cidade cid on ( cid.cd_cidade = ende.id_cidade )
 						inner join tb_estado est on ( est.cd_estado = cid.id_estado )
+						inner join tb_profissao prof on ( cli.id_profissao = prof.cd_profissao )
 						where cli.cd_cliente = ".$_SESSION['cliente']
 						;
 				$result = $mysqli->query($sql);
@@ -84,7 +86,7 @@
 	               <div class = "file-field input-field">
 	                  <div class = "btn-small waves-effect waves-light orange darken-2">
 	                     <span>Procurar fotos<i class='material-icons right'>search</i></span>
-	                     <input type="file" id="img" name="img[]"/>
+	                     <input class="inpute" type="file" id="img" name="img[]"/>
 	                  </div>
 	                  <div class = "file-path-wrapper">
 	                     <input id="img2" class = "file-path" type = "text" placeholder = "Carregue sua foto" />
@@ -93,10 +95,10 @@
 				</div>
 				<br>
 				<div class="input-field col s6">
-					<input class="alterar" id="nome" type="text" name="nome" readonly value="<?php echo $row->nm_cliente ?>"><label for="nome">Nome</label></p>
+					<input class="alterar inpute" id="nome" type="text" name="nome" readonly value="<?php echo $row->nm_cliente ?>"><label for="nome">Nome</label></p>
 				</div>
 	        	<div class="input-field col s6">
-					<input class="alterar" id="sobrenome" type="text" name="sobrenome" readonly value="<?php echo $row->nm_sobrenome ?>"><label for="sobrenome">Sobrenome</label></p>
+					<input class="alterar inpute" id="sobrenome" type="text" name="sobrenome" readonly value="<?php echo $row->nm_sobrenome ?>"><label for="sobrenome">Sobrenome</label></p>
 				</div>
 				<div class="input-field col s12" align="center">
 					Gênero:<p>
@@ -119,36 +121,150 @@
 					    	</p>
 				</div>
 	        	<div class="input-field col s4">
-					<input class="alterar" id="cpf" type="text" name="cpf" readonly value="<?php echo $row->nr_cpf; ?>"><label for="cpf">CPF</label></p>
+					<input class="alterar inpute" id="cpf" type="text" name="cpf" readonly value="<?php echo $row->nr_cpf; ?>"><label for="cpf">CPF</label></p>
 				</div>
 	        	<div class="input-field col s4">
-					<input class="alterar" id="rg" type="text" name="rg" readonly value="<?php echo $row->nr_rg ?>"><label for="rg">RG</label></p>
+					<input class="alterar inpute" id="rg" type="text" name="rg" readonly value="<?php echo $row->nr_rg ?>"><label for="rg">RG</label></p>
 				</div>
 				<div class="input-field col s4">
-					<input class="alterar" id="orgao" type="text" name="orgao" readonly value="<?php echo $row->ds_orgao ?>"><label for="orgao">Órgão de expedição</label></p>
+					<input class="alterar inpute" id="orgao" type="text" name="orgao" readonly value="<?php echo $row->ds_orgao ?>"><label for="orgao">Órgão de expedição</label></p>
 				</div>
-				<div class="input-field col s6">
-					<input class="alterar" id="cell" type="text" name="cell" readonly value="<?php echo $row->nr_celular ?>"><label for="cell">Celular</label></p>
+				<div class="input-field col s4 ">
+					<input class="alterar inpute" id="email" type="email" name="email" readonly value="<?php echo $row->nm_email ?>"><label for="email">E-mail</label></p>
 				</div>
-				<div class="input-field col s6 ">
-					<input class="alterar" id="tel" type="text" name="tel" readonly value="<?php echo $row->nr_telefone ?>"><label for="tel">Telefone</label></p>
+				<div class="input-field col s4">
+					<input class="alterar inpute" id="cell" type="text" name="cell" readonly value="<?php echo $row->nr_celular ?>"><label for="cell">Celular</label></p>
+				</div>
+				<div class="input-field col s4 ">
+					<input class="alterar inpute" id="tel" type="text" name="tel" readonly value="<?php echo $row->nr_telefone ?>"><label for="tel">Telefone</label></p>
+				</div>
+				<div class="input-field col s3 ">
+					<input class="alterar inpute" id="nasc" type="date" name="nasc" readonly value="<?php echo $row->dt_nascimento ?>"><label for="nasc">Data de Nascimento</label></p>
+				</div>
+				<div class="input-field col s3 ">
+					<input class="alterar inpute" id="nacio" type="text" name="nacio" readonly value="<?php echo $row->ds_nacionalidade ?>"><label for="nacio">Nacionalidade</label></p>
+				</div>
+				<div class="input-field col s3 ">
+					<select name="profissao" class="inpute">
+						<?php
+							$sql2 = "SELECT * from tb_profissao order by nm_profissao asc";
+							$result2 = $mysqli->query($sql2);
+							while($row2 = $result2->fetch_object()){
+								if($row2->cd_profissao == $row->id_profissao){
+									echo "<option value='".$row2->cd_profissao."' selected>".$row2->nm_profissao."</option>";
+								}
+								else{
+									echo "<option value='".$row2->cd_profissao."'>".$row2->nm_profissao."</option>";
+								}
+							}
+						?>
+					</select>
+				</div>
+				<div class="input-field col s3 ">
+					<input class="alterar inpute" id="profi" type="text" name="profi" readonly><label for="profi">Outra</label></p>
+				</div>
+				<div class="input-field col s12 ">
+					<center><button id="alterar" class="btn-small red darken-2" title="Editar">Alterar dados pessoais<i class='material-icons right'>edit</i></button></center>
 				</div>
 	        </div>
-	        <button id="alterar" class="btn-small red darken-2" title="Editar">Alterar dados<i class='material-icons right'>edit</i></button>
+	        
+	        <div class="row card-panel">
+				<div class="input-field col s6">
+					<input class="alterar inpute" id="cpf" type="text" name="cpf" readonly value="<?php echo $row->nm_endereco; ?>"><label for="cpf">Endereço</label></p>
+				</div>
+	        	<div class="input-field col s3">
+					<input class="alterar inpute" id="numero" type="text" name="numero" readonly value="<?php echo $row->nr_endereco ?>"><label for="numero">Número</label></p>
+				</div>
+				<div class="input-field col s3">
+					<input class="alterar inpute" id="cep" type="text" name="cep" readonly value="<?php echo $row->nr_cep ?>"><label for="cep">CEP</label></p>
+				</div>
+				<div class="input-field col s4">
+					<select class="inpute" id="estado" name="estado" required="">
+						<option value="" disabled selected>Estado</option>
+						<?php
+							$sql4 = "SELECT * from tb_estado order by nm_estado asc";
+							$result4 = $mysqli->query($sql4);
+							while($row4 = $result4->fetch_object()){
+								echo "<option value='".$row4->cd_estado."'>".$row4->nm_estado."</option>";
+							}
+						?>
+					</select>
+				</div>
+				<div class="input-field col s4">
+					<select class="inpute" id="cidade" name="cidade" required="">
+						<option value="" disabled selected>Cidade</option>
+					</select>
+				</div>
+				<div class="input-field col s4">
+					<input class="alterar inpute" id="bairro" type="text" name="bairro" readonly value="<?php echo $row->nm_bairro ?>"><label for="bairro">Bairro</label></p>
+				</div>
+				<div class="input-field col s12">
+					<center><button id="alterar" class="btn-small red darken-2" title="Editar">Alterar dados de endereço<i class='material-icons right'>edit</i></button></center>
+				</div>
+	        </div>
+	        <div class="row card-panel musenha">
+	        	<div class="input-field col s4">
+					<input class="inpute" id="senha" type="password" name="senha" value="" ><label for="senha">Senha antiga</label></p>
+				</div>
+	        	<div class="input-field col s4">
+					<input class="inpute" id="senha" type="password" name="senha" value="" ><label for="senha">Nova senha</label></p>
+				</div>
+				<div class="input-field col s4">
+					<input class="inpute" id="senha1" type="password" name="senha1" value="" ><label for="senha1">Confirmar senha</label></p>
+				</div>
+	        </div>
+	        
+	        
+	        <center><button id="botaosenha" class="btn orange darken-2" title="Alterar senha">Alterar senha<i class='material-icons right'>edit</i></button>
+	        <button id="efetuar" type="submit" class="btn darken-2" title="Efetuar alterações" disabled>Efetuar alterações</button></center>
 		</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script>
             $(document).ready(function(){
             	$("#procurar").hide();
+            	$(".inpute").change(function(){
+            		$("#efetuar").removeAttr('disabled');
+            	});
+            	$(".musenha").hide();
+            	$("#botaosenha").click(function(){
+            		$(".musenha").show(700);
+            		$("#botaosenha").hide();
+            	});
             	$("#editar").click(function(){
-            		$("#procurar").show();
+            		$("#procurar").show(700);
             		$("#edit").hide();
             	});
             	$("#alterar").click(function(){
             		$(".alterar").removeAttr('readonly');
             		$(".radioal").removeAttr('disabled');
             	});
+            	$("#cpf").mask("999.999.999-99");
+			    $("#cep").mask("99999-999");
+			    $("#cell").mask("(99) 99999-9999");
+			    $("#tel").mask("(99) 9999-9999");
+			    $("#rg").mask("99.999.999-9");
+			    $("#cadastrar").click(function(){
+					$("#cpf").val($("#cpf").cleanVal());
+					$("#cep").val($("#cep").cleanVal());
+					$("#tel").val($("#tel").cleanVal());
+					$("#celular").val($("#celular").cleanVal());
+					$("#rg").val($("#rg").cleanVal());
+				});
+				$(document).on('change', '#estado', function(){
+			        var estado = {estado: $("#estado").val()};
+			        $.ajax({
+			            type: 'POST',
+			            url: 'php.php',
+			            data: estado,
+			            success: function(response){
+			                console.log(response);
+			                $("#cidade").html(response);
+			                $('select').formSelect();
+			            }
+		        	});
+		    	});
                 $('.modal').modal();
+                $('select').formSelect();
             });
         </script>
 	</body>
