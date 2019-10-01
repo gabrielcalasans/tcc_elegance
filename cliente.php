@@ -234,9 +234,13 @@
             	$("#senha1").change(function(){
 					var s1 = $("#senha").val();
 					var s2 = $("#senha1").val();
+					var s3 = $("#senha2").val();
 					if(s1 == s2){
 						if(s1){
 							$(".a2").html("Senhas correspondentes <i class='tiny material-icons left'>check</i>");
+							if(s3 == s2){
+								$(".a2").html("Nova senha é igual a atual <i class='tiny material-icons left'>clear</i>");
+							}
 						}
 						else{
 							$(".a2").html(null);
