@@ -164,19 +164,19 @@
 					<input class="alterar inpute" id="profi" type="text" name="profi" readonly><label for="profi">Outra</label></p>
 				</div>
 				<div class="input-field col s12 ">
-					<center><button id="alterar" class="btn-small red darken-2" title="Editar">Alterar dados pessoais<i class='material-icons right'>edit</i></button></center>
+					<center><button id="alterarpes" class="btn-small red darken-2" title="Editar">Alterar dados pessoais<i class='material-icons right'>edit</i></button></center>
 				</div>
 	        </div>
 	        
 	        <div class="row card-panel">
 				<div class="input-field col s6">
-					<input class="alterar inpute" id="cpf" type="text" name="cpf" readonly value="<?php echo $row->nm_endereco; ?>"><label for="cpf">Endereço</label></p>
+					<input class="alterar1 inpute" id="ende" type="text" name="ende" readonly value="<?php echo $row->nm_endereco; ?>"><label for="ende">Endereço</label></p>
 				</div>
 	        	<div class="input-field col s3">
-					<input class="alterar inpute" id="numero" type="text" name="numero" readonly value="<?php echo $row->nr_endereco ?>"><label for="numero">Número</label></p>
+					<input class="alterar1 inpute" id="numero" type="text" name="numero" readonly value="<?php echo $row->nr_endereco ?>"><label for="numero">Número</label></p>
 				</div>
 				<div class="input-field col s3">
-					<input class="alterar inpute" id="cep" type="text" name="cep" readonly value="<?php echo $row->nr_cep ?>"><label for="cep">CEP</label></p>
+					<input class="alterar1 inpute" id="cep" type="text" name="cep" readonly value="<?php echo $row->nr_cep ?>"><label for="cep">CEP</label></p>
 				</div>
 				<div class="input-field col s4">
 					<select class="inpute" id="estado" name="estado" required="">
@@ -196,21 +196,30 @@
 					</select>
 				</div>
 				<div class="input-field col s4">
-					<input class="alterar inpute" id="bairro" type="text" name="bairro" readonly value="<?php echo $row->nm_bairro ?>"><label for="bairro">Bairro</label></p>
+					<input class="alterar1 inpute" id="bairro" type="text" name="bairro" readonly value="<?php echo $row->nm_bairro ?>"><label for="bairro">Bairro</label></p>
 				</div>
 				<div class="input-field col s12">
-					<center><button id="alterar" class="btn-small red darken-2" title="Editar">Alterar dados de endereço<i class='material-icons right'>edit</i></button></center>
+					<center><button id="alterarende" class="btn-small red darken-2" title="Editar">Alterar dados de endereço<i class='material-icons right'>edit</i></button></center>
 				</div>
 	        </div>
 	        <div class="row card-panel musenha">
-	        	<div class="input-field col s4">
-					<input class="inpute" id="senha" type="password" name="senha" value="" ><label for="senha">Senha antiga</label></p>
+	        	<div class="input-field col s3">
+					<input class="inpute" id="senha2" type="password" name="senhatual" value="" ><label for="senha">Senha atual</label><span class="helper-text a1" data-error="wrong" data-success="right"></span>
 				</div>
-	        	<div class="input-field col s4">
-					<input class="inpute" id="senha" type="password" name="senha" value="" ><label for="senha">Nova senha</label></p>
+				<div class="input-field col s1">
+					<a class="btn" id="senhatual" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
 				</div>
-				<div class="input-field col s4">
-					<input class="inpute" id="senha1" type="password" name="senha1" value="" ><label for="senha1">Confirmar senha</label></p>
+	        	<div class="input-field col s3">
+					<input class="inpute" id="senha" type="password" name="senha" value="" ><label for="senha">Nova senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
+				</div>
+				<div class="input-field col s1">
+					<a class="btn" id="novasenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
+				</div>
+				<div class="input-field col s3">
+					<input class="inpute" id="senha1" type="password" name="senha1" value="" ><label for="senha1">Confirmar senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
+				</div>
+				<div class="input-field col s1">
+					<a class="btn" id="confirmarsenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 	        </div>
 	        
@@ -222,8 +231,43 @@
 		<script>
             $(document).ready(function(){
             	$("#procurar").hide();
+            	$("#senha1").change(function(){
+					var s1 = $("#senha").val();
+					var s2 = $("#senha1").val();
+					if(s1 == s2){
+						if(s1){
+							$(".a2").html("Senhas correspondentes <i class='tiny material-icons left'>check</i>");
+						}
+						else{
+							$(".a2").html(null);
+						}
+					}
+					else{
+						$(".a2").html("Senhas não correspondentes <i class='tiny material-icons left'>clear</i>");
+					}
+				});
+				$("#senha2").change(function(){
+					var senhatual = {senhatual: $("#senha2").val()};
+			        $.ajax({
+			            type: 'POST',
+			            url: 'php.php',
+			            data: senhatual,
+			            success: function(response){
+			               $(".a1").html(response);
+			            }
+		        	});
+				});
             	$(".inpute").change(function(){
             		$("#efetuar").removeAttr('disabled');
+            	});
+            	$("#novasenha").click(function(){
+            		$("#senha").attr('type', 'text');
+            	});
+            	$("#confirmarsenha").click(function(){
+            		$("#senha1").attr('type', 'text');
+            	});
+            	$("#senhatual").click(function(){
+            		$("#senha2").attr('type', 'text');
             	});
             	$(".musenha").hide();
             	$("#botaosenha").click(function(){
@@ -234,9 +278,12 @@
             		$("#procurar").show(700);
             		$("#edit").hide();
             	});
-            	$("#alterar").click(function(){
+            	$("#alterarpes").click(function(){
             		$(".alterar").removeAttr('readonly');
             		$(".radioal").removeAttr('disabled');
+            	});
+            	$("#alterarende").click(function(){
+            		$(".alterar1").removeAttr('readonly');
             	});
             	$("#cpf").mask("999.999.999-99");
 			    $("#cep").mask("99999-999");
