@@ -12,6 +12,11 @@
  ?>
  <?php include('header.php'); ?>
 
+<header>
+		<title>
+			Cadastrar Tipos de Quarto | Elegance
+		</title>
+</header>
 
 <style type="text/css">
 	#lista
@@ -86,7 +91,9 @@
 		</div>
 		Valor R$:<br>
 		<label>Adicione o valor do tipo do quarto</label>
-		<input type="number" required id="dinheiro" name="dinheiro" class="dinheiro form-control" style="display:inline-block" /><p>
+		<div class="row">
+			<input class="col s2" type="number" required id="dinheiro" name="dinheiro" class="dinheiro form-control" style="display:inline-block" /><p>
+		</div>
 		Imagem:<br>
 		<label>Adicione fotos na galeria</label>
 	               <div class = "file-field input-field">
@@ -95,13 +102,14 @@
 	                     <input type="file" id="img" name="imagem" accept="image/x-png,image/gif,image/jpeg"  />
 	                  </div>
 	                  
-		          <!-- ARRUMAR A QUESTÃO DO MODAL E DAS FOTOS -->    
-	     <br><br><br><p>            
+		          <!-- ARRUMAR A QUESTÃO DOS NUMEROS ALEATORIOS -->    
+	           
 
- <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
-    <i class="material-icons right">send</i>
-  </button>
+		 <?php include('modal-imagem.php'); ?>
+		<br><br><br><p>
 
+ <button class="btn waves-effect waves-light" type="submit" name="action">Enviar<i class="material-icons right">send</i></button>
+	
 	</fieldset>
 
 
@@ -116,7 +124,7 @@
 </form>
 
 
-<?php include('testagem.html'); ?>
+
 
 		<script>
 			$(document).ready(function(){
@@ -126,22 +134,7 @@
 					$('#lista').append('•'+$('#descricao').val()+'<br> ' );				
 					
 					
-				});
-
-			$('input[type="file"]').on('change', function() {
-			  var files = this.files;
-			  $(files).each(function(index, file) {
-			    // Still don't know why you want this...
-			    var fakepath = 'C:\\fakepath\\';
-			    $('#imgespaco').append('' +
-			      // build  a fake path string for each File
-			      '<p class="path"></p>' +
-			      // all that is really needed to display the image
-			      '<img id="imgcolocada" src="'+URL.createObjectURL(file)+'">' +
-			     '');
-			    $('#imgcolocada').attr('class', 'form-control');
-			  });
-			});
+				});	
 
 
 
