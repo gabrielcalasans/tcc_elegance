@@ -1,6 +1,10 @@
 <meta charset="utf-8">
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
 
 <?php include('conn.php');
 	  date_default_timezone_set('America/Sao_paulo');
@@ -8,12 +12,12 @@
  ?>
  <?php include('header.php'); ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <style type="text/css">
 	#lista
 	{
-		width: 50%;
-		height: 70.5%;
+		width: 100%;
+		height: 90.5%;
 		position: relative;
 	}
 	fieldset
@@ -26,8 +30,9 @@
 	}
 	#listagem
 	{
-		width: 40%;
-		height:70.5%;
+		width: 20%;
+		height:75.5%;
+		margin-left: 5px;
 	}
 	#func
 	{
@@ -55,7 +60,14 @@
 		position: relative;
 		margin-top:-6%;
 	}
+	#formulario
+	{
 
+	}
+	body
+	{
+		padding: 15px;
+	}
 
 	
 	
@@ -63,7 +75,7 @@
 </style>
 
 <form method="POST" enctype="multipart/form-data">
-	<fieldset id="formulario">
+	<fieldset class="card" id="formulario">
 		Nome do Tipo: <br>
 		<label>Adicione o nome do tipo  </label>
 		<input type="text" required name="tipo"><p>
@@ -83,7 +95,7 @@
 	                     <input type="file" id="img" name="imagem" accept="image/x-png,image/gif,image/jpeg"  />
 	                  </div>
 	                  
-		              
+		          <!-- ARRUMAR A QUESTÃO DO MODAL E DAS FOTOS -->    
 	     <br><br><br><p>            
 
  <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
@@ -93,16 +105,22 @@
 	</fieldset>
 
 
-	 <fieldset id="listagem">Descrição:<br>
+	 <fieldset class="card" id="listagem">Descrição:<br>
 	 	<label for="exampleFormControlTextarea1">Adicione ou edite a descrição aqui</label>
 	 		<textarea id="lista" class="form-control" name="lista" id="exampleFormControlTextarea1" rows="3"></textarea>
 	 	</fieldset>
 
-	 	<fieldset id="imagem"><div id="imgespaco"></div></fieldset> 
+
+
 
 </form>
+
+
+<?php include('testagem.html'); ?>
+
 		<script>
 			$(document).ready(function(){
+
 
 				$('#func').click(function(){
 					$('#lista').append('•'+$('#descricao').val()+'<br> ' );				
@@ -124,6 +142,7 @@
 			    $('#imgcolocada').attr('class', 'form-control');
 			  });
 			});
+
 
 
 

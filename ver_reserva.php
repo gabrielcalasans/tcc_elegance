@@ -9,7 +9,22 @@
       body{
           background-color: #758DA3;
         }
-		</style>
+        #imgquarto
+        {
+          position: relative;
+          margin-left: 0%;
+          width: 200px;
+          height: 300px;
+        }
+        #informacoes
+        {
+          float: left;
+        }
+        #titulo
+        {
+          font-weight: 650;
+        }
+        </style>
       <?php
           $consulta = "SELECT * FROM tb_reserva";
           $executar = $mysqli->query($consulta);
@@ -84,7 +99,7 @@
       }
       //---------------------------------------------- fim consulta quarto
 
-      $div="<div class='container'><div class='card-panel' ><legend>Informações Reserva</legend>Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>"."<img src='$endimagem'>"."<p>Número: ".$num." | Tipo de Quarto: ".$tipo;
+      $div="<div class='container'><div class='card-panel' ><legend><span id='informacoes'><span id='titulo'>Informações Reserva</span></legend>Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>".""."<p>Número: ".$num." | Tipo de Quarto: ".$tipo."</span><p><img id='imgquarto' src='images/$endimagem''><p>";
       $botoes = "<p><a class='waves-effect waves-light btn' href=excluir_reserva.php?id=".$codres.">Excluir</a> <a class='waves-effect waves-light btn' href=alteracao.php?idreserva=".$codres.">Alterar</a></div></div>";
       echo $div.$botoes;
 

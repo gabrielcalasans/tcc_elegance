@@ -47,6 +47,7 @@
 <h4>Funcionário: <?php echo $nmfuncionario; ?></p></h4>
 <a id="but"href="ver_reserva.php" class="waves-effect waves-light teal darken-3 btn">Visualizar reservas</a>
 <a id="but" href="ver_quarto.php" class="waves-effect waves-light teal darken-3 btn">Visualizar quartos</a>
+<a id="but" href="ver_tipos.php" class="waves-effect waves-light teal darken-3 btn">Visualizar tipos</a>
 <a id="but" href="estatisticas.php" class="waves-effect waves-light teal darken-3 btn">Visualizar estatísticas</a>
 <a id="but" href="addfotos.php" class="waves-effect waves-light teal darken-3 btn">Adicionar fotos</a>
 </center>
