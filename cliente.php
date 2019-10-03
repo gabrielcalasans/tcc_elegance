@@ -180,12 +180,18 @@
 				</div>
 				<div class="input-field col s4">
 					<select class="inpute" id="estado" name="estado" required="">
-						<option value="" disabled selected>Estado</option>
+						<option value="" disabled>Estado</option>
 						<?php
 							$sql4 = "SELECT * from tb_estado order by nm_estado asc";
 							$result4 = $mysqli->query($sql4);
 							while($row4 = $result4->fetch_object()){
-								echo "<option value='".$row4->cd_estado."'>".$row4->nm_estado."</option>";
+								if ($row4->cd_estado == $row->cd_estado) {
+									echo "<option value='".$row4->cd_estado."' selected>".$row4->nm_estado."</option>";
+								}
+								else{
+									echo "<option value='".$row4->cd_estado."'>".$row4->nm_estado."</option>";
+								}
+								
 							}
 						?>
 					</select>
