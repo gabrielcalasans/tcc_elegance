@@ -13,6 +13,25 @@
         	width: 120px;
         	height: 120px;
         }
+        .input-field input:focus + label {
+		    color: #fbc02d !important;
+		}
+		.input-field input:focus {
+		    border-bottom: 1px solid #fbc02d !important;
+		    box-shadow: 0 1px 0 0 #fbc02d !important;
+		}		
+		[type="radio"]:checked + span:after,
+		[type="radio"].with-gap:checked + span:before,
+		[type="radio"].with-gap:checked + span:after {
+			border: 2px solid #fbc02d;
+		}
+		[type="radio"]:checked + span:after,
+		[type="radio"].with-gap:checked + span:after {
+			background-color: #fbc02d;
+		}
+		.dropdown-content li > a, .dropdown-content li > span {
+			color: #fbc02d !important;
+		}
 	</style>
 	<?php
 		include('conn.php');
@@ -43,8 +62,8 @@
                
             </div>
             <div class="modal-footer">
-              <center><a href="cliente.php?id=0" title="Sim" class="btn green modal-close waves-effect waves-green">Sim</a>
-              <a href="#!" title="Não" class="btn red modal-close waves-effect waves-green">Não</a></center>
+              <center><a href="cliente.php?id=0" title="Sim" class="btn modal-close waves-effect waves-light green accent-4">Sim</a>
+              <a href="#!" title="Não" class="btn modal-close waves-effect waves-light red">Não</a></center>
             </div>
         </div>
 		<nav class="grey darken-2">
@@ -83,15 +102,15 @@
 				</div>
 				<div id="procurar" align="center" class="col s12">
 					<label>Edite sua foto de perfil</label>
-	               <div class = "file-field input-field">
-	                  <div class = "btn-small waves-effect waves-light orange darken-2">
-	                     <span>Procurar fotos<i class='material-icons right'>search</i></span>
-	                     <input class="inpute" type="file" id="img" name="img[]"/>
-	                  </div>
-	                  <div class = "file-path-wrapper">
-	                     <input id="img2" class = "file-path" type = "text" placeholder = "Carregue sua foto" />
-	                  </div>
-	               </div> 
+	            	<div class = "file-field input-field">
+	                	<div class = "btn-small waves-effect waves-light orange darken-2">
+	                    	<span>Procurar fotos<i class='material-icons right'>search</i></span>
+	                    	<input class="inpute" type="file" id="img" name="img[]"/>
+	                	</div>
+	                	<div class = "file-path-wrapper">
+	                    	<input id="img2" class = "file-path" type = "text" placeholder = "Carregue sua foto" />
+	                  	</div>
+	               	</div> 
 				</div>
 				<br>
 				<div class="input-field col s6">
@@ -213,25 +232,25 @@
 					<input class="inpute" id="senha2" type="password" name="senhatual" value="" ><label for="senha">Senha atual</label><span class="helper-text a1" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s1">
-					<a class="btn" id="senhatual" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
+					<a class="btn waves-effect waves-light orange darken-2" id="senhatual" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 	        	<div class="input-field col s3">
 					<input class="inpute" id="senha" type="password" name="senha" value="" ><label for="senha">Nova senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s1">
-					<a class="btn" id="novasenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
+					<a class="btn waves-effect waves-light orange darken-2" id="novasenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 				<div class="input-field col s3">
 					<input class="inpute" id="senha1" type="password" name="senha1" value="" ><label for="senha1">Confirmar senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s1">
-					<a class="btn" id="confirmarsenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
+					<a class="btn waves-effect waves-light orange darken-2" id="confirmarsenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 	        </div>
 	        
 	        
 	        <center><button id="botaosenha" class="btn orange darken-2" title="Alterar senha">Alterar senha<i class='material-icons right'>edit</i></button>
-	        <button id="efetuar" type="submit" class="btn darken-2" title="Efetuar alterações" disabled>Efetuar alterações</button></center>
+	        <button id="efetuar" type="submit" class="btn green accent-4" title="Efetuar alterações" disabled>Efetuar alterações</button></center>
 		</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script>
@@ -324,5 +343,6 @@
                 $('select').formSelect();
             });
         </script>
+        <div class="section"></div>
 	</body>
 </html>
