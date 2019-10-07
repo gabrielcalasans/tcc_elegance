@@ -1,29 +1,44 @@
-<?php include('header.php'); ?>
-	<style type="text/css">
-		.mini{
-			width: 80px;
-			height: 50px;
-		}
-		#logo{
-			width: 9%;
-		}
-		body{
-			background-color: #758DA3;
-		}
-		#lista{
-			min-height: 600px; 
-			max-height: 800px;
-			overflow: auto;
-		}
-	</style>
-	<title>Adicionar fotos | Hospedagem Elegance</title>
-	</header>
-
+	<?php include('header.php'); ?>
+		<style type="text/css">
+			.mini{
+				width: 80px;
+				height: 50px;
+			}
+			#logo{
+				width: 9%;
+				transition: 0.5s;
+			}
+			#logo:hover{
+				width: 9.5%;
+			}
+			body{
+				background-color: #758DA3;
+			}
+			#lista{
+				min-height: 600px; 
+				max-height: 800px;
+				overflow: auto;
+			}
+			.input-field input:focus + label {
+			    color: #283593 !important;
+			}
+			.input-field input:focus {
+			    border-bottom: 1px solid #283593 !important;
+			    box-shadow: 0 1px 0 0 #283593 !important;
+			}
+			.fotos[type="checkbox"].filled-in:checked + span:not(.lever):after 
+			{
+			    border: 2px solid #283593;  
+			    background-color: #283593;
+			}
+		</style>
+		<title>Adicionar fotos | Hospedagem Elegance</title>
+	</head>
 	<body>
 		<?php include('conn.php'); date_default_timezone_set('UTC');?>
 		<nav class="black darken-2">
 			<div class="nav-wrapper" align="center">
-				<a href="index.php"><img id="logo" src="images/logotipo2.png"></a>
+				<a href="painel_admin.php"><img id="logo" src="images/logotipo2.png"></a>
 			</div>			
 		</nav>
 		
@@ -71,7 +86,7 @@
 			</div>
 			<div class="row">
 				<div id="latualizar" class="col s12" align="center">
-					<a href='addfotos.php' class='btn-small waves-effect waves-light yellow darken-2' title='Atualizar'>Atualizar<i class=" material-icons right">autorenew</i></a>
+					<a href='addfotos.php' class='btn-small waves-effect waves-light blue' title='Atualizar'>Atualizar<i class=" material-icons right">autorenew</i></a>
 				</div>
 				<div class="col s6" align="left">
 					<button id="excluir" class="red btn-small waves-effect waves-light" type="submit">Excluir selecionados<i class='material-icons right'>delete</i></button>
@@ -83,20 +98,20 @@
 			<div class="row">
 				<div class="col s12">
 					<label>Adicione fotos na galeria</label>
-	               <div class = "file-field input-field">
-	                  <div class = "btn-small waves-effect waves-light yellow darken-2">
-	                     <span>Procurar fotos<i class='material-icons right'>search</i></span>
-	                     <input type="file" id="img" name="img[]" multiple />
-	                  </div>
-	                  <div class = "file-path-wrapper">
-	                     <input id="img2" class = "file-path validate" type = "text" placeholder = "Carregue múltiplos arquivos" />
-	                  </div>
-	               </div> 
+	            	<div class = "file-field input-field">
+	                	<div class = "btn-small waves-effect waves-light blue">
+	                    	<span>Procurar fotos<i class='material-icons right'>search</i></span>
+	                    	<input type="file" id="img" name="img[]" multiple />
+	                  	</div>
+	                  	<div class = "file-path-wrapper">
+	                    	<input id="img2" class = "file-path validate" type = "text" placeholder = "Carregue múltiplos arquivos" />
+	                  	</div>
+	               	</div> 
 				</div>
             </div>
 			<div class="row">
 				<div class="col s12" align="center">
-					<button id="add" type="submit" class="btn-large waves-effect waves-light yellow darken-2" title="Adicionar" disabled="disabled">Adicionar</button>
+					<button id="add" type="submit" class="btn-large waves-effect waves-light blue" title="Adicionar" disabled="disabled">Adicionar</button>
 				</div>
 			</div>
 		</form></center>
