@@ -3,11 +3,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>  
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
- -->
-
-<?php include('conn.php');
+<?php
+	  include('conn.php');
 	  date_default_timezone_set('America/Sao_paulo');
 	  //adicionar imagem
  ?>
@@ -111,12 +108,6 @@
 	{
 		background-color: darkgreen;
 	}
-
-
-
-
-
-	
 	
 	
 </style>
@@ -141,11 +132,8 @@
 	                  <div  class = "btn-small waves-light yellow darken-2">
 	                     <span>Procurar fotos<i class='material-icons right'>add_to_photos</i></span>
 	                     <input type="file" id="img" value="<?php echo $endimagem; ?>" name="imagem" accept="image/x-png,image/gif,image/jpeg"  />
-	                  </div>
-	                  
-	           
-
-		 <?php include('modal-imagem.php'); ?>
+	                  </div>              
+	        <?php include('modal-imagem_alterar.php'); ?>
 		<br><br><br><p>
 
  <button class="btn waves-effect waves-light" type="submit" id="enviar" name="action">Enviar<i class="material-icons right">send</i></button>
@@ -162,11 +150,7 @@
 
 
 </form>
-
-
-
-
-		<script>
+<script>
 			$(document).ready(function(){
 
 
@@ -185,9 +169,8 @@
 
 			});
 		</script>
-
 			</body>
-<?php 
+			<?php
 if(isset($_POST['tipo']))
 {
 	$nome = $_POST['tipo'];
@@ -209,6 +192,8 @@ if(isset($_POST['tipo']))
 		    	$imagem = time() . $extensao; //define o nome do arquivo
 			    $diretorio = "images/"; //define o diretorio para onde enviaremos o arquivo
 			    move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio.$imagem); //efetua o upload
+			    $imagem = $diretorio.$imagem;
+
 
 		    }
 		   
@@ -217,17 +202,21 @@ if(isset($_POST['tipo']))
 	    {
 	    	$imagem = "";
 	    }
-	$sql = "INSERT into tb_tipo VALUES(null,'$nome','$descricao','$valor','$imagem')";
+	$sql = "UPDATE tb_tipo
+			SET nm_tipo = '$nome',
+				ds_tipo = '$descricao',
+				vl_quarto = '$valor',
+				ds_imagem = '$imagem'
+			WHERE cd_tipo = '$cdtipo'";
 	if(!$mysqli->query($sql))
 		{
 			echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 		}
 	else
 		{
-			echo "<script>alert('Cadastrado com sucesso!');</script>";
-			echo "<script>window.location.replace('cadastro_tipo.php');</script>";
-		}
+			echo "<script>alert('Alterado com sucesso!'); window.location.href='ver_tipos.php';</script>";
 
+		}
 }
 
 

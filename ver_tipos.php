@@ -23,7 +23,7 @@
 				}
 				else
 				{
-					echo '<fieldset>Tipo: '.$linha->nm_tipo.'<p> Descrição: '.$linha->ds_tipo.'<br>Valor: '.$linha->vl_quarto.' dsadasdsa';
+					echo '<fieldset>Tipo: '.$linha->nm_tipo.'<p> Descrição: '.$linha->ds_tipo.'<br>Valor: '.$linha->vl_quarto.'';
 				}
 				
 					echo '<p><button><a href="alterar_tipo.php?id='.$linha->cd_tipo.'">Alterar</a></button> <button><a href="ver_tipos.php?id='.$linha->cd_tipo.'">Excluir</a></button></fieldset><br>';
@@ -42,7 +42,7 @@
           }
           else
           {
-           echo "<script>alert('Reserva excluída!!');
+           echo "<script>alert('Tipo excluída!!');
                     window.location.href='ver_tipos.php';
                </script>";
           }
