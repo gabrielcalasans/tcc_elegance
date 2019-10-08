@@ -216,8 +216,8 @@
 					</select>
 				</div>
 				<div class="input-field col s4">
-					<select class="inpute" id="cidade" name="cidade" required="">
-						<option value="" disabled selected>Cidade</option>
+					<select class="inpute" id="cidade" name="cidade" required="" >
+						<option value="" disabled value="<?php echo $row->id_cidade ?>"><?php echo $row->nm_cidade ?></option>
 					</select>
 				</div>
 				<div class="input-field col s4">
@@ -229,22 +229,22 @@
 	        </div>
 	        <div class="row card-panel musenha">
 	        	<div class="input-field col s3">
-					<input class="inpute" id="senha2" type="password" name="senhatual" value="" ><label for="senha">Senha atual</label><span class="helper-text a1" data-error="wrong" data-success="right"></span>
+					<input class="inpute" id="senha2" type="password" name="senhatual" value=""><label for="senha">Senha atual</label><span class="helper-text a1" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s1">
-					<a class="btn waves-effect waves-light orange darken-2" id="senhatual" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
+					<a class="btn darken-2" id="senhatual" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 	        	<div class="input-field col s3">
-					<input class="inpute" id="senha" type="password" name="senha" value="" ><label for="senha">Nova senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
+					<input class="inpute" id="senha" type="password" name="senha" value="" disabled=""><label for="senha">Nova senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s1">
-					<a class="btn waves-effect waves-light orange darken-2" id="novasenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
+					<a class="btn darken-2" id="novasenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 				<div class="input-field col s3">
-					<input class="inpute" id="senha1" type="password" name="senha1" value="" ><label for="senha1">Confirmar senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
+					<input class="inpute" id="senha1" type="password" name="senha1" value="" disabled=""><label for="senha1">Confirmar senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s1">
-					<a class="btn waves-effect waves-light orange darken-2" id="confirmarsenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
+					<a class="btn darken-2" id="confirmarsenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 	        </div>
 	        
@@ -282,7 +282,11 @@
 			            url: 'php.php',
 			            data: senhatual,
 			            success: function(response){
-			               $(".a1").html(response);
+			            	$(".a1").html(response);
+			               	if(response == "Senha correspondente <i class='tiny material-icons left'>check</i>"){
+			               		$("#senha1").removeAttr('disabled');
+			               		$("#senha").removeAttr('disabled');
+			               	}
 			            }
 		        	});
 				});
