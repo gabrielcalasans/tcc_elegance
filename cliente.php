@@ -93,17 +93,18 @@
 				$result = $mysqli->query($sql);
 				$row = $result->fetch_object();
 			?>
+			<form action="cliente.php" method="post" multipart="" enctype="multipart/form-data">
 	        <div class="row card-panel">
 	        	<div align="center" class="col s12">
 					<img id="avatar" src="<?php echo $row->ds_avatar; ?>">
 				</div>
 				<div id="edit" align="center" class="col s12">
-					 <button id="editar" class="btn-small waves-effect waves-light orange darken-2" title="Editar">Editar<i class='material-icons right'>edit</i></button>
+					 <a id="editar" class="btn-small waves-effect waves-light orange darken-2" title="Editar">Editar<i class='material-icons right'>edit</i></a>
 				</div>
 				<div id="procurar" align="center" class="col s12">
 					<label>Edite sua foto de perfil</label>
 	            	<div class = "file-field input-field">
-	                	<div class = "btn-small waves-effect waves-light orange darken-2">
+	                	<div class = "btn-small orange darken-2">
 	                    	<span>Procurar fotos<i class='material-icons right'>search</i></span>
 	                    	<input class="inpute" type="file" id="img" name="img[]"/>
 	                	</div>
@@ -183,7 +184,7 @@
 					<input class="alterar inpute" id="profi" type="text" name="profi" readonly><label for="profi">Outra</label></p>
 				</div>
 				<div class="input-field col s12 ">
-					<center><button id="alterarpes" class="btn-small red darken-2" title="Editar">Alterar dados pessoais<i class='material-icons right'>edit</i></button></center>
+					<center><a id="alterarpes" class="btn-small red darken-2" title="Editar">Alterar dados pessoais<i class='material-icons right'>edit</i></a></center>
 				</div>
 	        </div>
 	        
@@ -224,7 +225,7 @@
 					<input class="alterar1 inpute" id="bairro" type="text" name="bairro" readonly value="<?php echo $row->nm_bairro ?>"><label for="bairro">Bairro</label></p>
 				</div>
 				<div class="input-field col s12">
-					<center><button id="alterarende" class="btn-small red darken-2" title="Editar">Alterar dados de endereço<i class='material-icons right'>edit</i></button></center>
+					<center><a id="alterarende" class="btn-small red darken-2" title="Editar">Alterar dados de endereço<i class='material-icons right'>edit</i></a></center>
 				</div>
 	        </div>
 	        <div class="row card-panel musenha">
@@ -238,19 +239,36 @@
 					<input class="inpute" id="senha" type="password" name="senha" value="" disabled=""><label for="senha">Nova senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s1">
-					<a class="btn darken-2" id="novasenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
+					<a class="btn darken-2 iu" id="novasenha" title="Visualizar" disabled=""><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 				<div class="input-field col s3">
 					<input class="inpute" id="senha1" type="password" name="senha1" value="" disabled=""><label for="senha1">Confirmar senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s1">
-					<a class="btn darken-2" id="confirmarsenha" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
+					<a class="btn darken-2 iu" id="confirmarsenha" title="Visualizar" disabled=""><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 	        </div>
-	        
-	        
-	        <center><button id="botaosenha" class="btn orange darken-2" title="Alterar senha">Alterar senha<i class='material-icons right'>edit</i></button>
-	        <button id="efetuar" type="submit" class="btn green accent-4" title="Efetuar alterações" disabled>Efetuar alterações</button></center>
+	        <?php 
+	        	if(isset($_FILES['img'])){
+					$nome = $_FILES['img']['name'];
+					if($_FILES['img']['size'] > 0){
+						$ext = explode('.', $nome);
+						$ext = end($ext);
+						$new_name = date("Y.m.d-H.i.s.") . "." .$ext;
+						$dir = "avatar/";
+						$fullname = $dir.$new_name;
+	        			move_uploaded_file($_FILES['img']['tmp_name'], $fullname);
+	        			$sql = "UPDATE tb_cliente set ds_avatar = '".$dir.$new_name."' where cd_cliente = ".$_SESSION['cliente'];
+	        			if(!$mysqli->query($sql)){
+	        				echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+	        			}
+					}
+				}
+
+	        ?>
+	        <center><a id="botaosenha" class="btn orange darken-2" title="Alterar senha">Alterar senha<i class='material-icons right'>edit</i></a>
+	        <input id="efetuar" type="submit" class="btn green accent-4" title="Efetuar alterações" value="Efetuar alterações" disabled></center>
+	    	</form>
 		</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script>
@@ -286,6 +304,7 @@
 			               	if(response == "Senha correspondente <i class='tiny material-icons left'>check</i>"){
 			               		$("#senha1").removeAttr('disabled');
 			               		$("#senha").removeAttr('disabled');
+			               		$(".iu").removeAttr('disabled');
 			               	}
 			            }
 		        	});
