@@ -17,10 +17,12 @@
 </head>
 <body>
 	<form method="POST">
-			Check in<input type="date" name="checkin"><p>
-			Check out<input type="date" name="checkout"><p>
-	
-
+		<div id="data">
+			Check in: <input type="date" name="checkin"><p>
+			Check out: <input type="date" name="checkout"><p>
+			<a id="proximo">Próximo</a>
+		</div>
+		<div id="tipodequarto">
 			<h3>Escolha seu tipo de quarto</h3>
 			<ul>
 				<li><a href="escolhaquarto.php">Exibir todos os quartos</a></li>
@@ -118,14 +120,33 @@
 
 				?>
 			<p>
+		<a id="voltar">Voltar</a> <a id="proximo2">Próximo</a>
  
+		</div>
 
 
-
-		<input type="submit" name="">
+		<input type="submit" value="Efetuar reserva" name="">
 	</form>
 
 </body>
+<script>
+	$(document).ready(function(){
+			$("#tipodequarto").hide();
+			$('#proximo').click(function(){
+				$('#data').hide();
+				$('#tipodequarto').fadeIn();
+
+			});
+			$('#voltar').click(function(){
+				$('#tipodequarto').hide();
+				$('#data').fadeIn();
+			});
+
+
+
+
+			});
+</script>
 
 		<?php
 		if(isset($_POST['checkin']))
