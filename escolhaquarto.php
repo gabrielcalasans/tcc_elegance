@@ -3,14 +3,88 @@
 <meta charset="utf-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
+
 		<?php
 
-
+		date_default_timezone_set('America/Sao_paulo');
 		include 'conn.php';
 		include 'checarlogin.php';
 		include 'disponibilidade.php';
+/*
+		$contador = 0;
+		$consultacheckout = "SELECT dt_checkout FROM tb_reserva ORDER BY dt_checkout DESC LIMIT 1";
+		$resulcheckout = $mysqli->query($consultacheckout);
+		while($lastcheck = $resulcheckout->fetch_object())
+			{
+				$lastcheckout = $lastcheck->dt_checkout;
+			}
+
+			$dataatual = date('Y-m-d');
+			$data1 = new datetime($lastcheckout);
+			$data2 = new datetime($dataatual);
+			while($data1<=$data2)
+				{
+					$datacheckout = $data1;
+					$consultagaragem = "SELECT sum(nr_garagem) as totaldia FROM tb_reserva WHERE dt_checkout = '$datacheckout'";
+					$querygaragem = $mysqli->query($consultagaragem);
+					if($querygaragem->num_rows>0)
+						{
+							while($linhagaragem = $querygaragem->fetch_object())
+							{
+								$vagasnagaragem+=$linhagaragem->totaldia;
+							}
+						}					
+					$data1->modify('+1 day');
+				}		
+
+			
+			echo '<br>'.$contador.'<br>';
+
+		possibilidades de sucesso
+			------------------------
+				$consultagaragem = "SELECT count(nr_garagem) as qtdeocupada
+							FROM tb_reserva
+							WHERE 
+							nr_garagem = 0
+							AND
+							dt_checkout >= '$lastcheckout'
+							AND
+							dt_checkout <= '$dataatual'";
+		echo '<br>'.$consultagaragem.'<br>';
+		$resulvagas = $mysqli->query($consultagaragem);
+		while($resul = $resulvagas->fetch_object())
+			{
+				$vagas = $resul->qtdeocupada;
+				echo $vagas;
+			}
 
 		?>
+
+
+
+        $dataatual = date('Y-m-d');
+			$data1 = new datetime($lastcheckout);
+			$data2 = new datetime($dataatual);
+			while($data1<=$data2)
+				{
+					$consultagaragem = "SELECT sum(nr_garagem) as totaldia FROM tb_reserva WHERE dt_checkout = $data2";
+					$querygaragem = $mysqli->query($consultagaragem);
+					if($querygaragem->num_rows>0)
+						{
+							while($linhagaragem = $querygaragem->fetch_object())
+							{
+								$vagasnagaragem+=$linhagaragem->totaldia;
+							}
+						}					
+					$data1->modify('+1 day');
+				}
+				------------------------
+
+
+
+*/
+		?>
+		
 
 <head>
 	<title>Escolher Acomodações</title>
@@ -18,7 +92,7 @@
 <body>
 	<form method="POST">
 		<div id="data">
-			Check in: <input type="date" name="checkin"><p>
+			Check in:  <input type="date" name="checkin"><p>
 			Check out: <input type="date" name="checkout"><p>
 			<a id="proximo">Próximo</a>
 		</div>
@@ -123,15 +197,35 @@
 		<a id="voltar">Voltar</a> <a id="proximo2">Próximo</a>
  
 		</div>
-
-
+	<div id="garagemcampo">
+		<h2>Deseja reservar um espaço na garagem?</h2>
+		<!-- Realizar consulta na tabela para saber quantas vagas estão disponíveis
+			Comparar vagas disponíveis com o número colocado
+		-->
+		Sim<input type="radio" value="1" required id="sim" name="garagem">
+		Não<input type="radio" value="2" required id="nao" name="garagem">
+		<p>
+		<span id="garagemsim">
+			Vagas disponíveis:<br>
+			Quantidade de vagas: <input type="number" name="nrvagas"> 
+		</span>
+		<p>
+		<a id="voltar2">Voltar</a>
+		<p>
 		<input type="submit" value="Efetuar reserva" name="">
+	</div>
+	<p>	
+<p>
+		
 	</form>
 
 </body>
 <script>
 	$(document).ready(function(){
+
 			$("#tipodequarto").hide();
+			$('#garagemcampo').hide();
+			$('#garagemsim').hide();
 			$('#proximo').click(function(){
 				$('#data').hide();
 				$('#tipodequarto').fadeIn();
@@ -141,7 +235,25 @@
 				$('#tipodequarto').hide();
 				$('#data').fadeIn();
 			});
+			$('#proximo2').click(function(){
+				$('#tipodequarto').hide();
+				$('#garagemcampo').fadeIn();
 
+			});
+			$('#voltar2').click(function(){
+				$('#garagemcampo').hide();
+				$('#tipodequarto').fadeIn();
+			});
+
+
+
+			
+			$("#nao").click(function(){
+				$("#garagemsim").fadeOut();
+			});
+			$("#sim").click(function(){
+				$("#garagemsim").fadeIn();
+			});
 
 
 
@@ -155,6 +267,7 @@
 				$idcliente=$_SESSION['cliente'];
 				$checkin=$_POST['checkin'];
 				$checkout=$_POST['checkout'];
+				$nrvagas = $_POST['nrvagas'];
 
 
 
@@ -211,8 +324,8 @@
 													$data1->modify('+1 day');
 
 												}
-												//echo $vlfinal;
-												$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$regdate')";
+												echo $vlfinal;
+												$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$nrvagas','$regdate')";
 												if(!$mysqli->query($sql)){
 													echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 												}
@@ -230,8 +343,7 @@
 							else
 							{
 												
-								date_default_timezone_set('America/Sao_paulo');
-								$regdate = date('Y-m-d h:i:s a', time());
+								$regdate = date('Y-m-d H:i:s', time());
 								//echo $regdate;
 
 								$data1 = new datetime($_POST['checkin']);
@@ -258,7 +370,7 @@
 
 								}
 								//echo $vlfinal;
-								$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$regdate')";
+								$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$nrvagas','$regdate')";
 								if(!$mysqli->query($sql))
 								{
 									echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
@@ -277,7 +389,7 @@
 					}
 					else
 					{
-						 echo "<script>alert('Data inválida, o check-in está maior que o check-out');</script>";
+						echo "<script>alert('Data inválida, o check-in está maior que o check-out');</script>";
 					}
 
 

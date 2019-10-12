@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 11-Set-2019 às 06:51
+-- Data de Criação: 12-Out-2019 às 20:49
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5945,7 +5945,7 @@ CREATE TABLE IF NOT EXISTS `tb_quarto` (
 --
 
 INSERT INTO `tb_quarto` (`cd_quarto`, `nr_quarto`, `ds_quarto`, `id_tipo`, `id_status`, `id_pedido`) VALUES
-(1, 16, 'Quarto com banheira', 2, 2, 0),
+(1, 16, 'Quarto com banheira', 2, 1, 0),
 (2, 22, 'Quarto sem chao', 7, 1, 0),
 (5, 45, 'Quarto do frati', 3, 1, 0),
 (6, 34, 'Não tem descrição', 4, 1, 0),
@@ -5967,10 +5967,11 @@ CREATE TABLE IF NOT EXISTS `tb_reserva` (
   `dt_checkout` date NOT NULL,
   `vl_reserva` decimal(10,2) NOT NULL,
   `id_cliente` int(11) NOT NULL,
+  `nr_garagem` int(5) DEFAULT NULL,
   `dthr_registro` datetime NOT NULL,
   PRIMARY KEY (`cd_reserva`),
   KEY `fk_id_quarto` (`id_quarto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
 
 -- --------------------------------------------------------
 
