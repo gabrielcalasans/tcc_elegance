@@ -9,7 +9,7 @@
                         $sql = "SELECT * from tb_cliente where cd_cliente = ".$_SESSION['cliente'];
                         $result = $mysqli->query($sql);
                         $row = $result->fetch_object();
-                        echo '<p align="center"><img style="width: 20%; border-radius: 100%;" src="'.$row->ds_avatar.'"></p>';
+                        echo '<p align="center"><img style="width: 140px; height: 140px; border-radius: 100%; box-shadow: 5px 5px 5px rgba(0,0,0,0.3);" src="'.$row->ds_avatar.'"></p>';
                         echo '<p align="center">'.$row->nm_cliente.' '.$row->nm_sobrenome.'</p>';
                     } 
                 ?>
@@ -17,8 +17,8 @@
                
             </div>
             <div class="modal-footer">
-              <center><a href="index.php?id=1" title="Sim" class="btn modal-close waves-effect waves-light green accent-4">Sim</a>
-              <a href="#!" title="Não" class="btn modal-close waves-effect waves-light red">Não</a></center>
+              <center><a href="cliente.php?id=0" title="Sim" class="btn modal-close green accent-4">Sim</a>
+              <a href="#!" title="Não" class="btn modal-close red">Não</a></center>
             </div>
         </div>
 
@@ -53,7 +53,7 @@
                             }
                             $title = $pronome.$row->nm_cliente." ".$row->nm_sobrenome;
                             echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown1" title="'.$title.'"><b>'.
-                            $pronome.$row->nm_cliente.'</b><i class="material-icons right"><img id="avatar" src="'.$row->ds_avatar.'" height="22px" width="22px"></i></a></li>';
+                            $pronome.$row->nm_cliente.'</b><i class="material-icons right"><img id="avatar" style="border-radius: 100%;" src="'.$row->ds_avatar.'" height="22px" width="22px"></i></a></li>';
                         }
                         else{
                             echo '<li><a href="login.php"><b>Fazer login<i class="material-icons right">account_circle</i></b></a></li>';

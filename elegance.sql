@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 12-Out-2019 às 20:49
+-- Data de Criação: 13-Out-2019 às 23:33
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5658,18 +5658,19 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   PRIMARY KEY (`cd_cliente`),
   KEY `fk_id_profissao` (`id_profissao`),
   KEY `fk_cliente_endereco` (`id_endereco`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Extraindo dados da tabela `tb_cliente`
 --
 
 INSERT INTO `tb_cliente` (`cd_cliente`, `nm_cliente`, `nr_cpf`, `nm_email`, `nr_celular`, `nr_telefone`, `nr_rg`, `ds_orgao`, `ds_nacionalidade`, `dt_nascimento`, `ds_senha`, `dthr_cadastro`, `id_profissao`, `id_endereco`, `nm_sobrenome`, `id_genero`, `ds_avatar`) VALUES
-(8, 'Igor', '11111111111', 'igor@gmail.com', '41654865468', '', 222222222, 'SSP', 'Brasileira', '2019-09-10', '202cb962ac59075b964b07152d234b70', '2019-09-02 11:31:57', 2, 8, 'Oliveira', 1, 'images/avatar1.png'),
-(9, 'Thalya', '22222222222', 'thalyalinda@gmail.com', '48648646486', '', 161321321, 'SSP', 'Indiana', '2019-09-18', '202cb962ac59075b964b07152d234b70', '2019-09-02 14:07:18', 8, 9, 'Rangel', 2, 'images/avatar2.png'),
-(10, 'Lucas', '12312312312', 'lucas@gmail.com', '46586564844', '', 456498648, 'SSP', 'Brasileira', '2019-09-19', '202cb962ac59075b964b07152d234b70', '2019-09-02 14:50:02', 4, 10, 'Souza', 1, 'images/avatar1.png'),
-(11, 'Gilberto', '44444444444', 'gil@gilmail.com', '45645465456', '', 154545454, 'SSP', 'Brasileira', '2000-04-25', '202cb962ac59075b964b07152d234b70', '2019-09-11 02:21:13', 4, 12, 'Gil', 1, 'images/avatar1.png'),
-(12, 'Gabriel', '5187882009', 'gcalasans71@gmail.com', '11111111111', '1111111111', 999999999, 'SSP', 'Brasileira', '2019-09-11', '81dc9bdb52d04dc20036dbd8313ed055', '2019-09-11 04:57:40', 1, 13, 'Calasans', 1, 'images/avatar1.png');
+(8, 'Igor', '51841678899', 'igor.etecita@gmail.com', '13991942245', '', 472492480, 'SSP', 'Brasileira', '2001-02-22', '202cb962ac59075b964b07152d234b70', '2019-09-02 11:31:57', 10, 8, 'Oliveira', 1, 'avatar/avatar1.png'),
+(9, 'Thalya', '22222222222', 'thalyalinda@gmail.com', '48648646486', '', 161321321, 'SSP', 'Indiana', '2019-09-18', '202cb962ac59075b964b07152d234b70', '2019-09-02 14:07:18', 8, 9, 'Rangel', 2, 'avatar/avatar2.png'),
+(10, 'Lucas', '12312312312', 'lucas@gmail.com', '46586564844', '', 456498648, 'SSP', 'Brasileira', '2019-09-19', '202cb962ac59075b964b07152d234b70', '2019-09-02 14:50:02', 4, 10, 'Souza', 1, 'avatar/avatar1.png'),
+(11, 'Gilberto', '44444444444', 'gil@gilmail.com', '45645465456', '', 154545454, 'SSP', 'Brasileira', '2000-04-25', '202cb962ac59075b964b07152d234b70', '2019-09-11 02:21:13', 4, 12, 'Gil', 1, 'avatar/avatar1.png'),
+(12, 'Gabriel', '5187882009', 'gcalasans71@gmail.com', '11111111111', '1111111111', 999999999, 'SSP', 'Brasileira', '2019-09-11', '81dc9bdb52d04dc20036dbd8313ed055', '2019-09-11 04:57:40', 1, 13, 'Calasans', 1, 'avatar/avatar1.png'),
+(13, 'Roberto', '88888888888', 'robertinho@hotmail.com', '46454658656', '', 461871418, 'SSP', 'Estadunidense', '1995-04-06', '202cb962ac59075b964b07152d234b70', '2019-10-13 23:09:44', 8, 14, 'Carlos', 1, 'avatar/avatar1.png');
 
 -- --------------------------------------------------------
 
@@ -5713,7 +5714,7 @@ CREATE TABLE IF NOT EXISTS `tb_endereco` (
   `id_cidade` int(11) NOT NULL,
   PRIMARY KEY (`cd_endereco`),
   KEY `fk_cidade_endereco` (`id_cidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Extraindo dados da tabela `tb_endereco`
@@ -5727,12 +5728,13 @@ INSERT INTO `tb_endereco` (`cd_endereco`, `nm_endereco`, `nr_endereco`, `nr_cep`
 (5, 'Av. Anchieta', 56, 88888888, 'Centro', 219),
 (6, 'Av. Tome Vergonha', 15, 66666666, 'Centro', 892),
 (7, 'Rua Santos', 270, 11740000, 'Praia Do Sonho', 4960),
-(8, 'Av. Tô Cansado', 112, 11740000, 'Centro', 286),
+(8, 'Av. Tô Cansadinho', 112, 11740000, 'Centro', 4960),
 (9, 'Rua Meu Deus do Céu', 24, 48418616, 'Centro', 205),
 (10, 'Rua Oliva', 456, 16464586, 'Centro', 890),
 (11, 'Av. Tô Cansado', 123, 11744410, 'Centro', 704),
 (12, 'Av. Tô Cansado', 789, 54654564, 'Jequitiba', 80),
-(13, 'Rua dos Bobos', 0, 12345678, 'Jd Tupinambá', 80);
+(13, 'Rua dos Bobos', 0, 12345678, 'Jd Tupinambá', 80),
+(14, 'Rua dos Alfineiros', 4, 17858654, 'Centro', 225);
 
 -- --------------------------------------------------------
 
@@ -5821,7 +5823,17 @@ CREATE TABLE IF NOT EXISTS `tb_galeria` (
   `cd_foto` int(11) NOT NULL AUTO_INCREMENT,
   `ds_endereco` varchar(200) NOT NULL,
   PRIMARY KEY (`cd_foto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=59 ;
+
+--
+-- Extraindo dados da tabela `tb_galeria`
+--
+
+INSERT INTO `tb_galeria` (`cd_foto`, `ds_endereco`) VALUES
+(55, 'galeria/2019.10.13-23.05.45.00.jpg'),
+(56, 'galeria/2019.10.13-23.05.45.01.jpg'),
+(57, 'galeria/2019.10.13-23.05.45.02.jpg'),
+(58, 'galeria/2019.10.13-23.05.45.03.jpg');
 
 -- --------------------------------------------------------
 
@@ -5905,7 +5917,7 @@ CREATE TABLE IF NOT EXISTS `tb_profissao` (
   `cd_profissao` int(11) NOT NULL AUTO_INCREMENT,
   `nm_profissao` varchar(150) NOT NULL,
   PRIMARY KEY (`cd_profissao`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Extraindo dados da tabela `tb_profissao`
@@ -5920,7 +5932,8 @@ INSERT INTO `tb_profissao` (`cd_profissao`, `nm_profissao`) VALUES
 (6, 'Pedreiro'),
 (7, 'Imprensa'),
 (8, 'Diplomata'),
-(9, 'Professora');
+(9, 'Professora'),
+(10, 'Engenheiro Químico');
 
 -- --------------------------------------------------------
 

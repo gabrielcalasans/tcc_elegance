@@ -10,8 +10,10 @@
             	background-color: #FFF7D9;
             }
         #avatar{
-        	width: 120px;
-        	height: 120px;
+        	width: 140px;
+        	height: 140px;
+        	border-radius: 100%;
+        	box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
         }
         .input-field input:focus + label {
 		    color: #fbc02d !important;
@@ -42,6 +44,7 @@
 			session_destroy();
 			header('Location: index.php');
 		}
+		date_default_timezone_set('UTC');
 	?>
 	<body>
 		<!-- Modal Structure -->
@@ -54,7 +57,7 @@
                         $sql = "SELECT * from tb_cliente where cd_cliente = ".$_SESSION['cliente'];
                         $result = $mysqli->query($sql);
                         $row = $result->fetch_object();
-                        echo '<p align="center"><img style="width: 20%; border-radius: 100%;" src="'.$row->ds_avatar.'"></p>';
+                        echo '<p align="center"><img style="width: 140px; height: 140px; border-radius: 100%; box-shadow: 5px 5px 5px rgba(0,0,0,0.3);" src="'.$row->ds_avatar.'"></p>';
                         echo '<p align="center">'.$row->nm_cliente.' '.$row->nm_sobrenome.'</p>';
                     } 
                 ?>
@@ -62,8 +65,8 @@
                
             </div>
             <div class="modal-footer">
-              <center><a href="cliente.php?id=0" title="Sim" class="btn modal-close waves-effect waves-light green accent-4">Sim</a>
-              <a href="#!" title="Não" class="btn modal-close waves-effect waves-light red">Não</a></center>
+              <center><a href="cliente.php?id=0" title="Sim" class="btn modal-close green accent-4">Sim</a>
+              <a href="#!" title="Não" class="btn modal-close red">Não</a></center>
             </div>
         </div>
 		<nav class="grey darken-2">
@@ -99,14 +102,14 @@
 					<img id="avatar" src="<?php echo $row->ds_avatar; ?>">
 				</div>
 				<div id="edit" align="center" class="col s12">
-					 <a id="editar" class="btn-small waves-effect waves-light orange darken-2" title="Editar">Editar<i class='material-icons right'>edit</i></a>
+					 <a id="editar" class="btn-small orange darken-2" title="Atualizar foto">Atualizar foto<i class='material-icons right'>edit</i></a>
 				</div>
 				<div id="procurar" align="center" class="col s12">
 					<label>Edite sua foto de perfil</label>
 	            	<div class = "file-field input-field">
 	                	<div class = "btn-small orange darken-2">
-	                    	<span>Procurar fotos<i class='material-icons right'>search</i></span>
-	                    	<input class="inpute" type="file" id="img" name="img[]"/>
+	                    	<span>Procurar<i class='material-icons right'>search</i></span>
+	                    	<input class="inpute" type="file" id="img" name="avatar"/>
 	                	</div>
 	                	<div class = "file-path-wrapper">
 	                    	<input id="img2" class = "file-path" type = "text" placeholder = "Carregue sua foto" />
@@ -162,10 +165,10 @@
 					<input class="alterar inpute" id="nasc" type="date" name="nasc" readonly value="<?php echo $row->dt_nascimento ?>"><label for="nasc">Data de Nascimento</label></p>
 				</div>
 				<div class="input-field col s3 ">
-					<input class="alterar inpute" id="nacio" type="text" name="nacio" readonly value="<?php echo $row->ds_nacionalidade ?>"><label for="nacio">Nacionalidade</label></p>
+					<input class="alterar inpute" id="nacio" type="text" name="nacionalidade" readonly value="<?php echo $row->ds_nacionalidade ?>"><label for="nacio">Nacionalidade</label></p>
 				</div>
 				<div class="input-field col s3 ">
-					<select name="profissao" class="inpute">
+					<select name="profissao" id="profissao" class="inpute" disabled>
 						<?php
 							$sql2 = "SELECT * from tb_profissao order by nm_profissao asc";
 							$result2 = $mysqli->query($sql2);
@@ -178,7 +181,7 @@
 								}
 							}
 						?>
-					</select>
+					</select><label for="profissao">Profissão</label></p>
 				</div>
 				<div class="input-field col s3 ">
 					<input class="alterar inpute" id="profi" type="text" name="profi" readonly><label for="profi">Outra</label></p>
@@ -186,6 +189,7 @@
 				<div class="input-field col s12 ">
 					<center><a id="alterarpes" class="btn-small red darken-2" title="Editar">Alterar dados pessoais<i class='material-icons right'>edit</i></a></center>
 				</div>
+				<input type="hidden" id="dadospessoais" name="dadospessoais">
 	        </div>
 	        
 	        <div class="row card-panel">
@@ -199,7 +203,7 @@
 					<input class="alterar1 inpute" id="cep" type="text" name="cep" readonly value="<?php echo $row->nr_cep ?>"><label for="cep">CEP</label></p>
 				</div>
 				<div class="input-field col s4">
-					<select class="inpute" id="estado" name="estado" required="">
+					<select class="inpute" id="estado" name="estado">
 						<option value="" disabled>Estado</option>
 						<?php
 							$sql4 = "SELECT * from tb_estado order by nm_estado asc";
@@ -214,12 +218,12 @@
 								
 							}
 						?>
-					</select>
+					</select><label for="estado">Estado</label></p>
 				</div>
 				<div class="input-field col s4">
-					<select class="inpute" id="cidade" name="cidade" required="" >
-						<option value="" disabled value="<?php echo $row->id_cidade ?>"><?php echo $row->nm_cidade ?></option>
-					</select>
+					<select class="inpute" id="cidade" name="cidade" value="<?php echo $row->id_cidade ?>">
+						<option value="<?php echo $row->id_cidade ?>"><?php echo $row->nm_cidade ?></option>
+					</select><label for="cidade">Cidade</label></p>
 				</div>
 				<div class="input-field col s4">
 					<input class="alterar1 inpute" id="bairro" type="text" name="bairro" readonly value="<?php echo $row->nm_bairro ?>"><label for="bairro">Bairro</label></p>
@@ -227,6 +231,7 @@
 				<div class="input-field col s12">
 					<center><a id="alterarende" class="btn-small red darken-2" title="Editar">Alterar dados de endereço<i class='material-icons right'>edit</i></a></center>
 				</div>
+				<input type="hidden" id="dadosdeendereco" name="dadosdeendereco">
 	        </div>
 	        <div class="row card-panel musenha">
 	        	<div class="input-field col s3">
@@ -248,28 +253,84 @@
 					<a class="btn darken-2 iu" id="confirmarsenha" title="Visualizar" disabled=""><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 	        </div>
-	        <?php 
-	        	if(isset($_FILES['img'])){
-					$nome = $_FILES['img']['name'];
-					if($_FILES['img']['size'] > 0){
-						$ext = explode('.', $nome);
-						$ext = end($ext);
-						$new_name = date("Y.m.d-H.i.s.") . "." .$ext;
-						$dir = "avatar/";
-						$fullname = $dir.$new_name;
-	        			move_uploaded_file($_FILES['img']['tmp_name'], $fullname);
-	        			$sql = "UPDATE tb_cliente set ds_avatar = '".$dir.$new_name."' where cd_cliente = ".$_SESSION['cliente'];
-	        			if(!$mysqli->query($sql)){
-	        				echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-	        			}
-					}
-				}
-
-	        ?>
 	        <center><a id="botaosenha" class="btn orange darken-2" title="Alterar senha">Alterar senha<i class='material-icons right'>edit</i></a>
-	        <input id="efetuar" type="submit" class="btn green accent-4" title="Efetuar alterações" value="Efetuar alterações" disabled></center>
+	        <input id="efetuar" name="efetuar" type="submit" class="btn green accent-4" title="Efetuar alterações" value="Efetuar alterações" disabled></center>
+	        <input type="hidden" id="dadossenhas" name="dadossenhas">
 	    	</form>
-		</div>
+		</div
+			><?php
+				if(isset($_POST['efetuar'])){
+					if(isset($_FILES['avatar'])){
+						if($_FILES['avatar']['size'] > 0){
+							$nome = $_FILES['avatar']['name'];
+							$ext = explode('.', $nome);
+							$ext = end($ext);
+							$new_name = "avatar".$_SESSION['cliente']."-".date("Y.m.d-H.i.s.") . $ext;
+							$dir = "avatar/";
+							$fullname = $dir.$new_name;
+		        			move_uploaded_file($_FILES['avatar']['tmp_name'], $fullname);
+		        			$sql = "UPDATE tb_cliente set ds_avatar = '".$dir.$new_name."' where cd_cliente = ".$_SESSION['cliente'];
+		        			if(!$mysqli->query($sql)){
+		        				echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+		        			}
+		        			unlink($row->ds_avatar);
+						}
+					}
+					if(!empty($_POST['dadospessoais'])) {
+						$nome = ucwords($_POST['nome']);
+						$nacionalidade = ucwords($_POST['nacionalidade']);
+						$cpf = $_POST['cpf'];
+						$email = $_POST['email'];
+						$celular = $_POST['cell'];
+						$telefone = $_POST['tel'];
+						$rg = $_POST['rg'];
+						$datanasc = $_POST['nasc'];
+						if(isset($_POST['profissao'])){
+							$profissao = $_POST['profissao'];
+						}
+						$sobrenome = ucwords($_POST['sobrenome']);
+						$genero = $_POST['genero'];
+						$orgao = $_POST['orgao'];
+						if(!empty($_POST['profi'])){
+							$profissao = ucwords($_POST['profi']);
+							$sql = "INSERT into tb_profissao values(null, '$profissao')";
+							if(!$mysqli->query($sql)){
+								echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+							}
+							else{
+								$sql6 = "SELECT * from tb_profissao where nm_profissao = '$profissao'";
+								$result6 = $mysqli->query($sql6);
+								$row6 = $result6->fetch_object();
+								$profissao = $row6->cd_profissao;
+							}
+						}
+						$sql = "UPDATE tb_cliente set nm_cliente = '$nome', nr_cpf = '$cpf', nm_email = '$email', nr_celular = '$celular', nr_telefone = '$telefone', nr_rg = '$rg', ds_orgao = '$orgao', ds_nacionalidade = '$nacionalidade', dt_nascimento = '$datanasc', id_profissao = '$profissao' where cd_cliente = ".$_SESSION['cliente'];
+						if(!$mysqli->query($sql)){
+							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+						}
+					}
+					if(!empty($_POST['dadosdeendereco'])) {
+						$cidade = $_POST['cidade'];
+						$cep = $_POST['cep'];
+						$numero = $_POST['numero'];
+						$bairro = ucwords($_POST['bairro']);
+						$estado = $_POST['estado'];
+						$endereco = $_POST['ende'];
+						$sql = "UPDATE tb_endereco set nm_endereco = '$endereco', nr_endereco = '$numero', nr_cep = '$cep', nm_bairro = '$bairro', id_cidade = '$cidade' where cd_endereco = ".$row->cd_endereco;
+						if(!$mysqli->query($sql)){
+							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+						}
+					}
+					if(!empty($_POST['dadossenhas'])){
+						$senha = md5($_POST['senha1']);
+						$sql = "UPDATE tb_cliente set ds_senha = '$senha' where cd_cliente = ".$_SESSION['cliente'];
+						if(!$mysqli->query($sql)){
+							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+						}
+					}
+					echo "<script type='text/javascript'>window.location.href='cliente.php';</script>";
+				}
+	        ?>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script>
             $(document).ready(function(){
@@ -280,8 +341,11 @@
 					var s3 = $("#senha2").val();
 					if(s1 == s2){
 						if(s1){
-							$(".a2").html("Senhas correspondentes <i class='tiny material-icons left'>check</i>");
-							if(s3 == s2){
+							if(s3 != s2){
+								$(".a2").html("Senhas correspondentes <i class='tiny material-icons left'>check</i>");
+								$("#dadossenhas").val("hello world");
+							}
+							else{
 								$(".a2").html("Nova senha é igual a atual <i class='tiny material-icons left'>clear</i>");
 							}
 						}
@@ -334,19 +398,28 @@
             		$(".alterar").removeAttr('readonly');
             		$(".radioal").removeAttr('disabled');
             	});
+            	$(".alterar").change(function(){
+					$("#dadospessoais").val("hello world");
+            	});            	
+            	$(".radioal").change(function(){
+            		$("#dadospessoais").val("hello world");
+            	});
             	$("#alterarende").click(function(){
             		$(".alterar1").removeAttr('readonly');
+            	});
+            	$(".alterar1").change(function(){
+            		$("#dadosdeendereco").val("hello world");
             	});
             	$("#cpf").mask("999.999.999-99");
 			    $("#cep").mask("99999-999");
 			    $("#cell").mask("(99) 99999-9999");
 			    $("#tel").mask("(99) 9999-9999");
 			    $("#rg").mask("99.999.999-9");
-			    $("#cadastrar").click(function(){
+			    $("#efetuar").click(function(){
 					$("#cpf").val($("#cpf").cleanVal());
 					$("#cep").val($("#cep").cleanVal());
 					$("#tel").val($("#tel").cleanVal());
-					$("#celular").val($("#celular").cleanVal());
+					$("#cell").val($("#cell").cleanVal());
 					$("#rg").val($("#rg").cleanVal());
 				});
 				$(document).on('change', '#estado', function(){

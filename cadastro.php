@@ -6,6 +6,7 @@
         <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<title>Cadastro | Pousada Hospedagem Elegance</title>
 		<style type="text/css">
 			body{
@@ -112,7 +113,7 @@
 							<input id="data" type="date" name="datanasc" required="" class="validate"><label for="data">Data de Nascimento</label>
 						</div>
 						<div class="input-field col s6">
-							<select name="profissao">
+							<select name="profissao" id="profissao">
 								<option value="" disabled selected><label for="profissao">Profissão</label></option>
 								<?php
 									$sql = "SELECT * from tb_profissao order by nm_profissao asc";
@@ -121,7 +122,7 @@
 										echo "<option value='".$row->cd_profissao."'>".$row->nm_profissao."</option>";
 									}
 								?>
-							</select>
+							</select><label for="profissao">Profissão</label>
 						</div>
 						<div class="input-field col s6"> 
 							<input id="outra" type="text" name="outra"><label for="outra">Outra</label></p>
@@ -146,12 +147,12 @@
 										echo "<option value='".$row->cd_estado."'>".$row->nm_estado."</option>";
 									}
 								?>
-							</select>
+							</select><label for="estado">Estado</label>
 						</div>
 						<div class="input-field col s6">
 							<select id="cidade" name="cidade" required="">
 								<option value="" disabled selected>Cidade</option>
-							</select>
+							</select><label for="cidade">Cidade</label>
 						</div>
 						<div class="input-field col s6">
 							<input id="bairro" type="text" name="bairro" required="" class="validate"><label for="bairro">Bairro</label></p>
@@ -164,19 +165,19 @@
 				<div class="card-panel" style="width: 60%;">
 					<div class="row">
 						<div class="input-field col s6">
-							<input id="s1" type="password" name="senha" required="" class="validate"><label for="s1">Senha</label><span class="senhas"></span></p>
+							<input id="s1" type="password" name="senha" required=""><label for="s1">Senha</label><span class="helper-text left senhas" data-error="wrong" data-success="right"></span>
 						</div>
 						<div class="input-field col s6">
-							<input id="s2" type="password" name="senha1" required="" class="validate"><label for="s2">Confirmar senha</label><span class="senhas"></span></p>
+							<input id="s2" type="password" name="senha1" required=""><label for="s2">Confirmar senha</label><span class="helper-text left senhas" data-error="wrong" data-success="right"></span>
 						</div>
 						<label for="termos">
 							<div class="input-field col s12">
-								<input id="termos" type="checkbox" name="termos" required=""  class="filled-in checkbox-yellow"><span> Li os <a href="#">termos de uso</a> e aceito todas as condições.</span>
+								<input id="termos" type="checkbox" name="termos[]" required="" class="filled-in checkbox-yellow"><span> Li os <a href="#">termos de uso</a> e aceito todas as condições.</span>
 							</div>
 						</label>
 					</div>
 				</div>
-				<button class="btn waves-effect waves-light green accent-4" type="submit" id="cadastrar" name="action">
+				<button class="btn waves-effect waves-light green accent-4" type="submit" id="cadastrar" name="action" disabled>
 					Cadastrar
 				</button>
 				<button class="btn waves-effect waves-light red" type="reset" id="limpar">
@@ -207,7 +208,7 @@
 				$senha = md5($_POST['senha1']);
 				$endereco = $_POST['endereco'];
 				$numero = $_POST['numero'];
-				$avatar = "images/avatar".$genero.".png";
+				$avatar = "avatar/avatar".$genero.".png";
 				$senha1 = md5($_POST['senha']);
 				if($senha != $senha1){
 					echo "Senhas não correspondentes digite novamente.";
@@ -256,18 +257,26 @@
 				var s2 = $("#s2").val();
 				if(s1 == s2){
 					if(s1){
-						$(".senhas").html(" <img src='images/certo.png' width='15px' height='15px' title='As senhas correspondentes'>");
+						$(".senhas").html("Senha correspondente <i class='tiny material-icons green left'>check</i>");
 					}
 					else{
 						$(".senhas").html(null);
 					}
 				}
 				else{
-					$(".senhas").html(" <img src='images/errado.png' width='15px' height='15px' title=''> Senhas não correspondentes.");
+					$(".senhas").html("Senhas não correspondentes <i class='tiny material-icons red left'>clear</i>");
 				}
 			});
 			$("#cancelar").click(function(){
 		    	$("#estado").val(null);
+		    });
+		    $("#termos").click(function(){
+				if($("#termos").is(":checked")){
+                	$("#cadastrar").removeAttr('disabled');
+           		}
+           		else{
+           			$("#cadastrar").attr('disabled', 'disabled');
+           		}
 		    });
 		    $("#cpf").mask("999.999.999-99");
 		    $("#cep").mask("99999-999");
