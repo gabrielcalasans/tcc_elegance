@@ -10,6 +10,9 @@
 		include 'conn.php';
 		include 'checarlogin.php';
 		include 'disponibilidade.php';
+
+
+
 /*
 		$contador = 0;
 		$consultacheckout = "SELECT dt_checkout FROM tb_reserva ORDER BY dt_checkout DESC LIMIT 1";
@@ -210,9 +213,14 @@
 			Quantidade de vagas: <input type="number" name="nrvagas"> 
 		</span>
 		<p>
-		<a id="voltar2">Voltar</a>
+			<a id="voltar2">Voltar</a>
 		<p>
-		<input type="submit" value="Efetuar reserva" name="">
+		<span id="confirmar">
+			<input type="submit" value="Efetuar reserva" name="">
+		</span>
+		<br>
+		
+
 	</div>
 	<p>	
 <p>
@@ -226,6 +234,7 @@
 			$("#tipodequarto").hide();
 			$('#garagemcampo').hide();
 			$('#garagemsim').hide();
+			$('#confirmar').hide();
 			$('#proximo').click(function(){
 				$('#data').hide();
 				$('#tipodequarto').fadeIn();
@@ -250,9 +259,12 @@
 			
 			$("#nao").click(function(){
 				$("#garagemsim").fadeOut();
+				$('#confirmar').fadeIn();
 			});
 			$("#sim").click(function(){
 				$("#garagemsim").fadeIn();
+				$('#confirmar').fadeIn();
+
 			});
 
 
@@ -264,10 +276,17 @@
 		if(isset($_POST['checkin']))
 		{
 
-				$idcliente=$_SESSION['cliente'];
-				$checkin=$_POST['checkin'];
-				$checkout=$_POST['checkout'];
+			if($_POST['garagem']==2)
+			{
+				$nrvagas = 'null';
+			}
+			else
+			{
 				$nrvagas = $_POST['nrvagas'];
+			}
+			$idcliente=$_SESSION['cliente'];
+			$checkin=$_POST['checkin'];
+			$checkout=$_POST['checkout'];
 
 
 
