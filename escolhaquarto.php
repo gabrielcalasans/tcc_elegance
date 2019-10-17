@@ -279,10 +279,29 @@
 			if($_POST['garagem']==2)
 			{
 				$nrvagas = 'null';
-			}
+				$sql = "INSERT INTO tb_garagem VALUES(null,'0')";
+				if(!$mysqli->query($sql))
+				{
+					echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+				}							
+			}			
 			else
 			{
 				$nrvagas = $_POST['nrvagas'];
+				$sql = "INSERT INTO tb_garagem VALUES(null,'$nrvagas')";
+				if(!$mysqli->query($sql))
+				{
+					echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+				}
+
+			}
+
+			$sqlgaragem="SELECT * FROM tb_garagem  WHERE nr_vagas=\"$nrvagas\" ORDER BY cd_garagem DESC LIMIT 1";
+			$resulsql = $mysqli->query($sqlgaragem);
+			while($valor = $resulsql->fetch_object())
+			{	
+				$codgaragem = $valor->cd_garagem;
+				echo $codgaragem;
 			}
 			$idcliente=$_SESSION['cliente'];
 			$checkin=$_POST['checkin'];
@@ -344,7 +363,7 @@
 
 												}
 												echo $vlfinal;
-												$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$nrvagas','$regdate')";
+												$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$codgaragem','$regdate')";
 												if(!$mysqli->query($sql)){
 													echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
 												}
@@ -389,7 +408,7 @@
 
 								}
 								//echo $vlfinal;
-								$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$nrvagas','$regdate')";
+								$sql = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$vlfinal','$idcliente','$codgaragem','$regdate')";
 								if(!$mysqli->query($sql))
 								{
 									echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
