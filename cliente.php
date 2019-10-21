@@ -144,10 +144,10 @@
 					    	</p>
 				</div>
 	        	<div class="input-field col s4">
-					<input class="alterar inpute" id="cpf" type="text" name="cpf" readonly value="<?php echo $row->nr_cpf; ?>"><label for="cpf">CPF</label></p>
+					<input class="alterar inpute" id="cpf" type="text" name="cpf" readonly value="<?php echo $row->nr_cpf; ?>"><label for="cpf">CPF</label><span class="helper-text ccpf" data-error="wrong" data-success="right"></span>
 				</div>
 	        	<div class="input-field col s4">
-					<input class="alterar inpute" id="rg" type="text" name="rg" readonly value="<?php echo $row->nr_rg ?>"><label for="rg">RG</label></p>
+					<input class="alterar inpute" id="rg" type="text" name="rg" readonly value="<?php echo $row->nr_rg ?>"><label for="rg">RG</label><span class="helper-text crg" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s4">
 					<input class="alterar inpute" id="orgao" type="text" name="orgao" readonly value="<?php echo $row->ds_orgao ?>"><label for="orgao">Órgão de expedição</label></p>
@@ -168,7 +168,7 @@
 					<input class="alterar inpute" id="nacio" type="text" name="nacionalidade" readonly value="<?php echo $row->ds_nacionalidade ?>"><label for="nacio">Nacionalidade</label></p>
 				</div>
 				<div class="input-field col s3 ">
-					<select name="profissao" id="profissao" class="inpute" disabled>
+					<select name="profissao" id="profissao" class="inpute" value="<?php echo $row->id_profissao; ?>">
 						<?php
 							$sql2 = "SELECT * from tb_profissao order by nm_profissao asc";
 							$result2 = $mysqli->query($sql2);
@@ -307,7 +307,7 @@
 						$sql = "UPDATE tb_cliente set nm_cliente = '$nome', nr_cpf = '$cpf', nm_email = '$email', nr_celular = '$celular', nr_telefone = '$telefone', nr_rg = '$rg', ds_orgao = '$orgao', ds_nacionalidade = '$nacionalidade', dt_nascimento = '$datanasc', id_profissao = '$profissao' where cd_cliente = ".$_SESSION['cliente'];
 						if(!$mysqli->query($sql)){
 							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-						}
+						}	
 					}
 					if(!empty($_POST['dadosdeendereco'])) {
 						$cidade = $_POST['cidade'];
@@ -319,7 +319,7 @@
 						$sql = "UPDATE tb_endereco set nm_endereco = '$endereco', nr_endereco = '$numero', nr_cep = '$cep', nm_bairro = '$bairro', id_cidade = '$cidade' where cd_endereco = ".$row->cd_endereco;
 						if(!$mysqli->query($sql)){
 							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-						}
+						}				
 					}
 					if(!empty($_POST['dadossenhas'])){
 						$senha = md5($_POST['senha1']);
@@ -370,6 +370,28 @@
 			               		$("#senha").removeAttr('disabled');
 			               		$(".iu").removeAttr('disabled');
 			               	}
+			            }
+		        	});
+				});
+				$("#cpf").change(function(){
+					var cpf = {cpf: $("#cpf").val()};
+			        $.ajax({
+			            type: 'POST',
+			            url: 'php.php',
+			            data: cpf,
+			            success: function(response){
+			            	$(".ccpf").html(response);
+			            }
+		        	});
+				});
+				$("#rg").change(function(){
+					var rg = {rg: $("#rg").val()};
+			        $.ajax({
+			            type: 'POST',
+			            url: 'php.php',
+			            data: rg,
+			            success: function(response){
+			            	$(".crg").html(response);
 			            }
 		        	});
 				});
