@@ -21,26 +21,6 @@
 	    #but{
 	      	margin-right: 3%;
 	    }
-	    .icon{
-            padding: 5px;
-            width: 20%;
-            color: yellow;
-            transition: 0.4s;
-        }
-        .icon:hover{
-            width: 22%;
-        }
-		#lfooter{
-            color: white;
-            transition: 0.4s;
-        }
-
-        #lfooter:hover{
-            color: #FFCA37; 
-        }
-        footer{
-        	margin-top: 15%;
-        }
     </style>
 </head>
 <body>
@@ -56,10 +36,26 @@
 			$nmfuncionario = $_SESSION['nmadmin'];
 		?>
 		<h4>Funcionário: <?php echo $nmfuncionario; ?></p></h4>
-		<a id="but"href="ver_reserva.php" class="waves-effect waves-light indigo darken-3 btn">Visualizar reservas</a>
-		<a id="but" href="ver_quarto.php" class="waves-effect waves-light indigo darken-3 btn">Visualizar quartos</a>
-		<a id="but" href="ver_tipos.php" class="waves-effect waves-light indigo darken-3 btn">Visualizar tipos</a>
-		<a id="but" href="estatisticas.php" class="waves-effect waves-light indigo darken-3 btn">Visualizar estatísticas</a>
-		<a id="but" href="addfotos.php" class="waves-effect waves-light indigo darken-3 btn">Adicionar fotos</a>
+		<div class="container">
+			<div class="row" style="width: 80%;">
+				<div class="input-field col s4 m4">
+					<a id="but" href="ver_reserva.php" class="waves-effect waves-light indigo darken-3 btn">Visualizar reservas</a>
+				</div>
+				<div class="input-field col s4 m4">
+					<a id="but" href="ver_quarto.php" class="waves-effect waves-light indigo darken-3 btn">Visualizar quartos</a>
+				</div>
+				<div class="input-field col s4 m4">
+					<a id="but" href="estatisticas.php" class="waves-effect waves-light indigo darken-3 btn">Visualizar estatísticas</a>
+				</div>
+			</div>
+			<div class="row" style="width: 50%;">
+				<div class="input-field col s6 m6">
+					<a id="but" href="ver_tipos.php" class="waves-effect waves-light indigo darken-3 btn">Visualizar tipos</a>
+				</div>
+				<div class="input-field col s6 m6">
+					<a id="but" href="addfotos.php" class="waves-effect waves-light indigo darken-3 btn">Adicionar fotos</a>
+				</div>
+			</div>
+		</div>
 	</center>
-<?php include('footer.php'); ?>
+</body>

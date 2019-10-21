@@ -158,7 +158,7 @@
 
 
 				$('#func').click(function(){
-					$('#lista').append('•'+$('#descricao').val()+'<br> ' );	
+					$('#lista').append('• '+$('#descricao').val()+'<br> ' );	
 					$('#descricao').val('');		
 					
 					

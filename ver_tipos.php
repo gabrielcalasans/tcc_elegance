@@ -1,61 +1,88 @@
-<meta charset="utf-8">
-<?php include('conn.php'); ?>
-<style type="text/css">
-	#imgtipo
-	{
-		height: 35%;
-		width: 45%;
-	}
-</style>
+<?php include('header.php'); ?>
+	<meta charset="utf-8">
+	<?php include('conn.php'); ?>
+	<style type="text/css">
+		body{
+        	background-color: #758DA3; 
+	    }
+
+	    #logo{
+			width: 9%;
+			transition: 0.5s;
+		}
+
+		#logo:hover{
+			width: 9.5%;
+		}
+
+		#imgtipo
+		{
+			height: 35%;
+			width: 45%;
+		}
+
+		#painel{
+			width: 80%;
+			position: absolute;
+    		left: 10%;
+		}
+	</style>
+</head>
 <body>
-	<h1>Ver Tipos</h1>
-	<button><a href="cadastro_tipo.php">Cadastrar tipo</a></button> <a href="painel_admin.php">Painel de Controle</a>
+	<nav class="black darken-2">
+    	<div class="nav-wrapper" align="center">
+        	<a href="painel_admin.php"><img id="logo" src="images/logotipo2.png"></a>
+      	</div>      
+    </nav>
+	<center>
+		<h1>Ver Tipos</h1>
+		<div class="container">
+			<div class="row" style="width: 50%;">
+				<div class="input-field col s6 m6">
+					<a href="cadastro_tipo.php" class="waves-effect waves-light indigo darken-3 btn">Cadastrar tipo</a>
+				</div>
+				<div class="input-field col s6 m6">
+					<a href="painel_admin.php" class="waves-effect waves-light indigo darken-3 btn">Painel de controle</a>
+				</div>
+			</div>
+		</div>	
+	</center>
 	<p>
-
-	<?php 
-		$consultatipo = "SELECT * FROM tb_tipo";
-		$tipo = $mysqli->query($consultatipo);
-		while($linha = $tipo->fetch_object())
-			{				
-				if($linha->ds_imagem!="")
-				{
-					echo '<fieldset>Tipo: '.$linha->nm_tipo.'<p> Descrição: '.$linha->ds_tipo.'<br>Valor: '.$linha->vl_quarto.'<p> <img id="imgtipo" src="images/'.$linha->ds_imagem.'">';
+	<div id="painel" class="card panel">
+		<?php 
+			$consultatipo = "SELECT * FROM tb_tipo";
+			$tipo = $mysqli->query($consultatipo);
+			while($linha = $tipo->fetch_object())
+				{				
+					if($linha->ds_imagem!="")
+					{
+						echo '<div class="card panel" style="padding: 1%;"><b>Tipo: </b>'.$linha->nm_tipo.'<p><b>Descrição: </b>'.$linha->ds_tipo. '<p><b>Valor: </b>'.$linha->vl_quarto.'<p><img id="imgtipo" src="images/'.$linha->ds_imagem.'">';
+					}
+					else
+					{
+						echo '<div class="card panel" style="padding: 1%;"><b>Tipo: </b>'.$linha->nm_tipo.'<p><b>Descrição: </b>'.$linha->ds_tipo. '<p><b>Valor: </b>'.$linha->vl_quarto.'';
+					}
+					
+					echo '<p><a href="alterar_tipo.php?id='.$linha->cd_tipo.'" class="btn-small waves-effect waves-light blue">Alterar</a> <a href="ver_tipos.php?id='.$linha->cd_tipo.'" class="btn-small waves-effect waves-light red">Excluir</a></div>';
+												
 				}
-				else
-				{
-					echo '<fieldset>Tipo: '.$linha->nm_tipo.'<p> Descrição: '.$linha->ds_tipo.'<br>Valor: '.$linha->vl_quarto.'';
-				}
-				
-					echo '<p><button><a href="alterar_tipo.php?id='.$linha->cd_tipo.'">Alterar</a></button> <button><a href="ver_tipos.php?id='.$linha->cd_tipo.'">Excluir</a></button></fieldset><br>';
-											
-			}
-	if(isset($_GET['id']))
-      {
-
-        $codtipo=$_GET['id'];
-        $deletar_tipo="DELETE FROM tb_tipo WHERE cd_tipo=\"$codtipo\"";
-        if(!$mysqli->query($deletar_tipo))
-          {
-            echo "<script>alert('Não é possível excluir!! Há um quarto cadastrado com esse tipo!!');
-           		  window.location.href='ver_tipos.php';                   
-               </script>";
-          }
-          else
-          {
-           echo "<script>alert('Tipo excluída!!');
-                    window.location.href='ver_tipos.php';
-               </script>";
-          }
-
-      }
-
-
-
-
-
-
-
-
-	?>
-	
+			if(isset($_GET['id']))
+	    		{
+	        		$codtipo=$_GET['id'];
+	        		$deletar_tipo="DELETE FROM tb_tipo WHERE cd_tipo=\"$codtipo\"";
+	        		if(!$mysqli->query($deletar_tipo))
+	          		{
+	            		echo "<script>alert('Não é possível excluir!! Há um quarto cadastrado com esse tipo!!');
+	           		  	window.location.href='ver_tipos.php';                   
+	               		</script>";
+	          		}
+	          		else
+	          		{
+	           			echo "<script>alert('Tipo excluída!!');
+	                    window.location.href='ver_tipos.php';
+	               		</script>";
+	          		}
+	      		}
+		?>
+	</div>
 </body>
