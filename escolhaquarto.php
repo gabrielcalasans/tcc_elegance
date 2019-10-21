@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html>
+<?php include('header.php'); ?>
 <meta charset="utf-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
@@ -93,11 +92,29 @@
 	<title>Escolher Acomodações</title>
 </head>
 <body>
+	<nav class="grey darken-2">
+			<ul id="dropdown1" class="drop dropdown-content">
+                <li><a href="cliente.php">Minha conta</a></li>
+                <li class="divider"></li>
+                <li><a href="index.php?id=0">Sair</a></li>
+            </ul>
+            <div class="nav-wrapper">
+                <a href="index.php"><img id="logo" src="images/logotipo.png"></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                   <li><a href="">Configurações</a></li>
+                   <li><a href="cliente.php?id=0">Sair</a></li>
+                </ul>
+            </div>
+	</nav>
 	<form method="POST">
-		<div id="data">
-			Check in:  <input type="date" name="checkin"><p>
-			Check out: <input type="date" name="checkout"><p>
-			<a id="proximo">Próximo</a>
+		<div class="container">
+			<div class="card-panel col s12" id="painel" style="width: 50%">
+				<div id="data">
+					Check in:  <input type="date" name="checkin"><p>
+					Check out: <input type="date" name="checkout"><p>
+					<a class="waves-effect waves-light btn" id="proximo">Próximo</a>
+				</div>
+			</div>
 		</div>
 		<div id="tipodequarto">
 			<h3>Escolha seu tipo de quarto</h3>
@@ -154,9 +171,10 @@
 
 										}
 									}
-									echo '<label for='.$row->cd_quarto.'><fieldset><input type="radio" value= '.$row->cd_quarto.' name="quarto" id='.$row->cd_quarto.' /><fieldset>'.'Quarto de número:'.$row->nr_quarto.'<br><ul>'.'<li id="descricao">Descrição do quarto: '.$row->ds_quarto.'</li>'.'<li id="status">Status: '.$st.'</li>'.'<li id="valor"> Valor: '.$valor.'</li>'.'</ul></fieldset></fieldset></label>';
+									echo '<label for='.$row->cd_quarto.'><div class="card-panel" id="panel"><input type="radio" class="with-gap" value= '.$row->cd_quarto.' name="quarto" id='.$row->cd_quarto.' /><span></span>'.'Quarto de número:'.$row->nr_quarto.'<br><ul>'.'<li id="descricao">Descrição do quarto: '.$row->ds_quarto.'</li>'.'<li id="status">Status: '.$st.'</li>'.'<li id="valor"> Valor: '.$valor.'</li>'.'</ul></div></label>';
 
 								}
+
 							}
 						}
 					}
@@ -187,7 +205,7 @@
 
 										}
 									}
-									echo '<label for='.$row->cd_quarto.'><fieldset><input type="radio" value= '.$row->cd_quarto.' name="quarto" id='.$row->cd_quarto.' /><fieldset>'.'Quarto de número:'.$row->nr_quarto.'<br><ul>'.'<li id="descricao">Descrição do quarto: '.$row->ds_quarto.'</li>'.'<li id="status">Status: '.$st.'</li>'.'<li id="valor"> Valor: '.$valor.'</li>'.'</ul></fieldset></fieldset></label>';
+									echo '<label for='.$row->cd_quarto.'><div class="card-panel" id="panel"><input type="radio" class="with-gap" value= '.$row->cd_quarto.' name="quarto" id='.$row->cd_quarto.' /><span></span>'.'Quarto de número:'.$row->nr_quarto.'<br><ul>'.'<li id="descricao">Descrição do quarto: '.$row->ds_quarto.'</li>'.'<li id="status">Status: '.$st.'</li>'.'<li id="valor"> Valor: '.$valor.'</li>'.'</ul></div></label>';
 
 								}
 							}
@@ -197,7 +215,7 @@
 
 				?>
 			<p>
-		<a id="voltar">Voltar</a> <a id="proximo2">Próximo</a>
+		<a class="waves-effect waves-light btn" id="voltar">Voltar</a> <a class="waves-effect waves-light btn" id="proximo2">Próximo</a>
  
 		</div>
 	<div id="garagemcampo">
@@ -237,7 +255,6 @@
 			$('#garagemsim').hide();
 			$('#confirmar').hide();
 			$('#proximo').click(function(){
-				$('#data').hide();
 				$('#tipodequarto').fadeIn();
 
 			});
@@ -246,6 +263,7 @@
 				$('#data').fadeIn();
 			});
 			$('#proximo2').click(function(){
+				$('#painel').hide();
 				$('#tipodequarto').hide();
 				$('#garagemcampo').fadeIn();
 
@@ -452,6 +470,13 @@
 		width: 45%;
 		float:left;
 	}
-
-
+	body{
+		background-color: #FFF7D9;
+	}
+	#logo{
+	    width: 9%;
+    }
+    #panel{
+    	width: 40%;
+    }
 </style>
