@@ -31,7 +31,7 @@
   </style>
   <?php
     $consulta = "SELECT * FROM tb_reserva";
-    $executar = $mysqli->query($consulta);
+    $executar = $mysqli->query($consulta);     
   ?>
 	</head>
 	<body>
@@ -47,6 +47,7 @@
       <a href="painel_admin.php" class="waves-effect waves-light indigo darken-3 btn">Painel de controle</a>
     </center>
     <?php
+
       while($row = $executar->fetch_object())
       {
         //echo $row->cd_reserva.'<p>';
@@ -76,12 +77,23 @@
           $nome = "Cliente não cadastrado";
           $sobrenome = "";
         }      
-      
+        
+         
+        $status_reserva = $row->st_reservas;
+        if($status_reserva == 1)
+        {
+          $botao = "Desativar reserva";
+
+        }   
+        else
+        {
+          $botao = "Confirmar reserva";
+        }
+
         //----------------------------------------------
 
         //Consulta de quarto----------------------
         $consultaquarto = "SELECT * FROM tb_quarto WHERE cd_quarto = \"$idquarto\"";
-
         $resultado2 = $mysqli->query($consultaquarto);
         while($dado2 = $resultado2->fetch_object())
         {
@@ -98,34 +110,63 @@
             $tipo = $res->nm_tipo;
             $descricao = $res->ds_tipo;
             $endimagem = $res->ds_imagem;
+
           }
           //------------------------------------------------- fim consulta tipo de quarto
         }
         //---------------------------------------------- fim consulta quarto
 
         $div="<div class='container'><div class='card-panel' ><legend><span id='informacoes'><span id='titulo'>Informações Reserva</span></legend>Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>".""."<p>Número: ".$num." | Tipo de Quarto: ".$tipo."</span><p><img id='imgquarto' src='images/$endimagem''><p>";
-        $botoes = "<p><a class='waves-effect waves-light btn' href=excluir_reserva.php?id=".$codres.">Excluir</a> <a class='waves-effect waves-light btn' href=alteracao.php?idreserva=".$codres.">Alterar</a></div></div>";
+        $botoes = "<p><a class='waves-effect waves-light btn' href=ver_reserva.php?id=".$codres.">".$botao."</a> <a class='waves-effect waves-light btn' href=alteracao.php?idreserva=".$codres.">Alterar</a></div></div>";
         echo $div.$botoes;
 
-        if(isset($_GET['id']))
-        {
-
-          $codreserva=$_GET['id'];
-          $deletar_reserva="DELETE FROM tb_reserva WHERE cd_reserva=\"$codreserva\"";
-          if(!$mysqli->query($deletar_reserva))
-            {
-              echo "<script>alert('Não é possível excluir!!');
-                    window.location.href='ver_reserva.php';
-              </script>";
-            }
-          else
-          {
-            echo "<script>alert('Reserva excluída!!');
-                    window.location.href='ver_reserva.php';
-            </script>";
-          }
-        }
+        
       }
+     
+        $codigoreserva = $_GET['id'];
+        $consultastatus = "SELECT st_reservas FROM tb_reserva WHERE cd_reserva = $codigoreserva";
+        $resultadostatus = $mysqli->query($consultastatus);
+         while($status = $resultadostatus->fetch_object())
+          {
+            $status = $status->st_reservas;
+            echo $status;
+          }
+
+        if($status == 1)
+        {
+                    $sqlupdate ="UPDATE tb_reserva
+                     SET st_reservas = 0
+                     WHERE cd_reserva = $codigoreserva";
+                    if(!$mysqli->query($sqlupdate))
+                    {
+                     echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+                    }
+                    else
+                   {
+                     // echo "<script type='text/javascript'>alert('Concluído 2');</script>";
+                   }
+
+        }
+        else
+        {
+                    $sqlupdate ="UPDATE tb_reserva
+                     SET st_reservas = 1
+                     WHERE cd_reserva = $codigoreserva";
+                    if(!$mysqli->query($sqlupdate))
+                    {
+                     echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+                    }
+                    else
+                   {
+                      //echo "<script type='text/javascript'>alert('Concluído 1');</script>";
+                   }
+        }
+        
+         
+      
+          
+
+
     ?>
 	</body>
 </html>
