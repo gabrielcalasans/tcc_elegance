@@ -231,6 +231,7 @@
 <script>
 	$(document).ready(function(){
 
+
 			$("#tipodequarto").hide();
 			$('#garagemcampo').hide();
 			$('#garagemsim').hide();

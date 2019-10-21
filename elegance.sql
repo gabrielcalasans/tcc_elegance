@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 16-Out-2019 às 12:28
+-- Data de Criação: 21-Out-2019 às 11:45
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5658,7 +5658,7 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   PRIMARY KEY (`cd_cliente`),
   KEY `fk_id_profissao` (`id_profissao`),
   KEY `fk_cliente_endereco` (`id_endereco`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Extraindo dados da tabela `tb_cliente`
@@ -5671,7 +5671,8 @@ INSERT INTO `tb_cliente` (`cd_cliente`, `nm_cliente`, `nr_cpf`, `nm_email`, `nr_
 (11, 'Gilberto', '44444444444', 'gil@gilmail.com', '45645465456', '', 154545454, 'SSP', 'Brasileira', '2000-04-25', '0d7d3a24242c6d235735b98149c6b35b', '2019-09-11 02:21:13', 4, 12, 'Gil', 1, 'avatar/avatar11-2019.10.16-11.57.55.jpg'),
 (12, 'Gabriel', '5187882009', 'gcalasans71@gmail.com', '11111111111', '1111111111', 999999999, 'SSP', 'Brasileira', '2019-09-11', '81dc9bdb52d04dc20036dbd8313ed055', '2019-09-11 04:57:40', 1, 13, 'Calasans', 1, 'avatar/avatar1.png'),
 (13, 'Roberto', '88888888888', 'robertinho@hotmail.com', '46454658656', '', 461871418, 'SSP', 'Estadunidense', '1995-04-06', '202cb962ac59075b964b07152d234b70', '2019-10-13 23:09:44', 8, 14, 'Carlos', 1, 'avatar/avatar1.png'),
-(14, 'Gabriel', '44444444444', 'g@gmail.com', '55555555555', '5555555555', 555555555, 'SSP', 'Brasileiro', '2019-10-24', '81dc9bdb52d04dc20036dbd8313ed055', '2019-10-16 11:17:39', 3, 15, 'Silva', 1, 'avatar/avatar1.png');
+(14, 'Gabriel', '44444444444', 'g@gmail.com', '55555555555', '5555555555', 555555555, 'SSP', 'Brasileiro', '2019-10-24', '81dc9bdb52d04dc20036dbd8313ed055', '2019-10-16 11:17:39', 3, 15, 'Silva', 1, 'avatar/avatar1.png'),
+(15, 'Gabriel', '88888888888', 'g@gmail.com', '88888888888', '8888888888', 888888888, 'SSP', 'Brasileira', '2019-10-15', '81dc9bdb52d04dc20036dbd8313ed055', '2019-10-21 11:20:58', 8, 16, 'Silva', 1, 'avatar/avatar1.png');
 
 -- --------------------------------------------------------
 
@@ -5715,7 +5716,7 @@ CREATE TABLE IF NOT EXISTS `tb_endereco` (
   `id_cidade` int(11) NOT NULL,
   PRIMARY KEY (`cd_endereco`),
   KEY `fk_cidade_endereco` (`id_cidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Extraindo dados da tabela `tb_endereco`
@@ -5736,7 +5737,8 @@ INSERT INTO `tb_endereco` (`cd_endereco`, `nm_endereco`, `nr_endereco`, `nr_cep`
 (12, 'Av. Rio Branco', 789, 54654564, 'Centro', 94),
 (13, 'Rua dos Bobos', 0, 12345678, 'Jd Tupinambá', 80),
 (14, 'Rua dos Alfineiros', 4, 17858654, 'Centro', 225),
-(15, 'R. Passarinho', 1234, 9089783, 'Jd. Ninho', 103);
+(15, 'R. Passarinho', 1234, 9089783, 'Jd. Ninho', 103),
+(16, 'R. Fá', 12, 12345677, 'Dó', 101);
 
 -- --------------------------------------------------------
 
@@ -5847,7 +5849,14 @@ CREATE TABLE IF NOT EXISTS `tb_garagem` (
   `cd_garagem` int(11) NOT NULL AUTO_INCREMENT,
   `nr_vagas` int(10) NOT NULL,
   PRIMARY KEY (`cd_garagem`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `tb_garagem`
+--
+
+INSERT INTO `tb_garagem` (`cd_garagem`, `nr_vagas`) VALUES
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -5972,7 +5981,7 @@ CREATE TABLE IF NOT EXISTS `tb_quarto` (
 --
 
 INSERT INTO `tb_quarto` (`cd_quarto`, `nr_quarto`, `ds_quarto`, `id_tipo`, `id_status`, `id_pedido`) VALUES
-(1, 16, 'Quarto com banheira', 2, 1, 0),
+(1, 16, 'Quarto com banheira', 2, 2, 0),
 (2, 22, 'Quarto sem chao', 7, 1, 0),
 (5, 45, 'Quarto do frati', 3, 1, 0),
 (6, 34, 'Não tem descrição', 4, 1, 0),
@@ -5999,7 +6008,14 @@ CREATE TABLE IF NOT EXISTS `tb_reserva` (
   PRIMARY KEY (`cd_reserva`),
   KEY `fk_id_quarto` (`id_quarto`),
   KEY `FK_reserva_cliente` (`id_garagem`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+
+--
+-- Extraindo dados da tabela `tb_reserva`
+--
+
+INSERT INTO `tb_reserva` (`cd_reserva`, `id_quarto`, `dt_checkin`, `dt_checkout`, `vl_reserva`, `id_cliente`, `id_garagem`, `dthr_registro`) VALUES
+(42, 1, '2019-10-21', '2019-10-24', '756.00', 15, 1, '2019-10-21 09:28:37');
 
 -- --------------------------------------------------------
 
@@ -6042,12 +6058,12 @@ CREATE TABLE IF NOT EXISTS `tb_tipo` (
 
 INSERT INTO `tb_tipo` (`cd_tipo`, `nm_tipo`, `ds_tipo`, `vl_quarto`, `ds_imagem`) VALUES
 (1, 'Deluxe', '• Frigobar • Chuveiro • Ar-condicionado • Mesa de trabalho • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso ', '199.00', ''),
-(2, 'Suíte de 1 Quarto', '• Frigobar • Chuveiro • Mesa de trabalho • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso de mármore/azulejo', '189.00', ''),
-(3, 'Suíte Família', '• Frigobar • Chuveiro • Mesa de trabalho • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso de mármore/azulejo', '239.00', ''),
-(4, 'Suíte Júnior', '• Frigobar • Chuveiro • Ar-condicionado • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso de mármore/azulejo', '0.00', ''),
-(5, 'Suíte King com Vista para o Mar', '• Frigobar • Chuveiro • Ar-condicionado • Mesa de trabalho • Vaso sanitário • Banheiro privativo • Camas extralongas (+ de 2 metros)', '0.00', ''),
-(6, 'Suíte Standard', '• Frigobar • Chuveiro • Mesa de trabalho • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso de mármore/azulejo', '149.00', ''),
-(7, 'Suíte Deluxe com Banheira de Hidromassagem', '• Frigobar • Chuveiro • Banheira • Ar-condicionado • Banheira de hidromassagem • Mesa de trabalho • Ventilador • Vaso sanitário • Banhei', '0.00', '');
+(2, 'Suíte de 1 Quarto', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '189.00', ''),
+(3, 'Suíte Família', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '239.00', ''),
+(4, 'Suíte Júnior', '• Frigobar• Chuveiro• Ar-condicionado• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '0.00', ''),
+(5, 'Suíte King com Vista para o Mar', '• Frigobar• Chuveiro• Ar-condicionado• Mesa de trabalho• Vaso sanitário• Banheiro privativo• Camas extralongas (+ de 2 metros)', '0.00', ''),
+(6, 'Suíte Standard', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '149.00', ''),
+(7, 'Suíte Deluxe com Banheira de Hidromassagem', '• Frigobar• Chuveiro• Banheira• Ar-condicionado• Banheira de hidromassagem• Mesa de trabalho• Ventilador• Vaso sanitário• Banhei', '0.00', '');
 
 -- --------------------------------------------------------
 
@@ -6064,6 +6080,18 @@ CREATE TABLE IF NOT EXISTS `tb_transacao` (
   PRIMARY KEY (`cd_transacao`),
   KEY `id_estadia` (`id_estadia`),
   KEY `fk_transforma` (`id_forma`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_valores`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_valores` (
+  `cd_valor` int(11) NOT NULL AUTO_INCREMENT,
+  `vl_garagem` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`cd_valor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
