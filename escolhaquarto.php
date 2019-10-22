@@ -252,26 +252,14 @@
 			var entradaArmazenada = localStorage.entrada;
 			var saidaArmazenada = localStorage.saida;
 			$('#entrada').val(entradaArmazenada);
-			$('#saida').val(saidaArmazenada);
-			var a = $('#entrada').val();
-			var b = $('#saida').val();
-			if(b!="" && a!="")
-				{
-					$('#proximo').hide();
-
-				}
-				else
-				{
-					$('#proximo').fadeIn();					
-					localStorage.setItem('entrada',a);
-					localStorage.setItem('saida',b);
-				}
+			$('#saida').val(saidaArmazenada);		
 
 
 			$("#tipodequarto").hide();
 			$('#garagemcampo').hide();
 			$('#garagemsim').hide();
 			$('#confirmar').hide();
+			$('#proximo').hide();
 			$('#proximo').click(function(){
 				$('#tipodequarto').fadeIn();
 				$('#proximo').hide();
