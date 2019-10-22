@@ -144,10 +144,10 @@
 					    	</p>
 				</div>
 	        	<div class="input-field col s4">
-					<input class="alterar inpute" id="cpf" type="text" name="cpf" readonly value="<?php echo $row->nr_cpf; ?>"><label for="cpf">CPF</label><span class="helper-text ccpf" data-error="wrong" data-success="right"></span>
+					<input class="alterar inpute" id="cpf" type="text" name="cpf" readonly value="<?php echo $row->nr_cpf; ?>"><label for="cpf">CPF</label></p>
 				</div>
 	        	<div class="input-field col s4">
-					<input class="alterar inpute" id="rg" type="text" name="rg" readonly value="<?php echo $row->nr_rg ?>"><label for="rg">RG</label><span class="helper-text crg" data-error="wrong" data-success="right"></span>
+					<input class="alterar inpute" id="rg" type="text" name="rg" readonly value="<?php echo $row->nr_rg ?>"><label for="rg">RG</label></p>
 				</div>
 				<div class="input-field col s4">
 					<input class="alterar inpute" id="orgao" type="text" name="orgao" readonly value="<?php echo $row->ds_orgao ?>"><label for="orgao">Órgão de expedição</label></p>
@@ -304,10 +304,23 @@
 								$profissao = $row6->cd_profissao;
 							}
 						}
-						$sql = "UPDATE tb_cliente set nm_cliente = '$nome', nr_cpf = '$cpf', nm_email = '$email', nr_celular = '$celular', nr_telefone = '$telefone', nr_rg = '$rg', ds_orgao = '$orgao', ds_nacionalidade = '$nacionalidade', dt_nascimento = '$datanasc', id_profissao = '$profissao' where cd_cliente = ".$_SESSION['cliente'];
-						if(!$mysqli->query($sql)){
-							echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-						}	
+						$rgusuario = $row->nr_rg;
+						$cpfusuario = $row->nr_cpf;
+
+						#PAAAAAAAAAAREEEEEEEEEEEEEEEEEEEEEEEEEEI AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+
+						$sql = "SELECT nr_rg as rg, nr_cpf as cpf from tb_cliente where nr_cpf = '$cpf' or nr_rg = '$rg' and nr_rg <> '$rgusuario' and nr_cpf <> '$cpfusuario'";
+						$result = $mysqli->query($sql);
+						if($result->num_rows > 0){
+							echo "<script type='text/javascript'>alert('CPF ou RG já cadastarados.');</script>";
+						}
+						else{
+							$sql = "UPDATE tb_cliente set nm_cliente = '$nome', nr_cpf = '$cpf', nm_email = '$email', nr_celular = '$celular', nr_telefone = '$telefone', nr_rg = '$rg', ds_orgao = '$orgao', ds_nacionalidade = '$nacionalidade', dt_nascimento = '$datanasc', id_profissao = '$profissao' where cd_cliente = ".$_SESSION['cliente'];
+							if(!$mysqli->query($sql)){
+								echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+							}	
+						}
+							
 					}
 					if(!empty($_POST['dadosdeendereco'])) {
 						$cidade = $_POST['cidade'];
@@ -419,6 +432,7 @@
             	$("#alterarpes").click(function(){
             		$(".alterar").removeAttr('readonly');
             		$(".radioal").removeAttr('disabled');
+            		M.toast({html: 'Dados pessoais já podem ser alterados.'});
             	});
             	$(".alterar").change(function(){
 					$("#dadospessoais").val("hello world");
@@ -428,6 +442,7 @@
             	});
             	$("#alterarende").click(function(){
             		$(".alterar1").removeAttr('readonly');
+            		M.toast({html: 'Dados de endereço já podem ser alterados.'});
             	});
             	$(".alterar1").change(function(){
             		$("#dadosdeendereco").val("hello world");
