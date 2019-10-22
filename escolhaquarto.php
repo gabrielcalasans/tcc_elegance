@@ -249,17 +249,26 @@
 </body>
 <script>
 	$(document).ready(function(){
+
 			var entradaArmazenada = localStorage.entrada;
 			var saidaArmazenada = localStorage.saida;
-			$('#entrada').val(entradaArmazenada);
-			$('#saida').val(saidaArmazenada);		
+
+			if(localStorage.getItem("entrada") == null)
+			{
+  				$('#proximo').hide();
+			}
+			else
+			{
+				$('#entrada').val(entradaArmazenada);
+				$('#saida').val(saidaArmazenada);
+			}
+
 
 
 			$("#tipodequarto").hide();
 			$('#garagemcampo').hide();
 			$('#garagemsim').hide();
 			$('#confirmar').hide();
-			$('#proximo').hide();
 			$('#proximo').click(function(){
 				$('#tipodequarto').fadeIn();
 				$('#proximo').hide();
@@ -297,7 +306,7 @@
 				var a = $('#entrada').val();
 				var b = $('#saida').val();
 
-				if(b<a)
+			if(b<a)
 				{
 					console.log('data inválida');
 					$('#saida').css('background-color','#ffebee');
@@ -307,7 +316,7 @@
 					$('#tipodequarto').fadeOut();
 
 				}
-				else
+			else
 				{
 					$('#proximo').fadeIn();
 					$('#saida').css('background-color','#e8f5e9');
@@ -315,10 +324,12 @@
 					M.toast({html: 'Data válida!'});
 					localStorage.setItem('entrada',a);
 					localStorage.setItem('saida',b);
-				}
-
-
+				}			
 			});
+
+			
+			
+			
 
 
 			});
