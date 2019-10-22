@@ -110,8 +110,9 @@
 		<div class="container">
 			<div class="card-panel col s12" id="painel" style="width: 50%">
 				<div id="data">
-					Check in:  <input type="date" name="checkin"><p>
-					Check out: <input type="date" name="checkout"><p>
+					Check in:  <input type="date" id="entrada" name="checkin"><p>
+					Check out: <input type="date" id="saida" name="checkout"><p>
+					<span id="msgdata"></span><p>
 					<a class="waves-effect waves-light btn" id="proximo">Próximo</a>
 				</div>
 			</div>
@@ -223,8 +224,8 @@
 		<!-- Realizar consulta na tabela para saber quantas vagas estão disponíveis
 			Comparar vagas disponíveis com o número colocado
 		-->
-		Sim<input type="radio" value="1" required id="sim" name="garagem">
-		Não<input type="radio" value="2" required id="nao" name="garagem">
+		<a id="sim" class="btn">Sim</a>
+		<a id="nao" class="btn">Não</a>
 		<p>
 		<span id="garagemsim">
 			Vagas disponíveis:<br>
@@ -248,6 +249,23 @@
 </body>
 <script>
 	$(document).ready(function(){
+			var entradaArmazenada = localStorage.entrada;
+			var saidaArmazenada = localStorage.saida;
+			$('#entrada').val(entradaArmazenada);
+			$('#saida').val(saidaArmazenada);
+			var a = $('#entrada').val();
+			var b = $('#saida').val();
+			if(b!="" && a!="")
+				{
+					$('#proximo').hide();
+
+				}
+				else
+				{
+					$('#proximo').fadeIn();					
+					localStorage.setItem('entrada',a);
+					localStorage.setItem('saida',b);
+				}
 
 
 			$("#tipodequarto").hide();
@@ -256,6 +274,7 @@
 			$('#confirmar').hide();
 			$('#proximo').click(function(){
 				$('#tipodequarto').fadeIn();
+				$('#proximo').hide();
 
 			});
 			$('#voltar').click(function(){
@@ -286,6 +305,32 @@
 
 			});
 
+			$(document).on('change','#saida',function(){
+				var a = $('#entrada').val();
+				var b = $('#saida').val();
+
+				if(b<a)
+				{
+					console.log('data inválida');
+					$('#saida').css('background-color','#ffebee');
+					$('#entrada').css('background-color','#ffebee');
+					$('#proximo').hide();
+					M.toast({html: 'Data inválida!'});
+					$('#tipodequarto').fadeOut();
+
+				}
+				else
+				{
+					$('#proximo').fadeIn();
+					$('#saida').css('background-color','#e8f5e9');
+					$('#entrada').css('background-color','#e8f5e9');
+					M.toast({html: 'Data válida!'});
+					localStorage.setItem('entrada',a);
+					localStorage.setItem('saida',b);
+				}
+
+
+			});
 
 
 			});
