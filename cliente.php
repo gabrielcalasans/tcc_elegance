@@ -306,7 +306,6 @@
 						}
 						$rgusuario = $row->nr_rg;
 						$cpfusuario = $row->nr_cpf;
-
 						$sql = "SELECT nr_rg as rg, nr_cpf as cpf from tb_cliente where (nr_cpf = '$cpf' or nr_rg = '$rg') and (nr_rg <> '$rgusuario' and nr_cpf <> '$cpfusuario')";
 						$result = $mysqli->query($sql);
 						if($result->num_rows > 0){
@@ -496,20 +495,33 @@
 		}
 
 		$("#cpf").change(function(){
-			var strCPF = $("#cpf").val();
+			var strCPF = $("#cpf").cleanVal();
 			var cpfinvalido = {cpfinvalido: $("#cpf").val()};
-			if(!TestaCPF(strCPF)){
-				M.toast({html: 'CPF inválido!<i class="tiny material-icons right">clear</i>'});
+			if(TestaCPF(strCPF) == false){
+				M.toast({html: 'CPF inválido!<i class="tiny red material-icons right">clear</i>'});
 				$.ajax({
 			        type: 'POST',
 			        url: 'php.php',
 			        data: cpfinvalido,
 			        success: function(response){
 			            $("#cpf").val(response);
-
 			        }
 		        });
 			}
+			
+			var cpfduplicado = {cpfduplicado: $("#cpf").val()};
+			$.ajax({
+			    type: 'POST',
+			    url: 'php.php',
+			    data: cpfduplicado,
+			    success: function(response){
+			    	if(response == 1){
+						M.toast({html: 'CPF já existente/cadastrado!<i class="tiny red material-icons right">clear</i>'});
+			        	$("#cpf").val('');
+			    	}	
+			    }
+		    });
+				
 		});
 		
 

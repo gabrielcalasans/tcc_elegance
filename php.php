@@ -52,4 +52,13 @@
         $row = $result->fetch_object();
         echo $row->nr_cpf;
     }
+    if(isset($_POST['cpfduplicado'])){
+        $rgusuario = $row->nr_rg;
+        $cpfusuario = $row->nr_cpf;
+        $sql = "SELECT nr_cpf from tb_cliente where nr_cpf = '$cpf' and nr_cpf <> '$cpfusuario'";
+        $result = $mysqli->query($sql);
+        if($result->num_rows > 0){
+            echo "1";
+        }
+    }
 ?>
