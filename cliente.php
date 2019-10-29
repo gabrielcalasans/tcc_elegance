@@ -307,12 +307,10 @@
 						$rgusuario = $row->nr_rg;
 						$cpfusuario = $row->nr_cpf;
 
-						#PAAAAAAAAAAREEEEEEEEEEEEEEEEEEEEEEEEEEI AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-
-						$sql = "SELECT nr_rg as rg, nr_cpf as cpf from tb_cliente where nr_cpf = '$cpf' or nr_rg = '$rg' and nr_rg <> '$rgusuario' and nr_cpf <> '$cpfusuario'";
+						$sql = "SELECT nr_rg as rg, nr_cpf as cpf from tb_cliente where (nr_cpf = '$cpf' or nr_rg = '$rg') and (nr_rg <> '$rgusuario' and nr_cpf <> '$cpfusuario')";
 						$result = $mysqli->query($sql);
 						if($result->num_rows > 0){
-							echo "<script type='text/javascript'>alert('CPF ou RG já cadastarados.');</script>";
+							echo "<script type='text/javascript'>alert('CPF e/ou RG já existentes. Tente outro.');</script>";
 						}
 						else{
 							$sql = "UPDATE tb_cliente set nm_cliente = '$nome', nr_cpf = '$cpf', nm_email = '$email', nr_celular = '$celular', nr_telefone = '$telefone', nr_rg = '$rg', ds_orgao = '$orgao', ds_nacionalidade = '$nacionalidade', dt_nascimento = '$datanasc', id_profissao = '$profissao' where cd_cliente = ".$_SESSION['cliente'];
@@ -475,6 +473,46 @@
                 $('.modal').modal();
                 $('select').formSelect();
             });
+
+		function TestaCPF(strCPF) {
+		    var Soma;
+		    var Resto;
+		    Soma = 0;
+		  if (strCPF == "00000000000") return false;
+		     
+		  for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+		  Resto = (Soma * 10) % 11;
+		   
+		    if ((Resto == 10) || (Resto == 11))  Resto = 0;
+		    if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
+		   
+		  Soma = 0;
+		    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+		    Resto = (Soma * 10) % 11;
+		   
+		    if ((Resto == 10) || (Resto == 11))  Resto = 0;
+		    if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
+		    return true;
+		}
+
+		$("#cpf").change(function(){
+			var strCPF = $("#cpf").val();
+			var cpfinvalido = {cpfinvalido: $("#cpf").val()};
+			if(!TestaCPF(strCPF)){
+				M.toast({html: 'CPF inválido!<i class="tiny material-icons right">clear</i>'});
+				$.ajax({
+			        type: 'POST',
+			        url: 'php.php',
+			        data: cpfinvalido,
+			        success: function(response){
+			            $("#cpf").val(response);
+
+			        }
+		        });
+			}
+		});
+		
+
         </script>
         <div class="section"></div>
 	</body>

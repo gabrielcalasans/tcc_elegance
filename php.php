@@ -46,4 +46,10 @@
             echo "RG disponível<i class='tiny material-icons left'>check</i>";
         }
     }
+    if(isset($_POST['cpfinvalido'])){
+        $sql = "SELECT * from tb_cliente where cd_cliente =".$_SESSION['cliente'];
+        $result = $mysqli->query($sql);
+        $row = $result->fetch_object();
+        echo $row->nr_cpf;
+    }
 ?>
