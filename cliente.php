@@ -508,22 +508,34 @@
 			        }
 		        });
 			}
-			
-			var cpfduplicado = {cpfduplicado: $("#cpf").val()};
+			var cpfduplicado = {cpfduplicado: $("#cpf").cleanVal()};
 			$.ajax({
 			    type: 'POST',
 			    url: 'php.php',
 			    data: cpfduplicado,
 			    success: function(response){
-			    	if(response == 1){
-						M.toast({html: 'CPF já existente/cadastrado!<i class="tiny red material-icons right">clear</i>'});
-			        	$("#cpf").val('');
-			    	}	
+			    	if(response){
+			    		M.toast({html: 'CPF já existente/cadastrado!<i class="tiny red material-icons right">clear</i>'});
+			        	$("#cpf").val(response);
+			    	}
 			    }
 		    });
 				
 		});
-		
+		$("#rg").change(function(){
+			var rgduplicado = {rgduplicado: $("#rg").cleanVal()};
+				$.ajax({
+				    type: 'POST',
+				    url: 'php.php',
+				    data: rgduplicado,
+				    success: function(response){
+				    	if(response){
+				    		M.toast({html: 'RG já existente/cadastrado!<i class="tiny red material-icons right">clear</i>'});
+				        	$("#rg").val(response);
+				    	}
+				    }
+			    });
+		});
 
         </script>
         <div class="section"></div>

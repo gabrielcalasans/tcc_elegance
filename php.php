@@ -1,5 +1,25 @@
 <?php
 	include('conn.php');
+    $sql = "SELECT * from tb_cliente where cd_cliente = ".$_SESSION['cliente'];
+    $result = $mysqli->query($sql);
+    $row1 = $result->fetch_object();
+    function mask($val, $mask){
+        $maskared = '';
+        $k = 0;
+        for($i = 0; $i<=strlen($mask)-1; $i++){
+            if($mask[$i] == '#'){
+                if(isset($val[$k])){
+                    $maskared .= $val[$k++];
+                }
+            }
+            else{
+                if(isset($mask[$i])){
+                    $maskared .= $mask[$i];
+                }
+            }
+        }
+        return $maskared;
+    }
     if(isset($_POST['estado'])){
         $estado = $_POST['estado'];
         $sql = "SELECT nm_cidade as cidade, cd_cidade as codcidade from tb_cidade cid
@@ -47,18 +67,27 @@
         }
     }
     if(isset($_POST['cpfinvalido'])){
-        $sql = "SELECT * from tb_cliente where cd_cliente =".$_SESSION['cliente'];
-        $result = $mysqli->query($sql);
-        $row = $result->fetch_object();
-        echo $row->nr_cpf;
+        $cpf = $row1->nr_cpf;
+        echo mask($cpf, '###.###.###-##');
     }
     if(isset($_POST['cpfduplicado'])){
-        $rgusuario = $row->nr_rg;
-        $cpfusuario = $row->nr_cpf;
+        $cpfusuario = $row1->nr_cpf;
+        $cpf = $_POST['cpfduplicado'];
         $sql = "SELECT nr_cpf from tb_cliente where nr_cpf = '$cpf' and nr_cpf <> '$cpfusuario'";
         $result = $mysqli->query($sql);
         if($result->num_rows > 0){
-            echo "1";
+            $cpf = $row1->nr_cpf;
+            echo mask($cpf, '###.###.###-##');
+        }
+    }
+    if(isset($_POST['rgduplicado'])){
+        $rgusuario = $row1->nr_rg;
+        $rg = $_POST['rgduplicado'];
+        $sql = "SELECT nr_rg from tb_cliente where nr_rg = '$rg' and nr_rg <> '$rgusuario'";
+        $result = $mysqli->query($sql);
+        if($result->num_rows > 0){
+            $rg = $row1->nr_rg;
+            echo mask($rg, '##.###.###-#');
         }
     }
 ?>
