@@ -41,7 +41,11 @@
 				<a href="painel_admin.php"><img id="logo" src="images/logotipo2.png"></a>
 			</div>			
 		</nav>
-		
+		<br>
+		<center>
+			<a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
+		</center>
+		<br>
 		<form method="post">
 			<center><div id="lista" class="card-panel" style="width: 95%;">
 			<div class="row">
