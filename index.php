@@ -95,13 +95,13 @@
                             <form class="col s12" method="post">
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="entrada" type="text" class="validate datepicker" name="checkin">
+                                        <input id="entrada" type="date" name="checkin">
                                         <label for="entrada">Data de entrada</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="saida" type="text" class="validate datepicker" name="checkout">
+                                        <input id="saida" type="date" name="checkout">
                                         <label for="saida">Data de saída</label>
                                     </div>
                                 </div>

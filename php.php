@@ -1,8 +1,10 @@
 <?php
 	include('conn.php');
-    $sql = "SELECT * from tb_cliente where cd_cliente = ".$_SESSION['cliente'];
-    $result = $mysqli->query($sql);
-    $row1 = $result->fetch_object();
+    if (isset($_SESSION['cliente'])) {
+        $sql = "SELECT * from tb_cliente where cd_cliente = ".$_SESSION['cliente'];
+        $result = $mysqli->query($sql);
+        $row1 = $result->fetch_object();
+    }
     function mask($val, $mask){
         $maskared = '';
         $k = 0;
@@ -44,28 +46,6 @@
             echo "Senha não correspondente <i class='tiny material-icons left'>clear</i>";
         }
     }
-    if(isset($_POST['cpf'])){
-        $cpf = $_POST['cpf'];
-        $sql = "SELECT * from tb_cliente where nr_cpf = '$cpf'";
-        $result = $mysqli->query($sql);
-        if($result->num_rows > 0){
-            echo "CPF já cadastrado<i class='tiny material-icons left'>clear</i>";
-        }
-        else{
-            echo "CPF disponível<i class='tiny material-icons left'>check</i>";
-        }
-    }
-    if(isset($_POST['rg'])){
-        $rg = $_POST['rg'];
-        $sql = "SELECT * from tb_cliente where nr_rg = '$rg'";
-        $result = $mysqli->query($sql);
-        if($result->num_rows > 0){
-            echo "RG já cadastrado<i class='tiny material-icons left'>clear</i>";
-        }
-        else{
-            echo "RG disponível<i class='tiny material-icons left'>check</i>";
-        }
-    }
     if(isset($_POST['cpfinvalido'])){
         $cpf = $row1->nr_cpf;
         echo mask($cpf, '###.###.###-##');
@@ -88,6 +68,22 @@
         if($result->num_rows > 0){
             $rg = $row1->nr_rg;
             echo mask($rg, '##.###.###-#');
+        }
+    }
+    if(isset($_POST['cpfduplicado1'])){
+        $cpf = $_POST['cpfduplicado1'];
+        $sql = "SELECT * from tb_cliente where nr_cpf = '$cpf'";
+        $result = $mysqli->query($sql);
+        if($result->num_rows > 0){
+            echo "1";
+        }
+    }
+    if(isset($_POST['rgduplicado1'])){
+        $rg = $_POST['rgduplicado1'];
+        $sql = "SELECT * from tb_cliente where nr_rg = '$rg'";
+        $result = $mysqli->query($sql);
+        if($result->num_rows > 0){
+            echo "1";
         }
     }
 ?>

@@ -328,11 +328,38 @@
 
 		$("#cpf").change(function(){
 			var strCPF = $("#cpf").cleanVal();
-			var cpfinvalido = {cpfinvalido: $("#cpf").val()};
+			var cpfinvalido1 = {cpfinvalido1: $("#cpf").val()};
 			if(TestaCPF(strCPF) == false){
 				M.toast({html: 'CPF inválido!<i class="tiny red material-icons right">clear</i>'});
-			    $("#cpf").val('');
+				$("#cpf").val('');
 			}
+			var cpfduplicado1 = {cpfduplicado1: $("#cpf").cleanVal()};
+			$.ajax({
+			    type: 'POST',
+			    url: 'php.php',
+			    data: cpfduplicado1,
+			    success: function(response){
+			    	if(response == 1){
+			    		M.toast({html: 'CPF já existente/cadastrado!<i class="tiny red material-icons right">clear</i>'});
+			        	$("#cpf").val('');
+			    	}
+			    }
+		    });
+				
+		});
+		$("#rg").change(function(){
+			var rgduplicado1 = {rgduplicado1: $("#rg").cleanVal()};
+			$.ajax({
+			    type: 'POST',
+			    url: 'php.php',
+			    data: rgduplicado1,
+			    success: function(response){
+			    	if(response == 1){
+			    		M.toast({html: 'RG já existente/cadastrado!<i class="tiny red material-icons right">clear</i>'});
+			        	$("#rg").val('');
+			    	}
+			    }
+		    });
 		});
 		  $('select').formSelect();
 	</script>
