@@ -36,16 +36,8 @@
     </nav>
 	<center>
 		<h1>Ver Tipos</h1>
-		<div class="container">
-			<div class="row" style="width: 50%;">
-				<div class="input-field col s6 m6">
-					<a href="cadastro_tipo.php" class="waves-effect waves-light indigo darken-3 btn">Cadastrar tipo</a>
-				</div>
-				<div class="input-field col s6 m6">
-					<a href="painel_admin.php" class="waves-effect waves-light indigo darken-3 btn">Painel de controle</a>
-				</div>
-			</div>
-		</div>	
+		<a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
+      	<a href="cadastro_tipo.php" class="waves-effect waves-light indigo darken-3 btn">Cadastrar tipo</a>
 	</center>
 	<p>
 	<div id="painel" class="card panel">
