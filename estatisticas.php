@@ -70,13 +70,19 @@
       <div class="card panel" style="width: 20%; padding: 1%;">
         <b>Total de reservas:</b>
         <?php echo $reservas_totais; ?>
-        <p>
+        <p></p>
+        <div class="divider"></div>
+        <p></p>
         <b>Lucro total:</b>
         <?php echo $lucro_total; ?>
-        <p>
+        <p></p>
+        <div class="divider"></div>
+        <p></p>
         <b>Reservas no último mês:</b>
         <?php echo $reservas_mes;   ?>
-        <p>
+        <p></p>
+        <div class="divider"></div>
+        <p></p>
         <b>Lucro do último mês:</b>
         <?php echo $lucro_mes;   ?>
       </div>
