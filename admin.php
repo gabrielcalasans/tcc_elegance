@@ -2,7 +2,7 @@
 	<title>Login administrador | Pousada Elegance<</title>
 	<style type="text/css">
 		body{
-				background-color: #5C677D;
+				background-color: #758DA3;
 			}
 		 /* label focus color */
 		.input-field input[type=text]:focus + label {
