@@ -20,6 +20,7 @@
 			#logo:hover{
 				width: 9.5%;
 			}
+
 	    </style>
 	</head>
 	<body>
@@ -47,6 +48,28 @@
 								<option value="2">Não disponível</option>
 							</select><label for="status">Status do Quarto</label>
     					</div>
+    				</div>
+    				<div class="row">
+    					<div class="input-field col s12 m12">
+    						<textarea id="digite" class="materialize-textarea" name="descricao" required="" data-length="200" maxlength="200"></textarea>
+						    <label for="digite">Descrição do quarto</label>
+    					</div>
+    				</div>
+    				<div class="row">
+    					<div class="col s4 m4">
+					    	<div class="card">
+					    		<div class="card-image">
+					          		<img id="foto" src="images/x.png">
+					          		<span class="card-title">Tipo do Quarto</span>
+					        	</div>
+					        	<div class="card-content">
+					          		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ante ante, bibendum nec turpis tristique, fringilla luctus tellus.</p>
+					        	</div>
+					        	<div class="card-action">
+					          		<input type="radio" name="tipoquarto">
+					        	</div>
+					      	</div>
+					    </div>
     				</div>
     			</form>
     		</div>
