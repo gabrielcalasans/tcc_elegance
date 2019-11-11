@@ -25,12 +25,12 @@
 			}
 
 			#logo{
-				width: 8%;
+				width: 9%;
 				transition: 0.5s;
 			}
 
 			#logo:hover{
-				width: 8.5%;
+				width: 9.5%;
 			}
 		</style>
 	</head>
