@@ -6058,12 +6058,12 @@ CREATE TABLE IF NOT EXISTS `tb_tipo` (
 
 INSERT INTO `tb_tipo` (`cd_tipo`, `nm_tipo`, `ds_tipo`, `vl_quarto`, `ds_imagem`) VALUES
 (1, 'Deluxe', '• Frigobar • Chuveiro • Ar-condicionado • Mesa de trabalho • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso ', '199.00', ''),
-(2, 'Suíte de 1 Quarto', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '189.00', ''),
-(3, 'Suíte Família', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '239.00', ''),
-(4, 'Suíte Júnior', '• Frigobar• Chuveiro• Ar-condicionado• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '0.00', ''),
-(5, 'Suíte King com Vista para o Mar', '• Frigobar• Chuveiro• Ar-condicionado• Mesa de trabalho• Vaso sanitário• Banheiro privativo• Camas extralongas (+ de 2 metros)', '0.00', ''),
-(6, 'Suíte Standard', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '149.00', ''),
-(7, 'Suíte Deluxe com Banheira de Hidromassagem', '• Frigobar• Chuveiro• Banheira• Ar-condicionado• Banheira de hidromassagem• Mesa de trabalho• Ventilador• Vaso sanitário• Banhei', '0.00', '');
+(2, 'Suíte de 1 Quarto', '• Frigobar • Chuveiro • Mesa de trabalho • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso de mármore/azulejo', '189.00', ''),
+(3, 'Suíte Família', '• Frigobar • Chuveiro • Mesa de trabalho • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso de mármore/azulejo', '239.00', ''),
+(4, 'Suíte Júnior', '• Frigobar • Chuveiro • Ar-condicionado • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso de mármore/azulejo', '0.00', ''),
+(5, 'Suíte King com Vista para o Mar', '• Frigobar • Chuveiro • Ar-condicionado • Mesa de trabalho • Vaso sanitário • Banheiro privativo • Camas extralongas (+ de 2 metros)', '0.00', ''),
+(6, 'Suíte Standard', '• Frigobar • Chuveiro • Mesa de trabalho • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso de mármore/azulejo', '149.00', ''),
+(7, 'Suíte Deluxe com Banheira de Hidromassagem', '• Frigobar • Chuveiro • Banheira • Ar-condicionadon • Banheira de hidromassagem • Mesa de trabalho • Ventilador • Vaso sanitário', '0.00', '');
 
 -- --------------------------------------------------------
 
