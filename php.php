@@ -89,9 +89,15 @@
      if(isset($_POST['quarto'])){
         $cdtipo = $_POST['quarto'];
         $sql = "SELECT * FROM tb_tipo WHERE cd_tipo ='$cdtipo'";
-        $result = $mysqli->query($sql);
-        $row = $result->fetch_object();
-        echo $row->ds_tipo;   
+        $result = $mysqli->query($sql);        
+        while($row = $result->fetch_object()){
+            echo '<div class= "modal-content>"';
+            echo '<h4>'.$row->nm_tipo.'</h4>';
+            echo '<p>'.$row->ds_tipo.'</p>';
+            echo '</div>';
+
+        }
+           
     }
     if(isset($_POST['exibir']) && isset($_POST['entrada']) && isset($_POST['saida'])){
         $exibir = implode($_POST['exibir']);

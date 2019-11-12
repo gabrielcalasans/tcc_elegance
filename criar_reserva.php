@@ -6,6 +6,9 @@
 <script type="text/javascript" src="SmartWizard-master/SmartWizard-master/dist/js/jquery.smartWizard.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
 
 <?php 
@@ -26,7 +29,8 @@ include 'conn.php';
         <div id="step-1" class="">
         	<div class="data" style="width: 13%;">
 					Check in:  <input type="date" id="entrada" name="checkin"><p>
-					Check out: <input type="date" id="saida" name="checkout"><p>
+					Check out: <input type="date" id="saida" name="checkout"><p>                       
+
 			</div>
         </div>
         <div id="step-2" class="">
@@ -42,8 +46,24 @@ include 'conn.php';
                             
 
                             // MODAL COM AS INFORMACOES DO QUARTO E A IMAGEM
-                        echo '<label id="tipo" for='.$linha->cd_tipo.'><div class="card-panel" id="panel"><input type="radio" class="with-gap tipodequarto" value= '.$linha->cd_tipo.' name="quarto" id='.$linha->cd_tipo.' /><span>'.$linha->nm_tipo.'</span></div></label>';
+                        echo '<label  id="tipo" for='.$linha->cd_tipo.'>
+                                    <div  class="card-panel"  id="panel">
+                                        <input type="radio" class="with-gap tipodequarto" value= '.$linha->cd_tipo.' name="quarto" id='.$linha->cd_tipo.' />
+                                            <span>'.$linha->nm_tipo.'</span>
+                                            <span data-target="modal'.$linha->cd_tipo.'"  class="modal-trigger" id="detalhes">  <i class="material-icons">add_circle_outline
+</i></span>
 
+                                </div>
+                            </label>';  
+                            echo '<div id="modal'.$linha->cd_tipo.'" class="modal">
+                                    <div class="modal-content">
+                                      <h4>'.$linha->nm_tipo.'</h4>
+                                      <p>A bunch of text</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                                    </div>
+                                  </div>';                     
                            $c++;
                            if($c%3==0)
                            {
@@ -56,11 +76,12 @@ include 'conn.php';
 					
 
 
-       		?>
-            <div id="descricaocampo">
+       		?>                        
+            </div>
+            <div id="modal1" class="modal">
                 
-            </div>
-            </div>
+              </div>
+
         </div>
         <div id="step-3" class="">
             
@@ -93,6 +114,11 @@ include 'conn.php';
  
  
 }
+#detalhes
+{
+    font-family: 'Work Sans', sans-serif;
+
+}
 
 
 </style>
@@ -100,14 +126,13 @@ include 'conn.php';
    
 $(document).ready(function(){
 
-    $(document).ready(function(){
-        
-        $('.tooltipped').tooltip();
-    });
-
+  $(document).ready(function(){
+    $('.modal').modal();
+  });
+     
     $('#smartwizard').smartWizard();
 
-    $('.tipodequarto').change(function(){
+    $('.tipodequarto').click(function(){
         var quarto = {quarto: $("input[name='quarto']:checked").val()};    
         var exibir = {exibir: $("input[name='quarto']:checked").val()};
         var entrada = {entrada: $("#entrada").val()};
@@ -118,7 +143,7 @@ $(document).ready(function(){
             data: quarto,
             success: function(response){
                 console.log(response);
-                 M.toast({html: response});
+                
 
 
             }        
