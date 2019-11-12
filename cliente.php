@@ -70,16 +70,13 @@
             </div>
         </div>
 		<nav class="grey darken-2">
-			<ul id="dropdown1" class="drop dropdown-content">
-                <li><a href="cliente.php">Minha conta</a></li>
-                <li class="divider"></li>
-                <li><a href="index.php?id=0">Sair</a></li>
-            </ul>
             <div class="nav-wrapper">
                 <a href="index.php"><img id="logo" src="images/logotipo.png"></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                   <li><a href="">Configurações</a></li>
-                   <li><a class="modal-trigger" href="#sair">Sair</a></li>
+                	<li><a href="reservas_cliente.php" title="Área de reserva">Área de reserva</a></li>
+                	<li class="active"><a href="cliente.php" title="Minha conta">Minha conta</a></li>
+                	<li><a href="#" title="Histórico">Histórico</a></li>
+                   	<li><a class="modal-trigger" href="#sair" title="Sair">Sair</a></li>
                 </ul>
             </div>
 	    </nav>
