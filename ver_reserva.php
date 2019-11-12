@@ -117,7 +117,7 @@
         //---------------------------------------------- fim consulta quarto
 
         $div="<div class='container'><div class='card-panel' ><legend><span id='informacoes'><span id='titulo'>Informações Reserva</span></legend>Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>".""."<p>Número: ".$num." | Tipo de Quarto: ".$tipo."</span><p><img id='imgquarto' src='images/$endimagem''><p>";
-        $botoes = "<p><a class='waves-effect waves-light btn-small green accent-4' href=ver_reserva.php?id=".$codres.">".$botao."</a> <a class='btn-small waves-effect waves-light blue' href=alteracao.php?idreserva=".$codres.">Alterar</a></div></div>";
+        $botoes = "<p><a class='waves-effect waves-light btn-small blue' href=ver_reserva.php?id=".$codres.">".$botao."</a> <a class='btn-small waves-effect waves-light blue' href=alteracao.php?idreserva=".$codres.">Alterar</a></div></div>";
         echo $div.$botoes;
 
         
