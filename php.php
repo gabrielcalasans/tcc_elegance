@@ -86,4 +86,21 @@
             echo "1";
         }
     }
+     if(isset($_POST['quarto'])){
+        $cdtipo = $_POST['quarto'];
+        $sql = "SELECT * FROM tb_tipo WHERE cd_tipo ='$cdtipo'";
+        $result = $mysqli->query($sql);
+        $row = $result->fetch_object();
+        echo $row->ds_tipo;   
+    }
+    if(isset($_POST['exibir']) && isset($_POST['entrada']) && isset($_POST['saida'])){
+        $exibir = implode($_POST['exibir']);
+        $entrada = implode($_POST['entrada']);
+        $saida = implode($_POST['saida']);
+        $sql = "SELECT * FROM tb_quarto WHERE id_tipo = '$exibir' AND id_status = '1'";                
+        $result = $mysqli->query($sql); 
+        while($row = $result->fetch_object()){
+            echo '<label for="'.$row->cd_quarto.'"><div class="card-panel"><input type="radio" class="with-gap" name="ola" id="'.$row->cd_quarto.'"><span>'.$row->ds_quarto.'</span></div></label><br>';
+        }
+    }
 ?>
