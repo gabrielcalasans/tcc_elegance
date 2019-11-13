@@ -10,7 +10,9 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-
+<head>
+    <title>Criar reserva</title>
+</head>
 <?php 
 include 'conn.php';
  ?>
@@ -45,23 +47,30 @@ include 'conn.php';
 						{
                             
 
-                            // MODAL COM AS INFORMACOES DO QUARTO E A IMAGEM
+                           
                         echo '<label  id="tipo" for='.$linha->cd_tipo.'>
                                     <div  class="card-panel"  id="panel">
                                         <input type="radio" class="with-gap tipodequarto" value= '.$linha->cd_tipo.' name="quarto" id='.$linha->cd_tipo.' />
                                             <span>'.$linha->nm_tipo.'</span>
-                                            <span data-target="modal'.$linha->cd_tipo.'"  class="modal-trigger" id="detalhes">  <i class="material-icons">add_circle_outline
-</i></span>
+                                            <span data-target="modal'.$linha->cd_tipo.'"  class="modal-trigger" id="detalhes">
+                                              <i class="material-icons">add_circle_outline</i>
+                                            </span>
 
                                 </div>
                             </label>';  
                             echo '<div id="modal'.$linha->cd_tipo.'" class="modal">
                                     <div class="modal-content">
                                       <h4>'.$linha->nm_tipo.'</h4>
-                                      <p>A bunch of text</p>
+                                      <p>O quarto possui: <br>'.$linha->ds_tipo.'</p>
+                                      <p>Valor: '.number_format($linha->vl_quarto, 2, ',', '.').'</p>
                                     </div>
+                                    <p>
+                                    <div class="img-box">
+                                        <p><img id="imagemtipo" src="'.$linha->ds_imagem.'"></p>
+                                    </div>                             
                                     <div class="modal-footer">
-                                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+
+                                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
                                     </div>
                                   </div>';                     
                            $c++;
@@ -72,8 +81,15 @@ include 'conn.php';
                         
                         }
                     }
-						
-					
+						// INFORMAÇÕES DO QUARTO --- (da página php.php)
+					 // '<label for="num'.$row->cd_quarto.'">
+      //                   <div class="card-panel">
+      //                   <div id="textoquarto"><input type="radio" class="with-gap" name="ola" id="num'.$row->cd_quarto.'">                       
+      //                       <span>'.$row->ds_quarto.'</span><br>
+      //                       <span>Nº: '.$row->nr_quarto.'</span><br>
+      //                   </div>
+      //                   </div>
+      //           </label><br>'
 
 
        		?>                        
@@ -84,7 +100,10 @@ include 'conn.php';
 
         </div>
         <div id="step-3" class="">
-            
+            <div id="escolhaquarto">
+                
+            </div>
+            <p>
         </div>
         <div id="step-4" class="">
             Step Content
@@ -119,6 +138,22 @@ include 'conn.php';
     font-family: 'Work Sans', sans-serif;
 
 }
+#imagemtipo{
+    width: 45%;
+    height: 45%;
+}
+.img-box
+{
+    text-align: center;
+}
+#textoquarto
+{
+    text-align: center;
+}
+.t3
+{
+    width: 100px;
+}
 
 
 </style>
@@ -137,24 +172,24 @@ $(document).ready(function(){
         var exibir = {exibir: $("input[name='quarto']:checked").val()};
         var entrada = {entrada: $("#entrada").val()};
         var saida = {saida: $("#saida").val()};
-        $.ajax({
-            type: 'POST',
-            url: 'php.php',
-            data: quarto,
-            success: function(response){
-                console.log(response);
+        // $.ajax({
+        //     type: 'POST',
+        //     url: 'php.php',
+        //     data: quarto,
+        //     success: function(response){
+        //         console.log(response);
                 
 
 
-            }        
-        });
+        //     }        
+        // });
 
         $.ajax({
             type: 'POST',
             url: 'php.php',
-            data: {exibir, saida, entrada,},
+            data: exibir,
             success: function(response){
-                $("#step-3").html(response);
+                $("#escolhaquarto").html(response);
             }        
         });
    });

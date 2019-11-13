@@ -91,22 +91,35 @@
         $sql = "SELECT * FROM tb_tipo WHERE cd_tipo ='$cdtipo'";
         $result = $mysqli->query($sql);        
         while($row = $result->fetch_object()){
-            echo '<div class= "modal-content>"';
-            echo '<h4>'.$row->nm_tipo.'</h4>';
-            echo '<p>'.$row->ds_tipo.'</p>';
-            echo '</div>';
+
 
         }
            
     }
-    if(isset($_POST['exibir']) && isset($_POST['entrada']) && isset($_POST['saida'])){
-        $exibir = implode($_POST['exibir']);
-        $entrada = implode($_POST['entrada']);
-        $saida = implode($_POST['saida']);
+    if(isset($_POST['exibir'])){
+        $exibir = $_POST['exibir'];        
         $sql = "SELECT * FROM tb_quarto WHERE id_tipo = '$exibir' AND id_status = '1'";                
         $result = $mysqli->query($sql); 
         while($row = $result->fetch_object()){
-            echo '<label for="'.$row->cd_quarto.'"><div class="card-panel"><input type="radio" class="with-gap" name="ola" id="'.$row->cd_quarto.'"><span>'.$row->ds_quarto.'</span></div></label><br>';
+            echo '<div class="row">
+                    <div class="col s12 m3">
+                      <div class="card">
+                        <div class="card-image">
+                          <img src="images/x.png">
+                          <span class="card-title">Nº '.$row->nr_quarto.'</span>
+                        </div>
+                        <div class="card-content">
+                              <label for="num'.$row->cd_quarto.'">                             
+                                 <input type="radio" class="with-gap" name="ola" id="num'.$row->cd_quarto.'">
+                                 <span>'.$row->ds_quarto.'</span>                   
+                              </label><br>
+                        </div> 
+                         <div class="card-action">
+                          Valor: 100,00 (tem que pegar do banco)
+                        </div>                      
+                      </div>
+                    </div>
+                  </div>';
         }
     }
 ?>
