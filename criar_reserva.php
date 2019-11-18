@@ -23,7 +23,8 @@ include 'conn.php';
         <li><a href="#step-1">Check-in e Check-out<br /><small>Aqui você escolherá<br> os dias que ficará em nossa pousada!</small></a></li>
         <li><a href="#step-2">Tipo de quarto<br /><small>Aqui você escolherá<br> o tipo de quarto</small></a></li>
         <li><a href="#step-3">Quarto<br /><small>Aqui você escolherá<br> o quarto</small></a></li>
-        <li><a href="#step-4">Step Title<br /><small>Step description</small></a></li>
+        <li><a href="#step-4">Garagem<br /><small>Aqui você escolherá<br> opções sobre a garaegem</small></a></li>
+        <li><a href="#step-5">Confirmação<br /><small>Confirme seus dados<br> antes de enviar</small></a></li>
 
     </ul>
 
@@ -33,8 +34,8 @@ include 'conn.php';
 					Check in:  <input type="date" id="entrada" name="checkin"><p>
 					Check out: <input type="date" id="saida" name="checkout"><p>                       
 
-			</div>
-        </div>
+			   </div>
+      </div>
         <div id="step-2" class="">
             <div id="selecao">
        		<?php
@@ -106,9 +107,54 @@ include 'conn.php';
             <p>
         </div>
         <div id="step-4" class="">
-            Step Content
-        </div>
+         
+              Deseja reservar um espaço na garagem:
+              <br>
+              <label for="sim">
+                <div class="card-panel">
+                   <input type="radio" class="with-gap" name="opcgaragem" id="sim">
+                   <span>Sim</span>
+               </div>
+              </label>
+              <label for="nao">
+                <div class="card-panel">
+                   <input type="radio" class="with-gap" name="opcgaragem" id="nao">
+                   <span>Não</span>
+               </div>
+              </label><br>
+
+
+              <div id="espacogaragem">
+                Quantidade máxima: <span id="max"></span><br>
+                Reservar <div id="espacodiv"><input type="number" name="reservagaragem"></div> espaços na garagem<br>
+                Valor adicional
+              </div>
+      
+        </div> 
+    <div id="step-5" class="">
+
+      <div class="card-panel">
+        <div id="informacoes">
+          Check-in: <span id="entradaconfirmada"></span> Check-out: <span id="saidaconfirmada"></span><br>
+          Tipo de quarto: <span id="tipoconfirmado"></span> Número do quarto: <span id="numeroconfirmado"></span> Valor do quarto: <span id="valorquarto"></span><br>
+          Vagas na garagem: <span id="vagasconfirmadas"> Valor da garagem: <span id="valorgaragem"><br>
+          Valor da reserva: <span id="valortotalreserva"><br>
+          <label for="confirmarreserva">
+            <input id="confirmarreserva" type="checkbox"/>
+            <span>Confirmar</span>
+          </label>
+          <div id="botaosubmit">
+            <input type="submit" class="btn" id="botaoenviar" value="Enviar" name="">
+          </div>
+
+
+      </div>
     </div>
+        
+    </div> 
+
+    
+    
     <span id="mensagem"><i>Insira a data para iniciar o passo a passo</i></span>
 
 </div>
@@ -154,12 +200,17 @@ include 'conn.php';
 {
     width: 100px;
 }
+#espacodiv
+{
+  width: 5%;
+}
 
 
 </style>
 <script type="text/javascript">
    
 $(document).ready(function(){
+     
 
   $(document).ready(function(){
     $('.modal').modal();
@@ -169,21 +220,7 @@ $(document).ready(function(){
 
     $('.tipodequarto').click(function(){
         var quarto = {quarto: $("input[name='quarto']:checked").val()};    
-        var exibir = {exibir: $("input[name='quarto']:checked").val()};
-        var entrada = {entrada: $("#entrada").val()};
-        var saida = {saida: $("#saida").val()};
-        // $.ajax({
-        //     type: 'POST',
-        //     url: 'php.php',
-        //     data: quarto,
-        //     success: function(response){
-        //         console.log(response);
-                
-
-
-        //     }        
-        // });
-
+        var exibir = {exibir: $("input[name='quarto']:checked").val()};       
         $.ajax({
             type: 'POST',
             url: 'php.php',
@@ -198,9 +235,12 @@ $(document).ready(function(){
  });
    
 
-   $(document).on('change','#saida',function(){
+   $(document).on('change','#saida,#entrada',function(){
                 var a = $('#entrada').val();
                 var b = $('#saida').val();
+                localStorage.setItem('entrada',a);
+                localStorage.setItem('saida',b);
+                
 
             if(b<a)
                 {
@@ -222,6 +262,44 @@ $(document).ready(function(){
                     $("#mensagem").fadeOut();
                 }           
     });
+
+
+   $('#espacogaragem').hide();
+
+   $('#sim').click(function(){
+      $('#espacogaragem').fadeIn();
+      var entrada = {entrada: $("#entrada").val()};
+      var saida = {saida: $("#saida").val()};
+
+       $.ajax({
+            type: 'POST',
+            url: 'php.php',
+            data: { 'entrada': entrada, 'saida': saida, },
+            success: function(response){
+                $("#max").html(response);
+                console.log(response);
+            }        
+        });
+
+
+
+
+   });
+
+    $('#nao').click(function(){
+      $('#espacogaragem').fadeOut();
+
+   });
+    $('#botaoenviar').hide();
+    $("#confirmarreserva").change(function(){
+      if($("#confirmarreserva").is(":checked")){
+        $('#botaoenviar').fadeIn();
+      }
+      else{
+        $('#botaoenviar').fadeOut();
+      }
+    });
+    
 
        
    
