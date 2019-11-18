@@ -8,16 +8,16 @@
 
 
   <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger" id="modalbtn" href="#modal1">Imagem</a>
+  <a class="btn-small waves-effect waves-light blue modal-trigger" id="modalbtn" href="#modal1">Imagem</a>
 
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
-      <div class="modal-content">
-                <div id="imgespaco"></div>
-        </div>
-        <div class="modal-footer">
-          <a href="#!" class="modal-close btn">Fechar</a>
-      </div>
+    <div class="modal-content">
+      <div id="imgespaco"></div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close btn-small waves-effect waves-light blue">Fechar</a>
+    </div>
   </div>
 
 <script>
