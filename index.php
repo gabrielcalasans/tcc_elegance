@@ -81,6 +81,15 @@
             .dropdown-content li > a, .dropdown-content li > span {
                 color: #fbc02d !important;
             }
+
+            @font-face {
+                font-family: "Lobster";
+                src: url("fonts/lobster/Lobster.otf") format("truetype");
+            }
+
+            .lobster-font{
+                font-family: "Lobster"; 
+            }
         </style>
     </head>
 	<body>
@@ -115,7 +124,7 @@
         </div>
         <center>
         <div id="i1" class="section">
-            <h4>Inclusos</h4>
+            <h4 class="lobster-font">Inclusos</h4>
             <br>
             <div class="row">
                 <div class="col m4">
@@ -155,7 +164,7 @@
         </div>
         <div class="divider"></div>
         <div class="section">
-            <h4>Depoimentos</h4>
+            <h4 class="lobster-font">Depoimentos</h4>
             <div class="row">
                 <div class="col s12">
                     <div class="carousel carousel-slider center">
@@ -183,8 +192,7 @@
                                             </div>  
                                         </div>';
                                 }  
-                            }
-                            
+                            }    
                         ?>
                     </div>
                 </div>
