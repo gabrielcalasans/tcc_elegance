@@ -60,10 +60,20 @@
             .input-field textarea:focus + label {
                 color: #283593 !important;
             }
+
             .input-field textarea:focus {
                 border-bottom: 1px solid #283593 !important;
                 box-shadow: 0 1px 0 0 #283593 !important
             }
+
+            @font-face {
+    			font-family: "Lobster";
+    			src: url("fonts/lobster/Lobster.otf") format("truetype");
+    		}
+
+    		.lobster-font{
+    			font-family: "Lobster"; 
+       		}
 	    </style>
 	</head>
 	<body>
@@ -73,7 +83,7 @@
       		</div>      
     	</nav>
     	<center>
-    		<h1>Alterar Quarto</h1>
+    		<h1 class="lobster-font">Alterar Acomodação</h1>
     		<h4>Código do quarto: <?php echo $codquarto; ?></h4>
     		<a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
     		<br><br>

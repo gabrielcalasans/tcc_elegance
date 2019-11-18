@@ -51,6 +51,14 @@
 				height: 90.5%;
 			}
 
+			@font-face {
+    			font-family: "Lobster";
+    			src: url("fonts/lobster/Lobster.otf") format("truetype");
+    		}
+
+    		.lobster-font{
+    			font-family: "Lobster"; 
+       		}
  		</style>
 	</head>
 	<body>
@@ -60,7 +68,7 @@
       		</div>      
     	</nav>
     	<center>
-    		<h1>Cadastrar Tipo de Quarto</h1>
+    		<h1 class="lobster-font">Alterar Tipo de Quarto</h1>
     		<a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
     		<br><br>
     	</center>

@@ -22,11 +22,15 @@
       #logo:hover{
         width: 9.5%;
       }
-      .qua{
-        font-family: 'Lobster', cursive;
-      }
       b{
         font-size: 15px;
+      }
+      @font-face {
+        font-family: "Lobster";
+        src: url("fonts/lobster/Lobster.otf") format("truetype");
+      }
+      .lobster-font{
+        font-family: "Lobster"; 
       }
     </style>
     <?php
@@ -42,7 +46,7 @@
     </nav>
     <center>
       <div class="qua">
-        <h1>Quarto</h1>
+        <h1 class="lobster-font">Quartos</h1>
       </div>
       <a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
       <a href="cadastroquarto.php" class="waves-effect waves-light indigo darken-3 btn">Cadastrar novo quarto</a>

@@ -26,6 +26,15 @@
         width: 9.5%;
       
       }
+
+      @font-face {
+        font-family: "Lobster";
+        src: url("fonts/lobster/Lobster.otf") format("truetype");
+      }
+
+      .lobster-font{
+        font-family: "Lobster"; 
+      }
 		</style>
 	</head>
   <?php
@@ -63,7 +72,7 @@
       </div>      
     </nav>
     <center>
-      <h1> Estatísticas da Pousada</h1>
+      <h1 class="lobster-font">Estatísticas da Pousada</h1>
       <a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
       <br>
       <br>

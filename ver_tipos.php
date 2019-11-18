@@ -26,6 +26,15 @@
 			position: absolute;
     		left: 10%;
 		}
+
+		@font-face {
+    		font-family: "Lobster";
+    		src: url("fonts/lobster/Lobster.otf") format("truetype");
+    	}
+
+    	.lobster-font{
+    		font-family: "Lobster"; 
+       }
 	</style>
 </head>
 <body>
@@ -35,7 +44,7 @@
       	</div>      
     </nav>
 	<center>
-		<h1>Ver Tipos</h1>
+		<h1 class="lobster-font">Ver Tipos</h1>
 		<a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
       	<a href="cadastro_tipo.php" class="waves-effect waves-light indigo darken-3 btn">Cadastrar tipo</a>
 	</center>

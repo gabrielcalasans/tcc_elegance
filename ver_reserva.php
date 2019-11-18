@@ -28,6 +28,13 @@
     #logo:hover{
       width: 9.5%;
     }
+    @font-face {
+      font-family: "Lobster";
+      src: url("fonts/lobster/Lobster.otf") format("truetype");
+    }
+    .lobster-font{
+      font-family: "Lobster"; 
+    }
   </style>
   <?php
     $consulta = "SELECT * FROM tb_reserva";
@@ -43,7 +50,7 @@
       </nav>
     </center>
     <center>
-      <h1>Reservas</h1>
+      <h1 class="lobster-font">Reservas</h1>
       <a href="painel_admin.php" class="waves-effect waves-light indigo darken-3 btn">Painel de controle</a>
     </center>
     <?php

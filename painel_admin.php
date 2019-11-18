@@ -21,6 +21,15 @@
 	    #but{
 	      	margin-right: 3%;
 	    }
+
+	    @font-face {
+    		font-family: "Lobster";
+    		src: url("fonts/lobster/Lobster.otf") format("truetype");
+    	}
+
+    	.lobster-font{
+    		font-family: "Lobster"; 
+       }
     </style>
 </head>
 <body>
@@ -30,7 +39,7 @@
       	</div>      
     </nav>
 	<center>
-		<h1>Área do Administrador</h1>
+		<h1 class="lobster-font">Área do Administrador</h1>
 		<?php 
 			include('conn.php');	
 			$nmfuncionario = $_SESSION['nmadmin'];
