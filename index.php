@@ -81,19 +81,15 @@
             .dropdown-content li > a, .dropdown-content li > span {
                 color: #fbc02d !important;
             }
-
-            @font-face {
-                font-family: "Lobster";
-                src: url("fonts/lobster/Lobster.otf") format("truetype");
-            }
-
-            .lobster-font{
-                font-family: "Lobster"; 
-            }
         </style>
     </head>
 	<body>
-		<?php include('menu.php'); ?>
+        <?php 
+            include('menu.php');
+            if(isset($_GET['logado']) && $_GET['logado'] == 1) {
+                echo "<script>M.toast({html: '".$saudacao.$row->nm_cliente." ".$row->nm_sobrenome."!'});</script>";
+            }
+        ?>
         <div class="parallax-container">    
             <div class="parallax"><img src="images/teste.jpg"></div>
             <div class="row">  
@@ -124,7 +120,7 @@
         </div>
         <center>
         <div id="i1" class="section">
-            <h4 class="lobster-font">Inclusos</h4>
+            <h4>Inclusos</h4>
             <br>
             <div class="row">
                 <div class="col m4">
@@ -164,7 +160,7 @@
         </div>
         <div class="divider"></div>
         <div class="section">
-            <h4 class="lobster-font">Depoimentos</h4>
+            <h4>Depoimentos</h4>
             <div class="row">
                 <div class="col s12">
                     <div class="carousel carousel-slider center">
@@ -192,7 +188,8 @@
                                             </div>  
                                         </div>';
                                 }  
-                            }    
+                            }
+                            
                         ?>
                     </div>
                 </div>

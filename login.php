@@ -35,7 +35,12 @@
 		</style>
 	</head>
 	<body>
-		<?php include('conn.php'); ?>
+		<?php
+			include('conn.php');
+			if(!empty($_SESSION['cliente'])){
+				header('Location: index.php');
+			}
+		?>
 		<center>
 			<nav class="grey darken-2">
 				<div class="nav-wrapper">
@@ -49,19 +54,21 @@
 				    <form class="col s12" method="post">
 				      	<div class="row">
 				        	<div class="input-field col s12">
-				          		<input id="cpf" type="text" class="validate" name="cpf" required="" placeholder="_ _ _ . _ _ _ . _ _ _ - _ _">
+				        		<i class="material-icons prefix">credit_card</i>
+				          		<input id="cpf" type="text" name="cpf" required="">
 				          		<label for="cpf">CPF</label>
 				        	</div>
 				    	</div>
 				    	<div class="row">
 				        	<div class="input-field col s12">
-				          		<input id="password" type="password" class="validate" name="senha" required="" placeholder="Password">
-				          		<label for="password">Senha</label>
+				        		<i class="material-icons prefix">lock</i>
+				          		<input id="senha" type="password" name="senha" required="">
+				          		<label for="senha">Senha</label>
 				        	</div>
 				    	</div>
-				    	<button class="btn waves-effect waves-light yellow darken-2" id="logar" type="submit" name="action">Entrar
+				    	<a class="btn yellow darken-2" id="logar" name="action">Entrar
     						<i class="material-icons right">input</i>
-  						</button>
+  						</a>
 					</form>
 				</div>
 	  		</div>
@@ -69,30 +76,27 @@
 	  			Novo por aqui? <a href="cadastro.php">Crie uma conta</a>
 	  		</div>
 		</center>
-		<?php
-			if(isset($_POST['cpf']) && isset($_POST['senha'])){
-				$cpf = $_POST['cpf'];
-				$senha = md5($_POST['senha']);
-				$sql = "SELECT * from tb_cliente where nr_cpf = '$cpf' and ds_senha = '$senha'";
-				$result = $mysqli->query($sql);
-				if($result->num_rows > 0){
-					$row = $result->fetch_object();
-					$cdcliente=$row->cd_cliente;
-					$_SESSION['cliente']=$cdcliente;
-					$_SESSION['status']='Logado';
-					echo "<script type='text/javascript'>window.location.href='index.php';</script>";
-				}
-				else{
-					echo "Tente novamente.";
-				}
-			}
-		?>
 	</body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script>
 		$(document).ready(function(){
 			$("#cpf").mask("999.999.999-99");
 			$("#logar").click(function(){
-				$("#cpf").val($("#cpf").cleanVal());
+				var verisenha = {verisenha: $("#senha").val()}; 
+				var vericpf = {vericpf: $("#cpf").cleanVal()};
+			        $.ajax({
+			            type: 'POST',
+			            url: 'php.php',
+			            data: {'vericpf': vericpf, 'verisenha': verisenha, },
+			            success: function(response){
+			            	if(response == 1){
+								window.location.href='index.php?logado=1';
+			            	}
+			            	else{
+			            		M.toast({html: 'Usuário não existente! Tente novamente.'});
+			            	}
+			            }
+		        	});
 			});
 		});
 	</script>

@@ -44,19 +44,22 @@
                             $row = $result->fetch_object();
                             if($row->id_genero == 1){
                                 $pronome = "Sr. ";
+                                $saudacao = "Bem-vindo, ";
                             }
                             else if ($row->id_genero == 2) {
                                 $pronome = "Sra. ";
+                                $saudacao = "Bem-vinda, ";
                             }
                             else{
                                 $pronome = "Sr(a). ";
+                                $saudacao = "Bem-vindo(a), ";
                             }
                             $title = $pronome.$row->nm_cliente." ".$row->nm_sobrenome;
                             echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown1" title="'.$title.'"><b>'.
                             $pronome.$row->nm_cliente.'</b><i class="material-icons right"><img id="avatar" style="border-radius: 100%;" src="'.$row->ds_avatar.'" height="22px" width="22px"></i></a></li>';
                         }
                         else{
-                            echo '<li><a href="login.php"><b>Fazer login<i class="material-icons right">account_circle</i></b></a></li>';
+                            echo '<li><a href="login.php" title="Fazer login"><b>Fazer login<i class="material-icons right">account_circle</i></b></a></li>';
                         }
                     ?>
                 </ul>
