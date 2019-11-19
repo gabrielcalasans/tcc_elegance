@@ -229,10 +229,29 @@ $(document).ready(function(){
                 $("#escolhaquarto").html(response);
             }        
         });
-   });
+        
+   });     
    
 
  });
+
+  // jQuery da escolha do numero de quarto
+  // $('.numerodoquarto').click(function(){
+  //     console.log('ENTROU');
+      // var numeroquarto = {numeroquarto: $("input[name='numeroquarto']:checked").val()};    
+      //  $.ajax({
+      //       type: 'POST',
+      //       url: 'php.php',
+      //       data: numeroquarto,
+      //       success: function(response){                
+      //           console.log(response);
+      //       }        
+      //   });
+
+
+
+
+   // });
    
 
    $(document).on('change','#saida,#entrada',function(){
@@ -285,6 +304,8 @@ $(document).ready(function(){
 
 
    });
+
+  
 
     $('#nao').click(function(){
       $('#espacogaragem').fadeOut();

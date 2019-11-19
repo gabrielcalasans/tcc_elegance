@@ -91,37 +91,11 @@
         $sql = "SELECT * FROM tb_tipo WHERE cd_tipo ='$cdtipo'";
         $result = $mysqli->query($sql);        
         while($row = $result->fetch_object()){
-
+            echo $row->nm_tipo;            
 
         }
            
-    }
-    if(isset($_POST['exibir'])){
-        $exibir = $_POST['exibir'];        
-        $sql = "SELECT * FROM tb_quarto WHERE id_tipo = '$exibir' AND id_status = '1'";                
-        $result = $mysqli->query($sql); 
-        while($row = $result->fetch_object()){
-            echo '<div class="row">
-                    <div class="col s12 m3">
-                      <div class="card">
-                        <div class="card-image">
-                          <img src="images/x.png">
-                          <span class="card-title">Nº '.$row->nr_quarto.'</span>
-                        </div>
-                        <div class="card-content">
-                              <label for="num'.$row->cd_quarto.'">                             
-                                 <input type="radio" class="with-gap" name="ola" id="num'.$row->cd_quarto.'">
-                                 <span>'.$row->ds_quarto.'</span>                   
-                              </label><br>
-                        </div> 
-                         <div class="card-action">
-                          Valor: 100,00 (tem que pegar do banco)
-                        </div>                      
-                      </div>
-                    </div>
-                  </div>';
-        }
-    }
+    }   
     if(isset($_POST['vericpf']) && isset($_POST['verisenha'])){
         $cpf = implode("", $_POST['vericpf']);
         $senha = md5(implode("", $_POST['verisenha']));
@@ -142,6 +116,8 @@
             $result = $mysqli->query($sql2); 
             while($rows = $result->fetch_object()){ 
                 $vl_quarto = $rows->vl_quarto;
+                echo "<script>localStorage.setItem('tipoquarto','$rows->nm_tipo');</script>";
+
             }
 
             echo '<div class="row">
@@ -153,7 +129,7 @@
                         </div>
                         <div class="card-content">
                               <label for="num'.$row->cd_quarto.'">                             
-                                 <input type="radio" class="with-gap" name="numeroquarto" id="num'.$row->cd_quarto.'">
+                                 <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numerodoquarto" id="num'.$row->cd_quarto.'">
                                  <span>'.$row->ds_quarto.'</span>                   
                               </label><br>
                         </div> 
@@ -166,7 +142,7 @@
         }
     }
      if(isset($_POST['entrada']) && isset($_POST['saida'])){
-        $totalvagas = 0;
+        $totalvagas = 0;        
         $entrada = implode("",$_POST['entrada']);
         $saida = implode("",$_POST['saida']);
         $sql ="SELECT * FROM tb_reserva WHERE dt_checkin >='$entrada' AND dt_checkin <='$saida'";
@@ -180,6 +156,18 @@
                     $totalvagas += $vagas;
                 } 
             }
+        $data1 = new datetime($_POST['entrada']);
+        $data2 = new datetime($_POST['saida']);
+        while($data1<=$data2)
+        {
+            
+            $data1->modify('+1 day');
+        }
         echo 5-$totalvagas;
     }
+    if(isset($_POST['numeroquarto'])){
+       echo 'FOI';
+           
+    }  
+
 ?>
