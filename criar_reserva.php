@@ -219,6 +219,7 @@ $(document).ready(function(){
     $('#smartwizard').smartWizard();
 
     $('.tipodequarto').click(function(){
+        console.log('FOI');
         var quarto = {quarto: $("input[name='quarto']:checked").val()};    
         var exibir = {exibir: $("input[name='quarto']:checked").val()};       
         $.ajax({
@@ -229,29 +230,30 @@ $(document).ready(function(){
                 $("#escolhaquarto").html(response);
             }        
         });
+
         
    });     
    
 
  });
 
-  // jQuery da escolha do numero de quarto
-  // $('.numerodoquarto').click(function(){
-  //     console.log('ENTROU');
-      // var numeroquarto = {numeroquarto: $("input[name='numeroquarto']:checked").val()};    
-      //  $.ajax({
-      //       type: 'POST',
-      //       url: 'php.php',
-      //       data: numeroquarto,
-      //       success: function(response){                
-      //           console.log(response);
-      //       }        
-      //   });
+  // jQuery da escolha do numero de quarto necessario colocar em algum lugar o reponse
+  $(document).on("click",".numerodoquarto",function(){
+      console.log('Entrou');
+      var numeroquarto = {numeroquarto: $("input[name='numdoquarto']:checked").val()};    
+       $.ajax({
+            type: 'POST',
+            url: 'php.php',
+            data: numeroquarto,
+            success: function(response){                
+                $('#escolhaquarto').html(response);
+            }        
+        });
 
 
 
 
-   // });
+   });
    
 
    $(document).on('change','#saida,#entrada',function(){

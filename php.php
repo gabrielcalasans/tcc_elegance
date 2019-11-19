@@ -128,8 +128,8 @@
                           <span class="card-title">Nº '.$row->nr_quarto.'</span>
                         </div>
                         <div class="card-content">
-                              <label for="num'.$row->cd_quarto.'">                             
-                                 <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numerodoquarto" id="num'.$row->cd_quarto.'">
+                              <label class="labelquarto" for="num'.$row->cd_quarto.'">                             
+                                 <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
                                  <span>'.$row->ds_quarto.'</span>                   
                               </label><br>
                         </div> 
@@ -155,18 +155,12 @@
                     $vagas = $rows->nr_vagas;
                     $totalvagas += $vagas;
                 } 
-            }
-        $data1 = new datetime($_POST['entrada']);
-        $data2 = new datetime($_POST['saida']);
-        while($data1<=$data2)
-        {
-            
-            $data1->modify('+1 day');
-        }
+            }        
         echo 5-$totalvagas;
     }
     if(isset($_POST['numeroquarto'])){
-       echo 'FOI';
+        $n = $_POST['numeroquarto'];    
+        echo "<script>localStorage.setItem('numquartocache','$n');</script>";
            
     }  
 
