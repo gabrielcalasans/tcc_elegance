@@ -210,7 +210,7 @@ include 'conn.php';
 <script type="text/javascript">
    
 $(document).ready(function(){
-     
+
 
   $(document).ready(function(){
     $('.modal').modal();
@@ -246,7 +246,9 @@ $(document).ready(function(){
             url: 'php.php',
             data: numeroquarto,
             success: function(response){                
-                $('#escolhaquarto').html(response);
+                localStorage.setItem('numerodoquarto',response);
+                $('#numeroconfirmado').html(response);
+
             }        
         });
 
@@ -258,10 +260,11 @@ $(document).ready(function(){
 
    $(document).on('change','#saida,#entrada',function(){
                 var a = $('#entrada').val();
-                var b = $('#saida').val();
+                var b = $('#saida').val();               
                 localStorage.setItem('entrada',a);
                 localStorage.setItem('saida',b);
-                
+                $('#entradaconfirmada').html(a);
+                $('#saidaconfirmada').html(b);
 
             if(b<a)
                 {

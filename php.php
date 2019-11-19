@@ -160,7 +160,7 @@
     }
     if(isset($_POST['numeroquarto'])){
         $n = $_POST['numeroquarto'];    
-        echo "<script>localStorage.setItem('numquartocache','$n');</script>";
+        echo $n;
            
     }  
 
