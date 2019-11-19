@@ -33,9 +33,54 @@
     </style>
 </head>
 <body>
+	<!-- Modal Trigger -->
+  	<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+  	<!-- Modal Structure -->
+  	<div id="modal1" class="modal bottom-sheet">
+    	<div class="modal-content">
+      		<h4>Depoimentos</h4>
+      		<p>
+      			<table class="striped">
+		        <thead>
+		          <tr>
+		              <th>#</th>
+		              <th>Cod. Cliente</th>
+		              <th>Depoimento</th>
+		              <th>Avaliação</th>
+		              <th>Situação</th>
+		          </tr>
+		        </thead>
+
+		        <tbody>
+		          <tr>
+		            <td>Alvin</td>
+		            <td>Eclair</td>
+		            <td>$0.87</td>
+		          </tr>
+		          <tr>
+		            <td>Alan</td>
+		            <td>Jellybean</td>
+		            <td>$3.76</td>
+		          </tr>
+		          <tr>
+		            <td>Jonathan</td>
+		            <td>Lollipop</td>
+		            <td>$7.00</td>
+		          </tr>
+		        </tbody>
+		      	</table>
+      		</p>
+    	</div>
+    	<div class="modal-footer">
+      		<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    	</div>
+  	</div>
+
+
 	<nav class="black darken-2">
     	<div class="nav-wrapper" align="center">
-        	<a href="painel_admin.php"><img id="logo" src="images/logotipo2.png"></a>
+       		<a href="painel_admin.php"><img id="logo" src="images/logotipo2.png"></a>
       	</div>      
     </nav>
 	<center>
@@ -68,3 +113,10 @@
 		</div>
 	</center>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+	$(document).ready(function(){
+    	$('.modal').modal();
+  	});	
+</script>
+</html>
