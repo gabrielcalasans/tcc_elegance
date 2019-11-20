@@ -35,7 +35,13 @@
 		<title>Adicionar fotos | Hospedagem Elegance</title>
 	</head>
 	<body>
-		<?php include('conn.php'); date_default_timezone_set('UTC');?>
+		<?php
+			include('conn.php');
+			date_default_timezone_set('UTC');
+			if(empty($_SESSION['cdadmin'])){
+				header('Location: admin.php?log=0');
+			}
+		?>
 		<nav class="black darken-2">
 			<div class="nav-wrapper" align="center">
 				<a href="painel_admin.php"><img id="logo" src="images/logotipo2.png"></a>

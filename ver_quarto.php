@@ -4,6 +4,9 @@
     <?php
       include('conn.php');
       include('disponibilidade.php');
+      if(empty($_SESSION['cdadmin'])){
+        header('Location: admin.php?log=0');
+      }
       //include('checarlogin.php');
       date_default_timezone_set('UTC');
     ?>

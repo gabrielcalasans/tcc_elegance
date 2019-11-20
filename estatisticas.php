@@ -3,6 +3,9 @@
   <head>
     <?php
       include('conn.php');
+      if(empty($_SESSION['cdadmin'])){
+        header('Location: admin.php?log=0');
+      }
       date_default_timezone_set('UTC');
       date_default_timezone_set('America/Sao_paulo');
     ?>

@@ -33,7 +33,16 @@
     </style>
 </head>
 <body>
-	<?php include('conn.php'); ?>
+	<?php
+		include('conn.php');
+		if(empty($_SESSION['cdadmin'])){
+			header('Location: admin.php?log=0');
+		}
+		if(isset($_GET['id']) and $_GET['id'] == 0){
+			session_destroy();
+			header('Location: admin.php');
+		}
+	?>
 
   	<!-- Modal Structure -->
   	<div id="modal1" class="modal bottom-sheet">
@@ -133,7 +142,7 @@
 					?>
 					</a>
 				</div>
-				
+			<a href="painel_admin.php?id=0" title="Sair" class="indigo darken-3 btn">Sair</a>
 			</div>
 		</div>
 	</center>

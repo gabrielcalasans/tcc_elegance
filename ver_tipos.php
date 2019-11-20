@@ -1,6 +1,11 @@
 <?php include('header.php'); ?>
 	<meta charset="utf-8">
-	<?php include('conn.php'); ?>
+	<?php
+		include('conn.php');
+		if(empty($_SESSION['cdadmin'])){
+			header('Location: admin.php?log=0');
+		}
+	?>
 	<style type="text/css">
 		body{
         	background-color: #758DA3; 

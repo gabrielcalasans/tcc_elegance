@@ -56,7 +56,12 @@
 		</nav>
 		<br>
 	</center>
-	<?php include('conn.php'); ?>
+	<?php
+		include('conn.php');
+		if(isset($_GET['log']) && $_GET['log'] == 0) {
+            echo "<script>M.toast({html: 'Logue ao sistema para acessar a área do administrador.'});</script>";
+        }
+	?>
 	<center>
 	<b style="font-size: 24px;">ADMINISTRADOR</b>
 		<div class="card-panel" style="width: 40%;">
