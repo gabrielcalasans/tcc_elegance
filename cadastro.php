@@ -69,9 +69,11 @@
 				<div class="card-panel" style="width: 60%;">
 					<div class="row">
 						<div class="input-field col s6">
+							<i class="material-icons prefix">person</i>
 							<input id="nome" type="text" name="nome" required="" class="validate"><label for="nome">Nome</label>
 						</div>
 						<div class="input-field col s6">
+							<i class="material-icons prefix">person</i>
 							<input id="sobrenome" type="text" name="sobrenome" required="" class="validate"><label for="sobrenome">Sobrenome</label>
 						</div>
 						<div class="input-field col s12">	
@@ -87,29 +89,37 @@
 							?>	
 					    	</p>
 						</div>
-						<div class="input-field col s6">	
+						<div class="input-field col s6">
+							<i class="material-icons prefix">credit_card</i>	
 							<input id="cpf" type="text" name="cpf" required="" class="validate"><label for="cpf">CPF</label>
 						</div>
 						<div class="input-field col s6">
+							<i class="material-icons prefix">email</i>
 							<input id="email" type="email" name="email" required="" class="validate"><label for="email">E-mail</label>
 						</div>
 						
-						<div class="input-field col s6">		
+						<div class="input-field col s6">
+							<i class="material-icons prefix">smartphone</i>		
 							<input id="celular" type="text" name="celular" required="" class="validate"><label for="celular">Celular</label>
 						</div>
 						<div class="input-field col s6">
+							<i class="material-icons prefix">phone</i>
 							<input id="tel" type="text" name="telefone"><label for="tel">Telefone (opcional)</label>
 						</div>
 						<div class="input-field col s6">
+							<i class="material-icons prefix">assignment_ind</i>
 							<input id="rg" type="text" name="rg" required="" class="validate"><label for="rg">RG</label>
 						</div>
 						<div class="input-field col s6">
+							<i class="material-icons prefix">folder_shared</i>
 							<input id="orgao" type="text" name="orgao" required="" class="validate"><label for="orgao">Orgão Expedidor</label>
 						</div>
 						<div class="input-field col s6">
+							<i class="material-icons prefix">perm_identity</i>
 							<input id="nacionalidade" type="text" name="nacionalidade" required="" class="validate"><label for="nacionalidade">Nacionalidade</label>
 						</div>
 						<div class="input-field col s6">
+							<i class="material-icons prefix">date_range</i>
 							<input id="data" type="date" name="datanasc" required="" class="validate"><label for="data">Data de Nascimento</label>
 						</div>
 						<div class="input-field col s6">
@@ -132,9 +142,11 @@
 				<div class="card-panel" style="width: 60%;">
 					<div class="row">
 						<div class="input-field col s8">
+							<i class="material-icons prefix">location_on</i>
 							<input id="endereco" type="text" name="endereco" required="" class="validate"><label for="endereco">Endereço</label>
 						</div>
 						<div class="input-field col s4">
+							<i class="material-icons prefix">location_on</i>
 							<input type="text" id="numero" name="numero" required="" class="validate"><label for="numero">Número</label>
 						</div>
 						<div class="input-field col s6">
@@ -155,9 +167,11 @@
 							</select><label for="cidade">Cidade</label>
 						</div>
 						<div class="input-field col s6">
+							<i class="material-icons prefix">location_city</i>
 							<input id="bairro" type="text" name="bairro" required="" class="validate"><label for="bairro">Bairro</label></p>
 						</div>
 						<div class="input-field col s6">
+							<i class="material-icons prefix">my_location</i>
 							<input id="cep" type="text" name="cep" required="" class="validate"><label for="cep">CEP</label></p>
 						</div>
 					</div>
@@ -165,9 +179,11 @@
 				<div class="card-panel" style="width: 60%;">
 					<div class="row">
 						<div class="input-field col s6">
+							<i class="material-icons prefix">lock</i>
 							<input id="s1" type="password" name="senha" required=""><label for="s1">Senha</label><span class="helper-text left senhas" data-error="wrong" data-success="right"></span>
 						</div>
 						<div class="input-field col s6">
+							<i class="material-icons prefix">lock</i>
 							<input id="s2" type="password" name="senha1" required=""><label for="s2">Confirmar senha</label><span class="helper-text left senhas" data-error="wrong" data-success="right"></span>
 						</div>
 						<label for="termos">
@@ -361,6 +377,20 @@
 			    }
 		    });
 		});
-		  $('select').formSelect();
+		$("#email").change(function(){
+			var emailduplicado1 = {emailduplicado1: $("#email").val()};
+			$.ajax({
+			    type: 'POST',
+			    url: 'php.php',
+			    data: emailduplicado1,
+			    success: function(response){
+			    	if(response == 1){
+			    		M.toast({html: 'E-mail já existente/cadastrado!<i class="tiny red material-icons right">clear</i>'});
+			        	$("#email").val('');
+			    	}
+			    }
+		    });
+		});
+		$('select').formSelect();
 	</script>
 </html>

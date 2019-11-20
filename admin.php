@@ -64,13 +64,15 @@
 			    <form class="col s12" method="post">
 				    <div class="row">
 				       	<div class="input-field col s12">
-				        	<input id="login" type="text" class="validate" name="login" required="">
+				       		<i class="material-icons prefix">person</i>
+				        	<input id="login" type="text" name="login" required="">
 				          	<label for="login">Login</label>
 				       	</div>
 				    </div>
 				   	<div class="row">
 				       	<div class="input-field col s12">
-				        	<input id="senha" type="password" class="validate" name="senha" required="">
+				       		<i class="material-icons prefix">lock</i>
+				        	<input id="senha" type="password" name="senha" required="">
 				          	<label for="senha">Senha</label>
 				       	</div>
 				    </div>

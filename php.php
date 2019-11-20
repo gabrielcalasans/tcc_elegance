@@ -86,6 +86,23 @@
             echo "1";
         }
     }
+    if(isset($_POST['emailduplicado'])){
+        $emailusuario = $row1->nm_email;
+        $email = $_POST['emailduplicado'];
+        $sql = "SELECT nm_email from tb_cliente where nm_email = '$email' and nm_email <> '$emailusuario'";
+        $result = $mysqli->query($sql);
+        if($result->num_rows > 0){
+            echo $row1->nm_email;
+        }
+    }
+    if(isset($_POST['emailduplicado1'])){
+        $email = $_POST['emailduplicado1'];
+        $sql = "SELECT * from tb_cliente where nm_email = '$email'";
+        $result = $mysqli->query($sql);
+        if($result->num_rows > 0){
+            echo "1";
+        }
+    }
      if(isset($_POST['quarto'])){
         $cdtipo = $_POST['quarto'];
         $sql = "SELECT * FROM tb_tipo WHERE cd_tipo ='$cdtipo'";

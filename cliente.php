@@ -38,7 +38,7 @@
 	<?php
 		include('conn.php');
 		if(empty($_SESSION['cliente'])){
-			header('Location: index.php');
+			header('Location: login.php?log=0');
 		}
 		if(isset($_GET['id']) and $_GET['id'] == 0){
 			session_destroy();
@@ -521,19 +521,32 @@
 		});
 		$("#rg").change(function(){
 			var rgduplicado = {rgduplicado: $("#rg").cleanVal()};
-				$.ajax({
-				    type: 'POST',
-				    url: 'php.php',
-				    data: rgduplicado,
-				    success: function(response){
-				    	if(response){
-				    		M.toast({html: 'RG já existente/cadastrado!<i class="tiny red material-icons right">clear</i>'});
-				        	$("#rg").val(response);
-				    	}
-				    }
-			    });
+			$.ajax({
+			    type: 'POST',
+			    url: 'php.php',
+			    data: rgduplicado,
+			    success: function(response){
+			    	if(response){
+			    		M.toast({html: 'RG já existente/cadastrado!<i class="tiny red material-icons right">clear</i>'});
+			        	$("#rg").val(response);
+			    	}
+			    }
+			});
 		});
-
+		$("#email").change(function(){
+			var emailduplicado = {emailduplicado: $("#email").val()};
+			$.ajax({
+			    type: 'POST',
+			    url: 'php.php',
+			    data: emailduplicado,
+			    success: function(response){
+			    	if(response){
+			    		M.toast({html: 'Email já existente/cadastrado!<i class="tiny red material-icons right">clear</i>'});
+			        	$("#email").val(response);
+			    	}
+			    }
+			});
+		});
         </script>
         <div class="section"></div>
 	</body>

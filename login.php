@@ -40,6 +40,9 @@
 			if(!empty($_SESSION['cliente'])){
 				header('Location: index.php');
 			}
+			if(isset($_GET['log']) && $_GET['log'] == 0) {
+                echo "<script>M.toast({html: 'Logue ao sistema para acessar a área do cliente.'});</script>";
+            }
 		?>
 		<center>
 			<nav class="grey darken-2">
