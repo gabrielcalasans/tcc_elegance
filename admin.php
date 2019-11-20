@@ -56,34 +56,7 @@
 		</nav>
 		<br>
 	</center>
-	<?php
-		include('conn.php');
-
-		if(isset($_POST['login'])){
-			$login = $_POST['login'];
-			$senha = $_POST['senha'];
-		
-			$sql = "SELECT * FROM tb_admin WHERE nm_login = \"$login\" AND ds_senha = \"$senha\"";
-			$tipo = $mysqli->query($sql);
-			if($tipo->num_rows>0)
-			{	
-				while($linha = $tipo->fetch_object())
-				{
-					session_start();				
-					$_SESSION['cdadmin'] = $linha->cd_admin;
-					$_SESSION['nmadmin'] = $linha->nm_admin;
-					$_SESSION['login'] = $linha->ds_login;
-					$_SESSION['senha'] = $linha->ds_senha;
-					header('Location:painel_admin.php');							
-				}
-			}
-			else
-			{
-				echo "<script>alert('Tente novamente');</script>";
-			} 		
-		}
-	?>
-
+	<?php include('conn.php'); ?>
 	<center>
 	<b style="font-size: 24px;">ADMINISTRADOR</b>
 		<div class="card-panel" style="width: 40%;">
@@ -97,14 +70,37 @@
 				    </div>
 				   	<div class="row">
 				       	<div class="input-field col s12">
-				        	<input id="password" type="password" class="validate" name="senha" required="">
-				          	<label for="password">Senha</label>
+				        	<input id="senha" type="password" class="validate" name="senha" required="">
+				          	<label for="senha">Senha</label>
 				       	</div>
 				    </div>
-				    <button class="btn waves-effect waves-light indigo darken-3" id="logar" type="submit" name="action">CONFIRMAR
-  					</button>
+				    <a class="btn indigo darken-3" id="logar" name="action">CONFIRMAR
+  					</a>
 				</form>
 			</div>
 	  	</div>
 	</center>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#logar").click(function(){
+			var loginadm = {loginadm: $("#login").val()}; 
+			var senhadm = {senhadm: $("#senha").val()};
+		    $.ajax({
+		        type: 'POST',
+		        url: 'php.php',
+		        data: {'loginadm': loginadm, 'senhadm': senhadm, },
+		        success: function(response){
+		        	if(response == 1){
+						window.location.href='painel_admin.php?log=1';
+		        	}
+		        	else{
+		        		M.toast({html: 'Conta inexistente! Tente novamente.'});
+		        	}
+		        }
+		    });
+		});
+	});
+</script>
+</html>

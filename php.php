@@ -164,4 +164,18 @@
            
     }  
 
+    if(isset($_POST['senhadm']) && isset($_POST['loginadm'])){
+        $login = implode("", $_POST['loginadm']);
+        $senha = implode("", $_POST['senhadm']);
+        $sql = "SELECT * FROM tb_admin WHERE nm_login = '$login' AND ds_senha = '$senha'";
+        $tipo = $mysqli->query($sql);
+        if($tipo->num_rows>0){   
+            $linha = $tipo->fetch_object();              
+            $_SESSION['cdadmin'] = $linha->cd_admin;
+            $_SESSION['nmadmin'] = $linha->nm_admin;
+            $_SESSION['login'] = $linha->nm_login;
+            $_SESSION['senha'] = $linha->ds_senha;
+            echo "1";                            
+        }
+    }
 ?>
