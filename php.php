@@ -132,9 +132,7 @@
             $sql2 = "SELECT * FROM tb_tipo WHERE cd_tipo = '$exibir'";  
             $result = $mysqli->query($sql2); 
             while($rows = $result->fetch_object()){ 
-                $vl_quarto = $rows->vl_quarto;
-                echo "<script>localStorage.setItem('tipoquarto','$rows->nm_tipo');</script>";
-
+                $vl_quarto = $rows->vl_quarto;                
             }
 
             echo '<div class="row">
@@ -158,8 +156,10 @@
                   </div>';
         }
     }
+
      if(isset($_POST['entrada']) && isset($_POST['saida'])){
         $totalvagas = 0;        
+        // Checagem das vagas da garagem        
         $entrada = implode("",$_POST['entrada']);
         $saida = implode("",$_POST['saida']);
         $sql ="SELECT * FROM tb_reserva WHERE dt_checkin >='$entrada' AND dt_checkin <='$saida'";
@@ -174,10 +174,41 @@
                 } 
             }        
         echo 5-$totalvagas;
+
+        // Checagem dos dias de reserva
+        $data_inicial = $entrada;
+        $data_final = $saida;
+
+        // Calcula a diferença em segundos entre as datas
+        $diferenca = strtotime($data_final) - strtotime($data_inicial);
+
+        //Calcula a diferença em dias
+        $dias = floor($diferenca / (60 * 60 * 24));
+                
+        echo "<script>localStorage.setItem('total_dias','$dias');</script>";
+
     }
+
     if(isset($_POST['numeroquarto'])){
         $n = $_POST['numeroquarto'];    
         echo $n;
+           
+    }
+
+    if(isset($_POST['numquarto'])){
+        $n = $_POST['numquarto'];    
+        $sql = "SELECT * FROM tb_quarto WHERE cd_quarto = '$n'";        
+        $result = $mysqli->query($sql); 
+        while($row = $result->fetch_object()){ 
+                $tipo = $row->id_tipo;                
+                $sql2 = "SELECT * FROM tb_tipo WHERE cd_tipo = '$tipo'";
+                $resultado = $mysqli->query($sql2); 
+                while($rows = $resultado->fetch_object()){ 
+                        $valor = $rows->vl_quarto;
+                        echo "<script>localStorage.setItem('valor_quarto','$valor')</script>";
+                        //echo $valor;                        
+                    } 
+            } 
            
     }  
 

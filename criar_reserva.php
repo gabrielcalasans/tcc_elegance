@@ -16,6 +16,7 @@
 <?php 
 include 'conn.php';
  ?>
+ <div id="scripts_ajax"></div>
 <form method="POST">
 <div class="card-panel col s12" id="painel">
 <div id="smartwizard">
@@ -218,7 +219,7 @@ $(document).ready(function(){
      
     $('#smartwizard').smartWizard();
 
-    $('.tipodequarto').click(function(){
+    $(document).on("click",".tipodequarto",function(){
         console.log('FOI');
         var quarto = {quarto: $("input[name='quarto']:checked").val()};    
         var exibir = {exibir: $("input[name='quarto']:checked").val()};       
@@ -228,6 +229,15 @@ $(document).ready(function(){
             data: exibir,
             success: function(response){
                 $("#escolhaquarto").html(response);
+                $('#tipoconfirmado').html(localStorage.getItem(tipoquarto));
+            }        
+        });
+        $.ajax({
+            type: 'POST',
+            url: 'php.php',
+            data: quarto,
+            success: function(response){                
+                $('#tipoconfirmado').html(response);
             }        
         });
 
@@ -240,17 +250,26 @@ $(document).ready(function(){
   // jQuery da escolha do numero de quarto necessario colocar em algum lugar o reponse
   $(document).on("click",".numerodoquarto",function(){
       console.log('Entrou');
-      var numeroquarto = {numeroquarto: $("input[name='numdoquarto']:checked").val()};    
+      var numeroquarto = {numeroquarto: $("input[name='numdoquarto']:checked").val()};
+      var numquarto = {numquarto: $("input[name='numdoquarto']:checked").val()};    
        $.ajax({
             type: 'POST',
             url: 'php.php',
             data: numeroquarto,
-            success: function(response){                
-                localStorage.setItem('numerodoquarto',response);
-                $('#numeroconfirmado').html(response);
+            success: function(response){        
+                  $('#numeroconfirmado').html(response);
 
             }        
         });
+        $.ajax({
+            type: 'POST',
+            url: 'php.php',
+            data: numquarto,
+            success: function(response){        
+                  $('#scripts_ajax').html(response);
+
+            }        
+        });      
 
 
 
@@ -260,7 +279,7 @@ $(document).ready(function(){
 
    $(document).on('change','#saida,#entrada',function(){
                 var a = $('#entrada').val();
-                var b = $('#saida').val();               
+                var b = $('#saida').val();                               
                 localStorage.setItem('entrada',a);
                 localStorage.setItem('saida',b);
                 $('#entradaconfirmada').html(a);
@@ -277,37 +296,43 @@ $(document).ready(function(){
 
                 }
             else
-                {
+                {                    
                     $('#proximo').fadeIn();
                     $('#saida').css('background-color','#e8f5e9');
                     $('#entrada').css('background-color','#e8f5e9');
                     M.toast({html: 'Data válida!'});
                     $('.sw-btn-next').fadeIn();
                     $("#mensagem").fadeOut();
+
+                    var entrada = {entrada: $("#entrada").val()};
+                    var saida = {saida: $("#saida").val()};
+                    $.ajax({
+                        type: 'POST',
+                        url: 'php.php',
+                        data: { 'entrada': entrada, 'saida': saida, },
+                        success: function(response){
+                            $("#max").html(response);
+                            console.log(response);
+                        }        
+                    });
+
                 }           
     });
+
+    $(document).on('change','#saida,#entrada,.numerodoquarto',function(){
+        var total_dias = localStorage.getItem('total_dias');
+        var valor_quarto = localStorage.getItem('valor_quarto');
+        var valor_totalquarto = total_dias*valor_quarto;
+        $('#valorquarto').html('R$: '+ valor_totalquarto + ' para '+ total_dias+ ' dia(s)');
+      });
+    
+
 
 
    $('#espacogaragem').hide();
 
    $('#sim').click(function(){
-      $('#espacogaragem').fadeIn();
-      var entrada = {entrada: $("#entrada").val()};
-      var saida = {saida: $("#saida").val()};
-
-       $.ajax({
-            type: 'POST',
-            url: 'php.php',
-            data: { 'entrada': entrada, 'saida': saida, },
-            success: function(response){
-                $("#max").html(response);
-                console.log(response);
-            }        
-        });
-
-
-
-
+      $('#espacogaragem').fadeIn();  
    });
 
   
