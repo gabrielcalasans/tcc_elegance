@@ -176,6 +176,7 @@
         echo 5-$totalvagas;
 
         // Checagem dos dias de reserva
+        date_default_timezone_set('America/Sao_Paulo');
         $data_inicial = $entrada;
         $data_final = $saida;
 
