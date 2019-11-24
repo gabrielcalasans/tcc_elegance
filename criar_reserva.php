@@ -127,8 +127,8 @@ include 'conn.php';
 
               <div id="espacogaragem">
                 Quantidade máxima: <span id="max"></span><br>
-                Reservar <div id="espacodiv"><input type="number" name="reservagaragem"></div> espaços na garagem<br>
-                Valor adicional
+                Reservar <div id="espacodiv"><input type="number" id="reservagaragem" name="reservagaragem"></div> espaços na garagem<br>
+                Valor adicional <span id="valoradicional"></span>
               </div>
       
         </div> 
@@ -138,14 +138,14 @@ include 'conn.php';
         <div id="informacoes">
           Check-in: <span id="entradaconfirmada"></span> Check-out: <span id="saidaconfirmada"></span><br>
           Tipo de quarto: <span id="tipoconfirmado"></span> Número do quarto: <span id="numeroconfirmado"></span> Valor do quarto: <span id="valorquarto"></span><br>
-          Vagas na garagem: <span id="vagasconfirmadas"> Valor da garagem: <span id="valorgaragem"><br>
-          Valor da reserva: <span id="valortotalreserva"><br>
+          Vagas na garagem: <span id="vagasconfirmadas"></span> Valor da garagem: <span id="valorgaragem"></span><br>
+          Valor da reserva: <span id="valortotalreserva"></span><br>
           <label for="confirmarreserva">
             <input id="confirmarreserva" type="checkbox"/>
             <span>Confirmar</span>
           </label>
           <div id="botaosubmit">
-            <input type="submit" class="btn" id="botaoenviar" value="Enviar" name="">
+            <input type="submit" class="btn" id="botaoenviar" value="Cadastrar Reserva" name="">
           </div>
 
 
@@ -156,7 +156,9 @@ include 'conn.php';
 
     
     
-    <span id="mensagem"><i>Insira a data para iniciar o passo a passo</i></span>
+    <span id="mensagem"><i>Insira a data para iniciar o passo a passo</i><br></span>
+    <span id="mensagem2"><i>Informe um valor menor ou igual às vagas disponíveis</i><br></span>
+    <span id="mensagem3"><i>Uma vaga é inclusa na reserva a partir disso cada vaga custa um adicional de R$ 50,00 por dia</i><br></span>
 
 </div>
 </div>
@@ -248,7 +250,7 @@ $(document).ready(function(){
  });
 
   // jQuery da escolha do numero de quarto necessario colocar em algum lugar o reponse
-  $(document).on("click",".numerodoquarto",function(){
+  $(document).on("change",".numerodoquarto",function(){
       console.log('Entrou');
       var numeroquarto = {numeroquarto: $("input[name='numdoquarto']:checked").val()};
       var numquarto = {numquarto: $("input[name='numdoquarto']:checked").val()};    
@@ -267,6 +269,7 @@ $(document).ready(function(){
             data: numquarto,
             success: function(response){        
                   $('#scripts_ajax').html(response);
+                  console.log('Script do valor quarto =  '+response);
 
             }        
         });      
@@ -312,35 +315,78 @@ $(document).ready(function(){
                         data: { 'entrada': entrada, 'saida': saida, },
                         success: function(response){
                             $("#max").html(response);
-                            console.log(response);
+                            console.log('vagas na garagem '+response);
                         }        
                     });
+                    $.ajax({
+                        type: 'POST',
+                        url: 'php.php',
+                        data: { 'data1': entrada, 'data2': saida, },
+                        success: function(response){
+                            $('#scripts_ajax').html(response);
+                        }        
+                    });
+                    valor_total_de_tudo = valor_totalgaragem+valor_totalquarto;
+                    $("#valortotalreserva").html("R$ "+ valor_total_de_tudo);
 
                 }           
     });
-
-    $(document).on('change','#saida,#entrada,.numerodoquarto',function(){
-        var total_dias = localStorage.getItem('total_dias');
-        var valor_quarto = localStorage.getItem('valor_quarto');
-        var valor_totalquarto = total_dias*valor_quarto;
-        $('#valorquarto').html('R$: '+ valor_totalquarto + ' para '+ total_dias+ ' dia(s)');
-      });
-    
-
+   $("#mensagem2").hide(); 
+   $("#mensagem3").hide();
 
 
    $('#espacogaragem').hide();
 
    $('#sim').click(function(){
-      $('#espacogaragem').fadeIn();  
-   });
+      $('#espacogaragem').fadeIn();
+      $('#mensagem2').fadeIn();
+      $('#mensagem3').fadeIn();
+      $("#reservagaragem").attr("min","1");
+      $("#reservagaragem").attr("max",vagas_maximas);
+      $(document).on("change","#reservagaragem",function(){            
+            vagas_requisitadas = $("#reservagaragem").val();
+            vagas_finais = vagas_maximas-vagas_requisitadas;
+            if(vagas_finais<0)
+            {
+              M.toast({html: 'Informe um valor menor ou igual a quantidade de vagas disponíveis'});
+              $("#reservagaragem").css("background-color","#ffebee");
+              $("#reservagaragem").val(" ");
+              //fazer a operacao para descobrir o custo da garagem pelos dias
+            }
+            else
+            {  
+              $('#mensagem2').fadeOut();            
+              $("#reservagaragem").css("background-color","#e8f5e9");
+              valor_totalgaragem = 50*(vagas_requisitadas-1)*total_dias;
+              $("#valoradicional").html("R$"+valor_totalgaragem+ " para "+ vagas_requisitadas+ " vagas em "+ total_dias+ " dias.");
+              $("#valorgaragem").html("R$ "+valor_totalgaragem);
+              $("#vagasconfirmadas").html(vagas_requisitadas+" vagas");
+              valor_total_de_tudo = valor_totalgaragem+valor_totalquarto;
+              $("#valortotalreserva").html("R$ "+ valor_total_de_tudo);
+              
+            }
+          
 
-  
+
+        }); 
+   });   
 
     $('#nao').click(function(){
       $('#espacogaragem').fadeOut();
-
+      $('#mensagem2').fadeOut();
+      $('#mensagem3').fadeOut();
+      $("#reservagaragem").val("0");
+      $("#valorgaragem").html("R$0,00");
+      $("#vagasconfirmadas").html("0 vagas");
    });
+
+   // $(document).on("change"," #saida, #entrada, .numerodoquarto, #reservagaragem",function(){
+   //        valor_total_de_tudo = valor_totalgaragem+valor_totalquarto;
+   //        alert(valor_total_de_tudo);
+
+   // }); 
+             
+
     $('#botaoenviar').hide();
     $("#confirmarreserva").change(function(){
       if($("#confirmarreserva").is(":checked")){
@@ -350,6 +396,7 @@ $(document).ready(function(){
         $('#botaoenviar').fadeOut();
       }
     });
+
     
 
        

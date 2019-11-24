@@ -172,11 +172,18 @@
                     $vagas = $rows->nr_vagas;
                     $totalvagas += $vagas;
                 } 
-            }        
-        echo 5-$totalvagas;
+            }
+        $qtdemaxima = 5 - $totalvagas;        
+        echo $qtdemaxima;
+        echo "<script>vagas_maximas = $qtdemaxima;</script>";       
 
+    }
+    if(isset($_POST['data1'])&&($_POST['data2']))
+    {
         // Checagem dos dias de reserva
         date_default_timezone_set('America/Sao_Paulo');
+        $entrada = implode("",$_POST['data1']);
+        $saida = implode("",$_POST['data2']);
         $data_inicial = $entrada;
         $data_final = $saida;
 
@@ -186,13 +193,23 @@
         //Calcula a diferença em dias
         $dias = floor($diferenca / (60 * 60 * 24));
                 
-        echo "<script>localStorage.setItem('total_dias','$dias');</script>";
-
+        echo "<script>
+                                total_dias = $dias;
+                                valor_totalquarto = total_dias*valor_quarto;
+                                $('#valorquarto').html('R$ '+valor_quarto*total_dias+' para '+total_dias+' dias');
+                                valor_total_de_tudo = valor_totalgaragem+valor_totalquarto;
+                                $('#valortotalreserva').html('R$ '+ valor_total_de_tudo);
+                </script>";
     }
 
     if(isset($_POST['numeroquarto'])){
         $n = $_POST['numeroquarto'];    
-        echo $n;
+        $sql = "SELECT * FROM tb_quarto WHERE cd_quarto = $n";
+        $result = $mysqli->query($sql); 
+        while($row = $result->fetch_object()){ 
+                echo $row->nr_quarto;
+        }
+
            
     }
 
@@ -206,7 +223,12 @@
                 $resultado = $mysqli->query($sql2); 
                 while($rows = $resultado->fetch_object()){ 
                         $valor = $rows->vl_quarto;
-                        echo "<script>localStorage.setItem('valor_quarto','$valor')</script>";
+                        echo "<script>valor_quarto = $valor;
+                                                valor_totalquarto = total_dias*valor_quarto;
+                                                $('#valorquarto').html('R$ '+valor_quarto*total_dias+' para '+total_dias+' dias');
+                                                valor_total_de_tudo = valor_totalgaragem+valor_totalquarto;
+                                                $('#valortotalreserva').html('R$ '+ valor_total_de_tudo);
+                               </script>";
                         //echo $valor;                        
                     } 
             } 
