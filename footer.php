@@ -11,17 +11,17 @@
                     <div class="col l4 offset-l1 s12">
                         <h4 class="white-text">Links</h4>
                         <ul>
-                            <li><a href="#!" id="lfooter">Acomodações</a></li>
+                            <li><a href="#" id="lfooter">Acomodações</a></li>
                             <li><a href="quemsomos.php" id="lfooter">Quem somos?</a></li>
                             <li><a href="contato.php" id="lfooter">Contato</a></li>
                             <li><a href="galeria.php" id="lfooter">Galeria</a></li>
                         </ul>
                     </div>
                     <div class="col l3 s12">
-                        <p class="grey-text text-lighten-4">Avenida Presidente Vargas, 910 - Itanhaém, SP</p>
+                        <p class="grey-text text-lighten-4">Avenida Presidente Vargas, 1001 - Itanhaém, SP</p>
                         <a href="#"><img src="images/facebook.png" class="icon"></a>
-                        <a href="#"><img src="images/email.png" class="icon"></a>
-                        <a href="#"><img src="images/instagram.png" class="icon"></a>
+                        <a href="https://mail.google.com/mail/u/0/#inbox?compose=new"><img src="images/email.png" class="icon"></a>
+                        <a href="https://www.instagram.com/pousadaelegance/?hl=pt-br"><img src="images/instagram.png" class="icon"></a>
                     </div>
                 </div>
             </div>
