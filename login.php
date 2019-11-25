@@ -72,7 +72,8 @@
 				          		<label for="senha">Senha</label>
 				        	</div>
 				    	</div>
-				    	<a class="btn yellow darken-2" id="logar" name="action">Entrar
+
+				    	<a class="btn yellow darken-2" <?php if(isset($_GET['notlog'])){echo "id='logar1'";}else{echo "id='logar'";} ?> name="action">Entrar
     						<i class="material-icons right">input</i>
   						</a>
 					</form>
@@ -97,6 +98,24 @@
 			            success: function(response){
 			            	if(response == 1){
 								window.location.href='index.php?logado=1';
+			            	}
+			            	else{
+			            		M.toast({html: 'Usuário não existente! Tente novamente.'});
+			            	}
+			            }
+		        	});
+			});
+
+			$("#logar1").click(function(){
+				var verisenha = {verisenha: $("#senha").val()}; 
+				var vericpf = {vericpf: $("#cpf").cleanVal()};
+			        $.ajax({
+			            type: 'POST',
+			            url: 'php.php',
+			            data: {'vericpf': vericpf, 'verisenha': verisenha, },
+			            success: function(response){
+			            	if(response == 1){
+								window.location.href='criar_reserva.php';
 			            	}
 			            	else{
 			            		M.toast({html: 'Usuário não existente! Tente novamente.'});
