@@ -32,8 +32,8 @@ include 'conn.php';
     <div>
         <div id="step-1" class="">
         	<div class="data" style="width: 13%;">
-					Check in:  <input type="date" id="entrada" name="checkin"><p>
-					Check out: <input type="date" id="saida" name="checkout"><p>                       
+					Check in:  <input type="date" min="<?php echo date("Y-m-d"); ?>" <?php if(!empty($_SESSION['checkin'])){ echo "value='".$_SESSION['checkin']."'"; } ?> id="entrada" name="checkin"><p>
+					Check out: <input type="date" min="<?php echo date("Y-m-d"); ?>" <?php if(!empty($_SESSION['checkout'])){ echo "value='".$_SESSION['checkout']."'"; } ?> id="saida" name="checkout"><p>                       
 
 			   </div>
       </div>
@@ -160,13 +160,15 @@ include 'conn.php';
     <span id="mensagem"><i>Insira a data para iniciar o passo a passo</i><br></span>
     <span id="mensagem2"><i>Informe um valor menor ou igual às vagas disponíveis</i><br></span>
     <span id="mensagem3"><i>Uma vaga é inclusa na reserva a partir disso cada vaga custa um adicional de R$ 50,00 por dia</i><br></span>
-    <span id="mensagem4"><i>Algo não está preenchido, favor revisar</i></span>
+    <span id="mensagem4"><i>Algo não está preenchido, favor revisar<br></i></span>
+    <span id="mensagem5"><i>Todas as vagas na garagem estão ocupadas nesse período<br></i></span>
 </div>
 </div>
 </form>
 <?php 
   if(isset($_POST['checkin']))
   {
+    $idcliente = $_SESSION['cliente'];
     $idquarto = $_POST['numdoquarto'];
     $checkin = $_POST['checkin'];
     $checkout = $_POST['checkout'];
@@ -174,9 +176,18 @@ include 'conn.php';
     $total_dias = $_SESSION['total_dias'];
     $vagas_garagem = $_POST['reservagaragem'];
     $valor_quarto = $_SESSION['valor_quarto'];
-    $valor_total_quarto = $valor_quarto*$total_dias;
-    $valor_garagem = 50*($vagas_garagem-1)*$total_dias;
-    $valor_final_reserva = $valor_garagem+$valor_total_quarto;
+    if($vagas_garagem == 0)
+    {
+      $valor_total_quarto = $valor_quarto*$total_dias;
+      $valor_final_reserva = $valor_total_quarto;
+    }
+    else
+    {
+      $valor_total_quarto = $valor_quarto*$total_dias;
+      $valor_garagem = 50*($vagas_garagem-1)*$total_dias;
+      $valor_final_reserva = $valor_garagem+$valor_total_quarto;
+    }
+   
     $sql = "INSERT INTO tb_garagem VALUES(null,'$vagas_garagem')";
     if(!$mysqli->query($sql))
     {
@@ -188,9 +199,20 @@ include 'conn.php';
       $resulsql = $mysqli->query($sql2);
       while($row = $resulsql->fetch_object())
       {
-          echo $row->cd_garagem;
+          $regdate = date('Y-m-d h:i:s a', time());
+          $idgaragem= $row->cd_garagem;
+          $sql3 = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$valor_final_reserva','$idcliente','$idgaragem','$regdate')";
+          if(!$mysqli->query($sql3))
+          {
+            echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+          }
+          else
+          {
+            echo 'Foi';
+          }
       }
-    }
+      
+   }
     
   }
     
@@ -366,7 +388,8 @@ $(document).ready(function(){
                         success: function(response){
                             $('#scripts_ajax').html(response);
                         }        
-                    });
+                    });                  
+
                     valor_total_de_tudo = valor_totalgaragem+valor_totalquarto;
                     $("#valortotalreserva").html("R$ "+ valor_total_de_tudo);
 
@@ -377,7 +400,7 @@ $(document).ready(function(){
 
 
    $('#espacogaragem').hide();
-
+   $('#mensagem5').hide();
    $('#sim').click(function(){
       $('#espacogaragem').fadeIn();
       $('#mensagem2').fadeIn();
@@ -419,20 +442,20 @@ $(document).ready(function(){
       $("#reservagaragem").val("0");
       $("#valorgaragem").html("R$0,00");
       $("#vagasconfirmadas").html("0 vagas");
+      $('#reservagaragem').val(0);
+      valor_total_de_tudo = valor_totalquarto;
+      $("#valortotalreserva").html("R$ "+ valor_total_de_tudo);
    });
 
-   // $(document).on("change"," #saida, #entrada, .numerodoquarto, #reservagaragem",function(){
-   //        valor_total_de_tudo = valor_totalgaragem+valor_totalquarto;
-   //        alert(valor_total_de_tudo);
-
-   // }); 
+    
+  
              
 
     $('#botaoenviar').hide();
     $('#mensagem4').hide();
     $("#confirmarreserva").change(function(){
       if($("#confirmarreserva").is(":checked")){
-          if(valor_total_de_tudo!=0 && valor_totalgaragem!=0 && total_dias!=0 && entrada!=0 && saida!=0){
+          if(valor_total_de_tudo!=0 && total_dias!=0 && entrada!=0 && saida!=0){
             $('#botaoenviar').fadeIn();                  
           }
           else

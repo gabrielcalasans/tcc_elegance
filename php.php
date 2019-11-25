@@ -173,9 +173,20 @@
                     $totalvagas += $vagas;
                 } 
             }
-        $qtdemaxima = 5 - $totalvagas;        
+        $qtdemaxima = 5 - $totalvagas;
+        // if($qtdemaxima=0){
+        //     echo '<script></script>';
+        // }        
         echo $qtdemaxima;
-        echo "<script>vagas_maximas = $qtdemaxima;</script>";       
+        echo "<script>vagas_maximas = $qtdemaxima;
+                     if(vagas_maximas<= 0)
+                    {
+                       
+                       $('#sim').attr('disabled','disabled');
+                       $('#sim').attr('onclick',M.toast({html: 'Não é possível reservar vagas: Garagem lotada!'}));
+                       $('#mensagem5').fadeIn();
+                    }
+                </script>";       
 
     }
     if(isset($_POST['data1'])&&($_POST['data2']))
