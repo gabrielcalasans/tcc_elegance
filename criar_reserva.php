@@ -146,6 +146,7 @@ include 'conn.php';
           </label>
           <div id="botaosubmit">
             <input type="submit" class="btn" id="botaoenviar" value="Cadastrar Reserva" name="">
+            
           </div>
 
 
@@ -159,10 +160,50 @@ include 'conn.php';
     <span id="mensagem"><i>Insira a data para iniciar o passo a passo</i><br></span>
     <span id="mensagem2"><i>Informe um valor menor ou igual às vagas disponíveis</i><br></span>
     <span id="mensagem3"><i>Uma vaga é inclusa na reserva a partir disso cada vaga custa um adicional de R$ 50,00 por dia</i><br></span>
-
+    <span id="mensagem4"><i>Algo não está preenchido, favor revisar</i></span>
 </div>
 </div>
 </form>
+<?php 
+  if(isset($_POST['checkin']))
+  {
+    $idquarto = $_POST['numdoquarto'];
+    $checkin = $_POST['checkin'];
+    $checkout = $_POST['checkout'];
+    $tipo = $_POST['quarto'];
+    $total_dias = $_SESSION['total_dias'];
+    $vagas_garagem = $_POST['reservagaragem'];
+    $valor_quarto = $_SESSION['valor_quarto'];
+    $valor_total_quarto = $valor_quarto*$total_dias;
+    $valor_garagem = 50*($vagas_garagem-1)*$total_dias;
+    $valor_final_reserva = $valor_garagem+$valor_total_quarto;
+    $sql = "INSERT INTO tb_garagem VALUES(null,'$vagas_garagem')";
+    if(!$mysqli->query($sql))
+    {
+      echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+    }
+    else
+    {
+      $sql2 = "SELECT * FROM tb_garagem ORDER BY cd_garagem DESC LIMIT 1";
+      $resulsql = $mysqli->query($sql2);
+      while($row = $resulsql->fetch_object())
+      {
+          echo $row->cd_garagem;
+      }
+    }
+    
+  }
+    
+
+
+
+
+
+
+
+
+
+?>
 <style>
 .sw-btn-next{
     display: none;
@@ -269,7 +310,7 @@ $(document).ready(function(){
             data: numquarto,
             success: function(response){        
                   $('#scripts_ajax').html(response);
-                  console.log('Script do valor quarto =  '+response);
+                  //console.log('Script do valor quarto =  '+response);
 
             }        
         });      
@@ -388,27 +429,20 @@ $(document).ready(function(){
              
 
     $('#botaoenviar').hide();
+    $('#mensagem4').hide();
     $("#confirmarreserva").change(function(){
       if($("#confirmarreserva").is(":checked")){
-        $('#botaoenviar').fadeIn();
+          if(valor_total_de_tudo!=0 && valor_totalgaragem!=0 && total_dias!=0 && entrada!=0 && saida!=0){
+            $('#botaoenviar').fadeIn();                  
+          }
+          else
+          {
+            $('#mensagem4').fadeIn();
+          }
       }
       else{
         $('#botaoenviar').fadeOut();
       }
     });
-
-    
-
-       
-   
-
-
-
-
-
-
-
-
-
 
 </script>

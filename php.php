@@ -192,6 +192,8 @@
 
         //Calcula a diferença em dias
         $dias = floor($diferenca / (60 * 60 * 24));
+
+        $_SESSION['total_dias'] = $dias;
                 
         echo "<script>
                                 total_dias = $dias;
@@ -208,6 +210,9 @@
         $result = $mysqli->query($sql); 
         while($row = $result->fetch_object()){ 
                 echo $row->nr_quarto;
+                // echo '<script>
+                //             enviar_idquarto = $n
+                //     </script>';
         }
 
            
@@ -223,6 +228,7 @@
                 $resultado = $mysqli->query($sql2); 
                 while($rows = $resultado->fetch_object()){ 
                         $valor = $rows->vl_quarto;
+                        $_SESSION['valor_quarto'] = $valor;
                         echo "<script>valor_quarto = $valor;
                                                 valor_totalquarto = total_dias*valor_quarto;
                                                 $('#valorquarto').html('R$ '+valor_quarto*total_dias+' para '+total_dias+' dias');
