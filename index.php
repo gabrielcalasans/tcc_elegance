@@ -1,6 +1,7 @@
     <?php include('header.php'); ?>
         <title>Home | Hospedagem Elegance</title>
         <?php
+            date_default_timezone_set('UTC');
             include('conn.php');
         ?>
         <style type="text/css">
@@ -89,6 +90,18 @@
             if(isset($_GET['logado']) && $_GET['logado'] == 1) {
                 echo "<script>M.toast({html: '".$saudacao.$row->nm_cliente." ".$row->nm_sobrenome."!'});</script>";
             }
+            if(isset($_POST['reservar'])){
+                if(isset($_POST['checkin']) && isset($_POST['checkout'])){
+                    $_SESSION['checkin'] = $_POST['checkin'];
+                    $_SESSION['checkout'] = $_POST['checkout'];
+                    if(!empty($_SESSION['cliente'])){
+                        echo "<script>window.location.href='criar_reserva.php';</script>";
+                    }
+                    else{
+                        echo "<script>window.location.href='login.php?notlog=1';</script>";
+                    }
+                }
+            }
         ?>
         <div class="parallax-container">    
             <div class="parallax"><img src="images/teste.jpg"></div>
@@ -100,17 +113,19 @@
                             <form class="col s12" method="post">
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="entrada" type="date" name="checkin">
+                                        <i id="datas1" class="material-icons prefix">date_range</i>
+                                        <input id="entrada" type="date" name="checkin" min="<?php echo date("Y-m-d"); ?>">
                                         <label for="entrada">Data de entrada</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="saida" type="date" name="checkout">
+                                        <i id="datas2" class="material-icons prefix">date_range</i>
+                                        <input id="saida" type="date" readonly="" name="checkout" min="<?php echo date("Y-m-d"); ?>">
                                         <label for="saida">Data de saída</label>
                                     </div>
                                 </div>
-                                <button class="btn waves-effect waves-light yellow darken-2" id="logar" type="submit" name="action">Reservar
+                                <button class="btn waves-effect waves-light yellow darken-2" id="logar" type="submit" name="reservar" title="Reservar">Reservar
                                 </button>
                             </form>
                         </div>
@@ -206,8 +221,26 @@
         ?>
         <script>
             $(document).ready(function(){
-                $('.datepicker').datepicker({
-                    format: 'yyyy-mm-dd',  
+                $("#entrada").change(function(){
+                    var entrada = $("#entrada").val();
+                    if(entrada){
+                        $("#datas1").html('event_available');
+                        $("#saida").attr('min', entrada);
+                        $("#saida").removeAttr('readonly');
+                    }
+                    else{
+                        $("#datas1").html('date_range');   
+                    }
+                });
+                $("#saida").change(function(){
+                    var saida = $("#saida").val();
+                    if(saida){
+                        $("#datas2").html('event_available');
+                    }
+                    else{
+                        $("#datas2").html('date_range');   
+                    }
+                    $("#datas2").html('event_available');
                 });
                 $(".dropdown-trigger").dropdown();
                 $('.parallax').parallax();

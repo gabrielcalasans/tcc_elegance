@@ -43,6 +43,9 @@
 			if(isset($_GET['log']) && $_GET['log'] == 0) {
                 echo "<script>M.toast({html: 'Logue ao sistema para acessar a área do cliente.'});</script>";
             }
+            if(isset($_GET['notlog']) && $_GET['notlog'] == 1) {
+                echo "<script>M.toast({html: 'Logue ao sistema para prosseguir com a reserva.'});</script>";
+            }
 		?>
 		<center>
 			<nav class="grey darken-2">
