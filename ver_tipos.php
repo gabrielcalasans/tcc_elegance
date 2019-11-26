@@ -62,7 +62,11 @@
 				{				
 					if($linha->ds_imagem!="")
 					{
-						echo '<div class="card panel" style="padding: 1%;"><b>Tipo: </b>'.$linha->nm_tipo.'<p><b>Descrição: </b>'.$linha->ds_tipo. '<p><b>Valor: </b>'.$linha->vl_quarto.'<p><img id="imgtipo" src="images/'.$linha->ds_imagem.'">';
+						echo '<div class="card panel" style="padding: 1%;">
+								<b>Tipo: </b>'.$linha->nm_tipo.'<p>
+								<b>Descrição: </b>'.$linha->ds_tipo. '<p>
+								<b>Valor: </b>'.$linha->vl_quarto.'<p>
+								<img id="imgtipo" src="'.$linha->ds_imagem.'">';
 					}
 					else
 					{

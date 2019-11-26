@@ -85,7 +85,7 @@
     	</center>
     	<div class="container">
     		<div class="card-panel">
-    			<form method="post">
+    			<form method="post" enctype="multipart/form-data">
     				<div class="row">
     					<div class="input-field col s6 m6">
     						<input id="numero" type="number" name="numeroquarto" class="validate"><label for="numero">Número do Quarto </label>
