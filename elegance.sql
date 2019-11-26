@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 26-Nov-2019 às 06:56
+-- Data de Criação: 26-Nov-2019 às 14:03
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5827,17 +5827,7 @@ CREATE TABLE IF NOT EXISTS `tb_galeria` (
   `cd_foto` int(11) NOT NULL AUTO_INCREMENT,
   `ds_endereco` varchar(200) NOT NULL,
   PRIMARY KEY (`cd_foto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=59 ;
-
---
--- Extraindo dados da tabela `tb_galeria`
---
-
-INSERT INTO `tb_galeria` (`cd_foto`, `ds_endereco`) VALUES
-(55, 'galeria/2019.10.13-23.05.45.00.jpg'),
-(56, 'galeria/2019.10.13-23.05.45.01.jpg'),
-(57, 'galeria/2019.10.13-23.05.45.02.jpg'),
-(58, 'galeria/2019.10.13-23.05.45.03.jpg');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -5849,19 +5839,7 @@ CREATE TABLE IF NOT EXISTS `tb_garagem` (
   `cd_garagem` int(11) NOT NULL AUTO_INCREMENT,
   `nr_vagas` int(10) NOT NULL,
   PRIMARY KEY (`cd_garagem`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
---
--- Extraindo dados da tabela `tb_garagem`
---
-
-INSERT INTO `tb_garagem` (`cd_garagem`, `nr_vagas`) VALUES
-(1, 3),
-(2, 5),
-(3, 5),
-(4, 5),
-(5, 0),
-(6, 0);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -5976,24 +5954,27 @@ CREATE TABLE IF NOT EXISTS `tb_quarto` (
   `id_tipo` int(11) NOT NULL,
   `id_status` int(11) NOT NULL,
   `id_pedido` int(11) NOT NULL,
+  `ds_imagem` varchar(225) NOT NULL,
   PRIMARY KEY (`cd_quarto`),
   KEY `id_tipo` (`id_tipo`),
   KEY `id_status` (`id_status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Extraindo dados da tabela `tb_quarto`
 --
 
-INSERT INTO `tb_quarto` (`cd_quarto`, `nr_quarto`, `ds_quarto`, `id_tipo`, `id_status`, `id_pedido`) VALUES
-(1, 16, 'Quarto com banheira', 2, 2, 0),
-(2, 22, 'Quarto sem chao', 7, 1, 0),
-(5, 45, 'Quarto do frati', 3, 1, 0),
-(6, 34, 'Não tem descrição', 4, 1, 0),
-(9, 80, 'Sem nada', 5, 1, 0),
-(14, 32, 'Quarto com dois aparelhos de ar condicionado', 7, 1, 0),
-(15, 1234, 'Quarto de frente pro mar', 2, 2, 0),
-(16, 600, 'Quarto com jacuzi', 2, 2, 0);
+INSERT INTO `tb_quarto` (`cd_quarto`, `nr_quarto`, `ds_quarto`, `id_tipo`, `id_status`, `id_pedido`, `ds_imagem`) VALUES
+(1, 16, 'Quarto com banheira', 2, 2, 0, 'images/q1.jpg'),
+(2, 22, 'Quarto sem chao', 7, 1, 0, 'images/q2.jpg'),
+(5, 45, 'Quarto do frati', 3, 1, 0, 'images/q3.jpg'),
+(6, 34, 'Não tem descrição', 4, 2, 0, 'images/q4.jpg'),
+(9, 80, 'Sem nada', 5, 2, 0, 'images/q5.jpg'),
+(14, 32, 'Quarto com dois aparelhos de ar condicionado', 7, 1, 0, 'images/q6.jpg'),
+(15, 1234, 'Quarto de frente pro mar', 2, 2, 0, 'images/q1.jpg'),
+(16, 600, 'Quarto com jacuzi', 2, 2, 0, 'images/q3.jpg'),
+(17, 13, 'Quarto em frente a praia', 2, 1, 0, ''),
+(18, 17, 'Quarto com televisão', 4, 1, 0, '');
 
 -- --------------------------------------------------------
 
@@ -6014,19 +5995,7 @@ CREATE TABLE IF NOT EXISTS `tb_reserva` (
   PRIMARY KEY (`cd_reserva`),
   KEY `fk_id_quarto` (`id_quarto`),
   KEY `FK_reserva_cliente` (`id_garagem`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
-
---
--- Extraindo dados da tabela `tb_reserva`
---
-
-INSERT INTO `tb_reserva` (`cd_reserva`, `st_reserva`, `id_quarto`, `dt_checkin`, `dt_checkout`, `vl_reserva`, `id_cliente`, `id_garagem`, `dthr_registro`) VALUES
-(42, 'Cancelado', 1, '2019-10-21', '2019-10-24', '756.00', 15, 1, '2019-10-21 09:28:37'),
-(43, 'Confirmado', 15, '2019-11-26', '2019-11-28', '778.00', 15, 2, '2019-11-26 02:18:00'),
-(44, 'Confirmado', 15, '2019-11-26', '2019-11-28', '778.00', 15, 3, '2019-11-26 12:20:13'),
-(45, 'Confirmado', 15, '2019-11-26', '2019-11-28', '778.00', 15, 4, '2019-11-26 12:22:31'),
-(46, 'Confirmado', 16, '2019-11-26', '2019-11-29', '567.00', 15, 5, '2019-11-26 12:22:55'),
-(47, 'Confirmado', 16, '2019-11-26', '2019-11-29', '567.00', 15, 6, '2019-11-26 12:33:08');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -6068,13 +6037,13 @@ CREATE TABLE IF NOT EXISTS `tb_tipo` (
 --
 
 INSERT INTO `tb_tipo` (`cd_tipo`, `nm_tipo`, `ds_tipo`, `vl_quarto`, `ds_imagem`) VALUES
-(1, 'Deluxe', '• Frigobar • Chuveiro • Ar-condicionado • Mesa de trabalho • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso ', '199.00', ''),
-(2, 'Suíte de 1 Quarto', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '189.00', ''),
-(3, 'Suíte Família', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '239.00', ''),
-(4, 'Suíte Júnior', '• Frigobar• Chuveiro• Ar-condicionado• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '0.00', ''),
-(5, 'Suíte King com Vista para o Mar', '• Frigobar• Chuveiro• Ar-condicionado• Mesa de trabalho• Vaso sanitário• Banheiro privativo• Camas extralongas (+ de 2 metros)', '0.00', ''),
-(6, 'Suíte Standard', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '149.00', ''),
-(7, 'Suíte Deluxe com Banheira de Hidromassagem', '• Frigobar• Chuveiro• Banheira• Ar-condicionado• Banheira de hidromassagem• Mesa de trabalho• Ventilador• Vaso sanitário• Banhei', '0.00', '');
+(1, 'Deluxe', '• Frigobar • Chuveiro • Ar-condicionado • Mesa de trabalho • Ventilador • Vaso sanitário • Banheiro privativo • TV de tela plana • Piso ', '199.00', 'images/t1.jpg'),
+(2, 'Suíte de 1 Quarto', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '189.00', 'images/t6.jpg'),
+(3, 'Suíte Família', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '239.00', 'images/t2.jpg'),
+(4, 'Suíte Júnior', '• Frigobar• Chuveiro• Ar-condicionado• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '210.00', 'images/t3.jpg'),
+(5, 'Suíte King com Vista para o Mar', '• Frigobar• Chuveiro• Ar-condicionado• Mesa de trabalho• Vaso sanitário• Banheiro privativo• Camas extralongas (+ de 2 metros)', '150.00', 'images/t4.jpg'),
+(6, 'Suíte Standard', '• Frigobar• Chuveiro• Mesa de trabalho• Ventilador• Vaso sanitário• Banheiro privativo• TV de tela plana• Piso de mármore/azulejo', '149.00', 'images/t5.jpg'),
+(7, 'Suíte Deluxe com Banheira de Hidromassagem', '• Frigobar• Chuveiro• Banheira• Ar-condicionado• Banheira de hidromassagem• Mesa de trabalho• Ventilador• Vaso sanitário• Banhei', '370.00', 'images/t7.jpg');
 
 -- --------------------------------------------------------
 

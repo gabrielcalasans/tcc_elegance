@@ -139,7 +139,7 @@
                     <div class="col s12 m3">
                       <div class="card">
                         <div class="card-image">
-                          <img src="images/x.png">
+                          <img src="'.$row->ds_imagem.'">
                           <span class="card-title">Nº '.$row->nr_quarto.'</span>
                         </div>
                         <div class="card-content">

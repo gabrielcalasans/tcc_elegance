@@ -65,6 +65,11 @@
     		.lobster-font{
     			font-family: "Lobster"; 
        		}
+       		#cartao
+       		{
+       			height: 230px;
+       		}
+
 	    </style>
 	</head>
 	<body>
@@ -86,8 +91,8 @@
     						<input id="numero" type="number" name="numeroquarto" class="validate"><label for="numero">Número do Quarto </label>
     					</div>
     					<div class="input-field col s6 m6">
-					    	<select name="status">
-					      		<option value="" disabled selected></option>
+					    	<select class="browser-default" name="status">
+					      		
 					      		<?php
 									$consultastatus="SELECT * FROM tb_status";
 									$resultado=$mysqli->query($consultastatus);
@@ -96,13 +101,25 @@
 									}
 								?>
 					    	</select>
-					    	<label>Status do quarto</label>
+					    	<label></label>
 					  	</div>
     				</div>
     				<div class="row">
-    					<div class="input-field col s12 m12">
+    					<div class="input-field col s6 m6">
     						<textarea id="digite" class="materialize-textarea" name="descricao"></textarea>
 						    <label for="digite">Descrição do quarto</label>
+    					</div>
+    					<div class="input-field col s6 m6">
+    						<label>Adicione a foto do tipo</label>
+				       		<div class="file-field input-field s6 m6">
+				           		<div class="btn-small waves-effect waves-light blue">
+			                  		<span>Procurar fotos<i class='material-icons right'>add_to_photos</i></span>
+				               		<input type="file" id="img" name="imagem" accept="image/x-png,image/gif,image/jpeg" />
+			             		</div>
+		                  		<div class="file-path-wrapper">
+				               		<input class="file-path validate" type="text" placeholder="Carregue seu arquivo" />
+				           		</div>
+				       		</div>
     					</div>
     				</div>
     				<div class="row">
@@ -113,9 +130,9 @@
 								while($linha = $tipo->fetch_object()){
 									echo '<div class="col s4 m4">
 										<label for='.$linha->cd_tipo.'>
-											<div class="card">
-												<div class="card-image">
-													<img id="foto" src="images/x.png">
+											<div   class="card">
+												<div id="cartao" class="card-image">
+													<img id="foto" src="'.$linha->ds_imagem.'">
 												</div>
 												<div class="card-content">
 													<p>'.$linha->ds_tipo.'</p>
@@ -150,17 +167,33 @@
 	<?php
 		if(isset($_POST['numeroquarto'])){
 			$numero=$_POST['numeroquarto'];
+			if(isset($_FILES['imagem'])){
+		    	$extensao = strtolower(substr($_FILES['imagem']['name'], -4)); //pega a extensao do arquivo
+		    	if($extensao = "jpeg"){
+		    		$imagem = time() .".". $extensao; //define o nome do arquivo
+					$diretorio = "images/"; //define o diretorio para onde enviaremos o arquivo
+					move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio.$imagem); //efetua o upload
+		    	}
+		    	else{
+		    		$imagem = time() . $extensao; //define o nome do arquivo
+			    	$diretorio = "images/"; //define o diretorio para onde enviaremos o arquivo
+			    	move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio.$imagem); //efetua o upload
+		    	} 
+	    	}
+    		else{
+	    		$imagem = "";
+	    	}
 			$consultanumero="SELECT nr_quarto FROM tb_quarto WHERE nr_quarto=\"$numero\"";
 			$executar=$mysqli->query($consultanumero);
 			if(mysqli_num_rows($executar)>0){
 				echo "<script type='text/javascript'>alert('NÚMERO DE QUARTO JÁ CADASTRADO!!');</script>";
-			}
+			}			
 			else{
 				$status=$_POST['status'];
 				$descricao=$_POST['descricao'];
 				$tipo=$_POST['tipoquarto'];
 				$pedido=0;
-				$inserir="INSERT INTO tb_quarto VALUES(null,'$numero','$descricao','$tipo','$status','$pedido')";
+				$inserir="INSERT INTO tb_quarto VALUES(null,'$numero','$descricao','$tipo','$status','$pedido','$imagem')";
 				//echo $inserir;
 				if(!$mysqli->query($inserir)){
 					echo "Error: " . $inserir . "<br>" . mysqli_error($mysqli);
