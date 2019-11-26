@@ -74,11 +74,11 @@
                         $result = $mysqli->query($sql);
                         if ($result->num_rows > 0) {
                         	$row = $result->fetch_object();
-                        	echo '<p align="left">Check-in: '.$row->dt_checkin.'</p>';
-                        	echo '<p align="left">Check out: '.$row->dt_checkout.'</p>';
-                        	echo '<p align="left">Quarto: '.$row->nm_tipo.' Nº: '.$row->nr_quarto.'</p>';
-                        	echo '<p align="left">Tipo: '.$row->ds_tipo.'</p>';
-                        	echo '<p align="left">Valor: '.$row->vl_reserva.'</p>';
+                        	echo '<p align="left"><b>Check out</b>: '.$row->dt_checkout.'</p>';
+                        	echo '<p align="left"><b>Quarto</b>: '.$row->nm_tipo.' Nº: '.$row->nr_quarto.'</p>';
+                        	echo '<p align="left"><b>Tipo</b>: '.$row->ds_tipo.'</p>';
+                        	echo '<p align="left"><b>Valor</b>: '.$row->vl_reserva.'</p>';
+                            echo '<p align="left"><b>Foto</b>: <img src="'.$row->ds_imagem.'"></p>';
                         }
                        	else{
                        		echo "Nenhuma reserva efetuada até o momento.";
@@ -105,11 +105,12 @@
             </div>
 	    </nav>
 		<div class="container">
-	        <div class="row">
-	        	<div class="card-panel col s12">
+	        <div class="row" style="margin-top: 120px;">
+	        	<div class="card-panel col s12" style="height: 300px;">
 		    	<center>
+                    <h4>Área de reserva</h4>
 				    <div class="col s6">
-				    	<a href="criar_reserva.php"><div id="panel" class="card-panel yellow darken-3">
+				    	<a style="color: black;" title="Criar reserva" href="criar_reserva.php"><div id="panel" class="card-panel yellow darken-3">
 		                    <span>
 		                        <div class="center promo promo-example">
 		                            <i class="large material-icons">add_box</i>
@@ -120,7 +121,7 @@
 		                </div></a>
 				    </div>
 				    <div class="col s6">
-				    	<a class="modal-trigger" href="#reservas"><div id="panel" class="card-panel yellow darken-3">
+				    	<a style="color: black;" title="Visualizar reserva" class="modal-trigger" href="#reservas"><div id="panel" class="card-panel yellow darken-3">
 		                    <span>
 		                        <div class="center promo promo-example">
 		                            <i class="large material-icons">remove_red_eye</i>
