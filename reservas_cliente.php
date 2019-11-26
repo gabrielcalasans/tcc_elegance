@@ -59,6 +59,40 @@
               <a href="#!" title="Não" class="btn modal-close red">Não</a></center>
             </div>
         </div>
+
+        <div id="reservas" class="modal modal-fixed-footer" style="width: 80%;">
+            <div class="modal-content">
+                <center><h4>Visualizar reserva</h4></center>
+                
+                <?php 
+                    if(!empty($_SESSION['cliente'])){
+                        $sql = "SELECT * from tb_reserva re
+                        inner join tb_quarto qua on (qua.cd_quarto = re.id_quarto)
+                        inner join tb_tipo tip on (tip.cd_tipo = qua.id_tipo)
+                        inner join tb_cliente cli on (cli.cd_cliente = re.id_cliente)
+                        where cd_cliente = ".$_SESSION['cliente'];
+                        $result = $mysqli->query($sql);
+                        if ($result->num_rows > 0) {
+                        	$row = $result->fetch_object();
+                        	echo '<p align="left">Check-in: '.$row->dt_checkin.'</p>';
+                        	echo '<p align="left">Check out: '.$row->dt_checkout.'</p>';
+                        	echo '<p align="left">Quarto: '.$row->nm_tipo.' Nº: '.$row->nr_quarto.'</p>';
+                        	echo '<p align="left">Tipo: '.$row->ds_tipo.'</p>';
+                        	echo '<p align="left">Valor: '.$row->vl_reserva.'</p>';
+                        }
+                       	else{
+                       		echo "Nenhuma reserva efetuada até o momento.";
+                       	}
+                    } 
+                ?>
+                            
+               
+            </div>
+
+            <div class="modal-footer">
+     			<a href="#!" class="modal-close btn-flat">Fechar</a>
+    		</div>
+        </div>
 		<nav class="grey darken-2">
             <div class="nav-wrapper">
                 <a href="index.php"><img id="logo" src="images/logotipo.png"></a>
@@ -75,7 +109,7 @@
 	        	<div class="card-panel col s12">
 		    	<center>
 				    <div class="col s6">
-				    	<a href="escolhaquarto.php"><div id="panel" class="card-panel yellow darken-3">
+				    	<a href="criar_reserva.php"><div id="panel" class="card-panel yellow darken-3">
 		                    <span>
 		                        <div class="center promo promo-example">
 		                            <i class="large material-icons">add_box</i>
@@ -86,7 +120,7 @@
 		                </div></a>
 				    </div>
 				    <div class="col s6">
-				    	<a href="#"><div id="panel" class="card-panel yellow darken-3">
+				    	<a class="modal-trigger" href="#reservas"><div id="panel" class="card-panel yellow darken-3">
 		                    <span>
 		                        <div class="center promo promo-example">
 		                            <i class="large material-icons">remove_red_eye</i>
