@@ -195,22 +195,33 @@ include 'conn.php';
     }
     else
     {
-      $sql2 = "SELECT * FROM tb_garagem ORDER BY cd_garagem DESC LIMIT 1";
-      $resulsql = $mysqli->query($sql2);
-      while($row = $resulsql->fetch_object())
-      {
-          $regdate = date('Y-m-d h:i:s a', time());
-          $idgaragem= $row->cd_garagem;
-          $sql3 = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$valor_final_reserva','$idcliente','$idgaragem','$regdate')";
-          if(!$mysqli->query($sql3))
-          {
-            echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-          }
-          else
-          {
-            echo 'Foi';
-          }
-      }
+        $sql2 = "SELECT * FROM tb_garagem ORDER BY cd_garagem DESC LIMIT 1";
+        $resulsql = $mysqli->query($sql2);
+        while($row = $resulsql->fetch_object())
+        {
+            $regdate = date('Y-m-d h:i:s a', time());
+            $idgaragem= $row->cd_garagem;
+            $sql3 = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$valor_final_reserva','$idcliente','$idgaragem','$regdate')";
+            if(!$mysqli->query($sql3))
+            {
+              echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+            }
+            else
+            {
+              echo 'Foi';
+            }
+        }
+        $atualizarquarto = "UPDATE tb_quarto SET id_status = '2' WHERE cd_quarto =\"$idquarto\"";
+        if(!$mysqli->query($atualizarquarto)){
+              echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+         }
+         if(isset($_SESSION['checkin']))
+           {
+              unset($_SESSION['checkin']);
+              unset($_SESSION['checkout']);  
+           }
+
+      
       
    }
     

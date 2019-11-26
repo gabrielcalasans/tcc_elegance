@@ -8,5 +8,6 @@
 	    echo "Falha ao conectar: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 	}
 	$mysqli->set_charset("utf8");
-	session_start();                                                                                                                  
+	session_start();
+	date_default_timezone_set('America/Sao_paulo');                                                                                                                  
 ?>
