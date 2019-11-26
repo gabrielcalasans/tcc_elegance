@@ -43,7 +43,16 @@
 			header('Location: admin.php');
 		}
 	?>
-
+	<!-- Modal Structure -->
+        <div id="sair" class="modal" style="width: 40%;">
+            <div class="modal-content">
+                <center><h4>Deseja sair?</h4></center>
+            </div>
+            <div class="modal-footer">
+              <center><a href="painel_admin.php?id=0" title="Sim" class="btn modal-close green accent-4">Sim</a>
+              <a href="#!" title="Não" class="btn modal-close red">Não</a></center>
+            </div>
+        </div>
   	<!-- Modal Structure -->
   	<div id="modal1" class="modal bottom-sheet">
     	<div class="modal-content">
@@ -142,7 +151,7 @@
 					?>
 					</a>
 				</div>
-			<a href="painel_admin.php?id=0" title="Sair" class="indigo darken-3 btn">Sair</a>
+			<a href="#sair" title="Sair" class="modal-trigger indigo darken-3 btn">Sair</a>
 			</div>
 		</div>
 	</center>

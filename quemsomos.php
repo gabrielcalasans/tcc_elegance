@@ -61,11 +61,11 @@
                 <div class="row">
                     <div id="historia">
                         <div class="col m6">
-                            <img id="imagempousada" class="responsive-img" src="images/x.png">
+                            <img id="imagempousada" class="responsive-img" src="galeria/IMG-20181231-WA0013.jpeg">
                         </div>
                         <div class="col m6">
                             <h5>Pousada Elegance</h5>
-                            <p>historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada historia da pousada.</p>
+                            <p align="justify">Fundada em 15 de fevereiro de 2015, por Carlos Alberto Lima a Pousada Elegance Beira Mar tem grande nome em seu meio, sendo uma das mais procuradas por turistas. Situada no melhor bairro de Itanhaém na Orla do Centro, sua localização é um dos seus principais atrativos, pois conta com fácil mobilidade. Sua infraestrutura possui um dos melhores serviços da Cidade, contando com Internet, estacionamento, café da manhã, entre outros.</p>
                         </div>
                     </div>
                 </div>
