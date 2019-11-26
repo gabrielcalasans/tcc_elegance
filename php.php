@@ -250,7 +250,168 @@
                     } 
             } 
            
+    }
+
+    if(isset($_POST['cdreserva'])){
+        $cd_reserva = $_POST['cdreserva'];
+        $sql = "SELECT * FROM tb_reserva WHERE cd_reserva = $cd_reserva";
+        $resultado = $mysqli->query($sql); 
+        while($rows = $resultado->fetch_object()){
+                    $status = $rows->st_reserva;
+                    if($status == "Confirmado"){
+                        $sql2 = "UPDATE tb_reserva SET st_reserva = 'Cancelado' WHERE cd_reserva=$cd_reserva";
+                        if(!$mysqli->query($sql2)){
+                              echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+                         }
+                         else{
+                             $status = 'Cancelada';
+                             $botao = "Ativar reserva";
+                             echo $botao;
+                         }                      
+
+                    }
+                    else{
+                        $sql2 = "UPDATE tb_reserva SET st_reserva = 'Confirmado' WHERE cd_reserva=$cd_reserva";
+                        if(!$mysqli->query($sql2)){
+                              echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+                         }
+                         else{
+                             $status = 'Confirmada';
+                             $botao = "Desativar reserva";
+                             echo $botao;
+                         } 
+                    }
+
+                     
+                                  
+       } 
+
+           
     }  
+
+     if(isset($_POST['id_tipo'])){
+        $id_tipo = $_POST['id_tipo'];
+        if($id_tipo == 0)
+        {
+            $sql = "SELECT * FROM tb_quarto";                
+            $result = $mysqli->query($sql); 
+            while($row = $result->fetch_object())
+            {
+                    $tipodoquarto = $row->id_tipo;
+                    $sql2 = "SELECT * FROM tb_tipo WHERE cd_tipo = '$tipodoquarto'";  
+                    $resultad = $mysqli->query($sql2); 
+                    while($rows = $resultad->fetch_object())
+                    { 
+                        $vl_quarto = $rows->vl_quarto;                
+                    }
+                            if($row->cd_quarto == $_SESSION['codquarto'])
+                            {
+                                echo '
+                                    <div class="col s4 m3">
+                                      <div class="card">
+                                        <div class="card-image">
+                                          <img src="images/x.png">
+                                          <span class="card-title">Nº '.$row->nr_quarto.'</span>
+                                        </div>
+                                        <div class="card-content">
+                                              <label class="labelquarto" for="num'.$row->cd_quarto.'">                             
+                                                 <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" checked id="num'.$row->cd_quarto.'">
+                                                 <span>'.$row->ds_quarto.'</span>                   
+                                              </label><br>
+                                        </div> 
+                                         <div class="card-action">
+                                          Valor:'.$vl_quarto.'
+                                        </div>                      
+                                      </div>
+                                    </div>
+                                  ';
+                            }
+                    else if($row->id_status=='1')
+                    {
+                        echo '
+                            <div class="col s4 m3">
+                              <div class="card">
+                                <div class="card-image">
+                                  <img src="images/x.png">
+                                  <span class="card-title">Nº '.$row->nr_quarto.'</span>
+                                </div>
+                                <div class="card-content">
+                                      <label class="labelquarto" for="num'.$row->cd_quarto.'">                             
+                                         <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
+                                         <span>'.$row->ds_quarto.'</span>                   
+                                      </label><br>
+                                </div> 
+                                 <div class="card-action">
+                                  Valor:'.$vl_quarto.'
+                                </div>                      
+                              </div>
+                            </div>
+                          ';
+                    }
+                    
+               }
+            
+        }
+        else //SE FOR DIFERENTE DE 0
+        {
+
+        $sql = "SELECT * FROM tb_quarto WHERE id_tipo = '$id_tipo'";                
+        $result = $mysqli->query($sql); 
+        while($row = $result->fetch_object()){
+            $sql2 = "SELECT * FROM tb_tipo WHERE cd_tipo = '$id_tipo'";  
+            $result = $mysqli->query($sql2); 
+            while($rows = $result->fetch_object()){ 
+                $vl_quarto = $rows->vl_quarto;                
+            }
+            if($row->cd_quarto == $_SESSION['codquarto'])
+            {
+                echo '
+                    <div class="col s4 m3">
+                      <div class="card">
+                        <div class="card-image">
+                          <img src="images/x.png">
+                          <span class="card-title">Nº '.$row->nr_quarto.'</span>
+                        </div>
+                        <div class="card-content">
+                              <label class="labelquarto" for="num'.$row->cd_quarto.'">                             
+                                 <input type="radio" checked value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
+                                 <span>'.$row->ds_quarto.'</span>                   
+                              </label><br>
+                        </div> 
+                         <div class="card-action">
+                          Valor:'.$vl_quarto.'
+                        </div>                      
+                      </div>
+                    </div>
+                 ';
+            }
+            else if($row->id_status == '1')
+            {
+                echo '
+                    <div class="col s4 m3">
+                      <div class="card">
+                        <div class="card-image">
+                          <img src="images/x.png">
+                          <span class="card-title">Nº '.$row->nr_quarto.'</span>
+                        </div>
+                        <div class="card-content">
+                              <label class="labelquarto" for="num'.$row->cd_quarto.'">                             
+                                 <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
+                                 <span>'.$row->ds_quarto.'</span>                   
+                              </label><br>
+                        </div> 
+                         <div class="card-action">
+                          Valor:'.$vl_quarto.'
+                        </div>                      
+                      </div>
+                    </div>
+                 ';
+            }
+          }
+        }
+
+           
+    }
 
     if(isset($_POST['senhadm']) && isset($_POST['loginadm'])){
         $login = implode("", $_POST['loginadm']);

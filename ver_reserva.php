@@ -8,7 +8,30 @@
     //include('checarlogin.php');
     date_default_timezone_set('UTC');
   ?>
-	<style type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    $(document).on("click","#situacao",function(){
+       var cdreserva = {cdreserva: $(this).val()}; 
+      $.ajax({
+            type: 'POST',
+            url: 'php.php',
+            data: cdreserva,
+            success: function(response){
+              $("#streserva").html(response);
+                
+            }        
+        });
+
+        
+   }); 
+
+
+
+
+
+</script>
+<style type="text/css">
     body{
       background-color: #758DA3;
     }
@@ -62,12 +85,22 @@
       {
         //echo $row->cd_reserva.'<p>';
         $codres = $row->cd_reserva;
+        $streserva = $row->st_reserva;
         $idquarto = $row->id_quarto;
         $checkin = $row->dt_checkin;
         $checkout = $row->dt_checkout;
         $valor = $row->vl_reserva;
         $idcliente = $row->id_cliente;
         $registro = $row->dthr_registro;
+
+        if($streserva == "Confirmado"){
+            $botao = "Desativar reserva";
+        }
+        else
+        {
+          $botao="Ativar reserva";
+        }
+        
 
         //Consulta nome do usuário----------------------
         $consultausuario = "SELECT nm_cliente, nm_sobrenome FROM tb_cliente WHERE cd_cliente = \"$idcliente\"";
@@ -86,19 +119,10 @@
         {
           $nome = "Cliente não cadastrado";
           $sobrenome = "";
-        }      
+        }  
         
          
-        $status_reserva = $row->st_reservas;
-        if($status_reserva == 1)
-        {
-          $botao = "Desativar reserva";
-
-        }   
-        else
-        {
-          $botao = "Confirmar reserva";
-        }
+        
 
         //----------------------------------------------
 
@@ -126,57 +150,25 @@
         }
         //---------------------------------------------- fim consulta quarto
 
-        $div="<div class='container'><div class='card-panel' ><legend><span id='informacoes'><span id='titulo'>Informações Reserva</span></legend>Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>".""."<p>Número: ".$num." | Tipo de Quarto: ".$tipo."</span><p><img id='imgquarto' src='images/$endimagem''><p>";
-        $botoes = "<p><a class='waves-effect waves-light btn-small blue' href=ver_reserva.php?id=".$codres.">".$botao."</a> <a class='btn-small waves-effect waves-light blue' href=alteracao.php?idreserva=".$codres.">Alterar</a></div></div>";
+        $div="<div class='container'>
+                        <div class='card-panel' >
+                            <legend><span id='informacoes'><span id='titulo'>Informações Reserva</span></legend>
+                            Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " 
+                            <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>".""."
+                            <p>Número: ".$num." | Tipo de Quarto: ".$tipo."</span><p>
+                            <img id='imgquarto' src='images/$endimagem''>
+                            <p>";
+        $botoes = "<p>
+              <button type='button' class='waves-effect waves-light btn-small blue' id='situacao' value=".$codres."><span id='streserva'>$botao</span></button>
+              <a class='btn-small waves-effect waves-light blue' href=alteracao.php?idreserva=".$codres.">Alterar</a>
+              </div>
+        </div>";
         echo $div.$botoes;
 
         
-      }
-     
-        $codigoreserva = $_GET['id'];
-        $consultastatus = "SELECT st_reservas FROM tb_reserva WHERE cd_reserva = $codigoreserva";
-        $resultadostatus = $mysqli->query($consultastatus);
-         while($status = $resultadostatus->fetch_object())
-          {
-            $status = $status->st_reservas;
-            echo $status;
-          }
-
-        if($status == 1)
-        {
-                    $sqlupdate ="UPDATE tb_reserva
-                     SET st_reservas = 0
-                     WHERE cd_reserva = $codigoreserva";
-                    if(!$mysqli->query($sqlupdate))
-                    {
-                     echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-                    }
-                    else
-                   {
-                     // echo "<script type='text/javascript'>alert('Concluído 2');</script>";
-                   }
-
-        }
-        else
-        {
-                    $sqlupdate ="UPDATE tb_reserva
-                     SET st_reservas = 1
-                     WHERE cd_reserva = $codigoreserva";
-                    if(!$mysqli->query($sqlupdate))
-                    {
-                     echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-                    }
-                    else
-                   {
-                      //echo "<script type='text/javascript'>alert('Concluído 1');</script>";
-                   }
-        }
+      }    
         
-         
-      
-          
-
-
     ?>
 	</body>
+
 </html>

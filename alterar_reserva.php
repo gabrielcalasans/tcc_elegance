@@ -1,227 +1,174 @@
-<meta charset="utf-8">
-<?php
-include('conn.php');
-$codreserva = $_SESSION['idreserva'];
-$consultareserva = "SELECT * FROM tb_reserva WHERE cd_reserva=\"$codreserva\"";
-$execucao = $mysqli->query($consultareserva);
-while($dados = $execucao->fetch_object())
-{
-  $checkin_db = $dados->dt_checkin;
-  $checkout_db = $dados->dt_checkout;
-  $quarto_db = $dados->id_quarto;
-  $valor_db = $dados->vl_reserva;
 
-}
+<?php include('header.php'); ?>
+  <title>Alterar Reserva | Pousada Hospedagem Elegance</title>
+  </head>
+  <?php
+    include('conn.php');
+    $cd_reserva = $_SESSION['idreserva'];
+    $consultabanco = "SELECT * FROM tb_reserva WHERE cd_reserva = '$cd_reserva'";
+    $result = $mysqli->query($consultabanco);
+    while($row2 = $result->fetch_object())
+      {                                   
+        $db_checkin = $row2->dt_checkin;
+        $db_checkout = $row2->dt_checkout;
+        $db_valor = $row2->vl_reserva;
+        $db_idquarto = $row2->id_quarto;
+                    $_SESSION['codquarto']=$db_idquarto;
+        $db_garagem = $row2->id_garagem;
+        $db_cliente = $row2->id_cliente;
+     }
+    $consultatipo = "SELECT * FROM tb_quarto WHERE cd_quarto = '$db_idquarto'";
+    $result2 = $mysqli->query($consultatipo);
+    while($row3 = $result2->fetch_object())
+     {                                   
+        $cd_tipo = $row3->id_tipo;
+     }
+        
+   ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+   
+   <div class="card-panel">   
+     <form method="POST">
+     <div class="row">
+          <div class="col s3">                    
+              Código da reserva: <?php echo $cd_reserva; ?><br>
+             
+           </div>              
+       </div>
+       <div class="row">
+              <div class="col s4">                    
+                    <div class="input-field inline">
+                        <input id="checkin_inline" type="date" value="<?php echo $db_checkin; ?>" class="validate">
+                        <label for="checkin_inline">Entrada</label>                    
+                    </div>
+                    <div class="input-field inline">
+                        <input id="checkout_inline" type="date" value="<?php echo $db_checkout; ?>" class="validate">
+                        <label for="checkout_inline">Saída</label>                    
+                    </div>
+              </div>
+              <div class="col s2">
+                      
+              </div>
+              <div class="col s4">
+                      <h6>Exibir quartos do tipo:</h6>
+                       <select class="browser-default" id="tp_quarto" name="tipodoquarto">
+                              <option value="0">Todos</option>
+                              <?php
+                                  $sql = "SELECT * FROM tb_tipo";
+                                  $execucao = $mysqli->query($sql);
+                                  while($row = $execucao->fetch_object())
+                                  {    
+                                      if($row->cd_tipo == $cd_tipo){
+                                          echo "<option selected value=".$row->cd_tipo.">".$row->nm_tipo."</option>";
+                                      }
+                                      else{
+                                          echo "<option value=".$row->cd_tipo.">".$row->nm_tipo."</option>";
+                                      }                               
+                                     
+                                  } 
+                               ?>
+                       </select>
+                </div>
+       </div>
 
-?>
-<form method="POST">
-    Cód. da Reserva: <?php echo $codreserva; ?> <p>    
-    Check in: <input type="date" value='<?php echo $checkin_db; ?>' name="checkin"><p>
-    Check out: <input type="date" value='<?php echo $checkout_db; ?>' name="checkout"><p>
-
-    <h3>Escolha seu tipo de quarto</h3>
-    <ul>
-      <li><a href="alterar_reserva.php">Exibir todos os quartos</a></li>
-      <?php
-
-        $sql = "SELECT * FROM tb_tipo";
-        $tipo = $mysqli->query($sql);
-        if($tipo)
-        {
-          while($linha = $tipo->fetch_object())
-          {
-
-            echo "<li><a href='alterar_reserva.php?id=".$linha->cd_tipo."'>".$linha->nm_tipo."</a></li>";
-
-          }
-        }
-
-        //echo '<option>'..'</option>';
-
-      ?>
-    </ul>
-    <p>
-    <h3>Quartos:</h3>
-      <?php
-        if(isset($_GET['id'])){
-          if($_GET['id']!=null)
-          {
-            $codtipo=$_GET['id'];
-            $sql = "SELECT * FROM tb_quarto WHERE id_tipo=\"$codtipo\"";
-            $quarto = $mysqli->query($sql);
-            if($quarto)
-            {
-              while($row = $quarto->fetch_object())
-              {
-                $consultapreco = "SELECT vl_quarto FROM tb_tipo WHERE cd_tipo = \"$row->id_tipo\"";
-                $respreco = $mysqli->query($consultapreco);
-                while($resul = $respreco->fetch_object())
-                {
-                  $valor = $resul->vl_quarto;
-                }
-
-                $consultastatus="SELECT * FROM tb_status WHERE cd_status=\"$row->id_status\"";
-                $status = $mysqli->query($consultastatus);
-                if($status)
-                {
-                  while($row2 = $status->fetch_object())
-                  {
-
-                    $st=$row2->ds_status;
-
-                  }
-                }
-                if($quarto_db == $row->cd_quarto)
-                {
-                  echo '<label for='.$row->cd_quarto.'><fieldset><input type="radio" checked value= '.$row->cd_quarto.' name="quarto" id='.$row->cd_quarto.' /><fieldset>'.'Quarto de número:'.$row->nr_quarto.'<br><ul>'.'<li id="descricao">Descrição do quarto: '.$row->ds_quarto.'</li>'.'<li id="status">Status: '.$st.'</li>'.'<li id="valor"> Valor: '.$valor.'</li>'.'</ul></fieldset></fieldset></label>';
-
-                }
-                else
-                {
-                  echo '<label for='.$row->cd_quarto.'><fieldset><input type="radio" value= '.$row->cd_quarto.' name="quarto" id='.$row->cd_quarto.' /><fieldset>'.'Quarto de número:'.$row->nr_quarto.'<br><ul>'.'<li id="descricao">Descrição do quarto: '.$row->ds_quarto.'</li>'.'<li id="status">Status: '.$st.'</li>'.'<li id="valor"> Valor: '.$valor.'</li>'.'</ul></fieldset></fieldset></label>';
-                }
-              }
-            }
-          }
-        }
-          else
-          {
-
-            $sql = "SELECT * FROM tb_quarto";
-            $quarto = $mysqli->query($sql);
-            if($quarto)
-            {
-              while($row = $quarto->fetch_object())
-              {
-
-                $consultapreco = "SELECT vl_quarto FROM tb_tipo WHERE cd_tipo = \"$row->id_tipo\"";
-                $respreco = $mysqli->query($consultapreco);
-                while($resul = $respreco->fetch_object())
-                {
-                  $valor = $resul->vl_quarto;
-                }
-
-                $consultastatus="SELECT * FROM tb_status WHERE cd_status=\"$row->id_status\"";
-                $status = $mysqli->query($consultastatus);
-                if($status)
-                {
-                  while($row2 = $status->fetch_object())
-                  {
-
-                    $st=$row2->ds_status;
-
-                  }
-                }
-                if($quarto_db == $row->cd_quarto)
-                {
-                  echo '<label for='.$row->cd_quarto.'><fieldset><input type="radio" checked value= '.$row->cd_quarto.' name="quarto" id='.$row->cd_quarto.' /><fieldset>'.'Quarto de número:'.$row->nr_quarto.'<br><ul>'.'<li id="descricao">Descrição do quarto: '.$row->ds_quarto.'</li>'.'<li id="status">Status: '.$st.'</li>'.'<li id="valor"> Valor: '.$valor.'</li>'.'</ul></fieldset></fieldset></label>';
-
-                }
-                else
-                {
-                  echo '<label for='.$row->cd_quarto.'><fieldset><input type="radio" value= '.$row->cd_quarto.' name="quarto" id='.$row->cd_quarto.' /><fieldset>'.'Quarto de número:'.$row->nr_quarto.'<br><ul>'.'<li id="descricao">Descrição do quarto: '.$row->ds_quarto.'</li>'.'<li id="status">Status: '.$st.'</li>'.'<li id="valor"> Valor: '.$valor.'</li>'.'</ul></fieldset></fieldset></label>';
-                }
-
-              }
-            }
-          }
+       <div class="row">
+                       
+                <div id="quartoespacos" class="col s12">
+                    <?php 
+                    
+                    $sql = "SELECT * FROM tb_quarto WHERE id_tipo = '$cd_tipo'";                
+                    $result = $mysqli->query($sql); 
+                    while($row = $result->fetch_object()){
+                        $sql2 = "SELECT * FROM tb_tipo WHERE cd_tipo = '$cd_tipo'";  
+                        $result = $mysqli->query($sql2); 
+                        while($rows = $result->fetch_object()){ 
+                            $vl_quarto = $rows->vl_quarto;
+                            $ds_tipo = $rows->nm_tipo;                
+                        }
+                        if($row->cd_quarto == $db_idquarto){
+                             echo '
+                                        <div class="col s4 m3">
+                                          <div class="card">
+                                            <div class="card-image">
+                                              <img src="images/x.png">
+                                              <span class="card-title">Nº '.$row->nr_quarto.'</span>
+                                            </div>
+                                            <div class="card-content">
+                                              <label class="labelquarto" for="num'.$row->cd_quarto.'"> 
+                                                     <input type="radio" checked value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
+                                                     <span>'.$row->ds_quarto.'</span>                   
+                                                  </label><br>
+                                            </div> 
+                                             <div class="card-action">
+                                              Valor:'.$vl_quarto.'
+                                            </div>                      
+                                          </div>
+                                        </div>
+                                      ';
 
 
-
-      ?>
-    <p>
-
-
-
-
-  <input type="submit"><button><a href="ver_reserva.php">Ver Reservas</a></button>
-</form>
-<?php
-if(isset($_POST['checkin']))
-{
-
-
-    $checkin=$_POST['checkin'];
-    $checkout=$_POST['checkout'];
-
-
-
-    if($checkin<$checkout)
-    {
-
-          $idquarto=$_POST['quarto'];
-          $vlfinal=0;
-
-
-          date_default_timezone_set('America/Sao_paulo');
-          $regdate = date('Y-m-d h:i:s a');
-
-
-          $data1 = new datetime($_POST['checkin']);
-          $data2 = new datetime($_POST['checkout']);
-          while($data1<=$data2)
-          {
-            $sqltipo="SELECT * FROM tb_quarto WHERE cd_quarto=\"$idquarto\"";
-            $resulsql = $mysqli->query($sqltipo);
-            while($valor = $resulsql->fetch_object())
-            {
-
-                $sqlpreco = "SELECT vl_quarto FROM tb_tipo WHERE cd_tipo=\"$valor->id_tipo\"";
-
-                $resulsql2 = $mysqli->query($sqlpreco);
-                while($dado = $resulsql2->fetch_object())
-                {
-                  //var_dump($dado->vl_quarto);
-                  $vlfinal+=floatval ($dado->vl_quarto);
-
-                }
-
-            }
-
-            $data1->modify('+1 day');
-
-          }
-
-        $sql = "UPDATE tb_reserva
-                SET id_quarto = \"$idquarto\",
-                    dt_checkin = \"$checkin\",
-                    dt_checkout = \"$checkout\",
-                    vl_reserva = \"$vlfinal\",
-                    dthr_registro = \"$regdate\"
-                WHERE cd_reserva = \"$codreserva\"";
-        if(!$mysqli->query($sql)){
-          echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-        }
-        else{
-          echo "<script type='text/javascript'>alert('Concluído'); window.location.href='alterar_reserva.php';</script>";
-        }
-
-      }
-      else
-      {
-         echo "<script type='text/javascript'>alert('Data Inválida');</script>";
-      }
+                        }
+                        else if($row->id_status != '1')
+                        {
+                           echo '
+                                        <div class="col s4 m3">
+                                          <div class="card">
+                                            <div class="card-image">
+                                              <img src="images/x.png">
+                                              <span class="card-title">Nº '.$row->nr_quarto.'</span>
+                                            </div>
+                                            <div class="card-content">
+                                              <label class="labelquarto" for="num'.$row->cd_quarto.'"> 
+                                                     <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
+                                                     <span>'.$row->ds_quarto.'</span>                   
+                                                  </label><br>
+                                            </div> 
+                                             <div class="card-action">
+                                              Valor:'.$vl_quarto.'
+                                            </div>                      
+                                          </div>
+                                        </div>
+                                     ';
+                          
+                        }
+                       
+                    } 
+              ?>
+                      
+                </div>   
+       </div>
 
 
 
 
-  //echo $_SESSION['quarto'];
-  //header('location:pagamento.php');
-}
-
-?>
 
 
+     </form>     
+   </div>
+   <script>
+   $(document).on("change","#tp_quarto",function(){
+      var id_tipo = {id_tipo: $(this).val()};
+      console.log(id_tipo);   
+       
+        $.ajax({
+            type: 'POST',
+            url: 'php.php',
+            data: id_tipo,
+            success: function(response){        
+                  $("#quartoespacos").html(response);
+                  //console.log(response);
 
-<style type="text/css">
-img{
-width: 10%;
-}
-fieldset
-{
-width: 45%;
-float:left;
-}
+            }        
+        });      //FECHANDO AJAX
+   });
 
 
-</style>
+
+
+
+
+
+
+
+   </script>
