@@ -201,8 +201,17 @@
         // Calcula a diferença em segundos entre as datas
         $diferenca = strtotime($data_final) - strtotime($data_inicial);
 
+        if($diferenca == 0)
+        {
+          $dias = 1;
+        }
+        else
+        {
+         $dias = floor($diferenca / (60 * 60 * 24));
+
+        }
+
         //Calcula a diferença em dias
-        $dias = floor($diferenca / (60 * 60 * 24));
 
         $_SESSION['total_dias'] = $dias;
                 
@@ -266,6 +275,7 @@
                          else{
                              $status = 'Cancelada';
                              $botao = "Ativar reserva";
+                             echo "<script> M.toast({html: 'Reserva Desativada!'});</script>";
                              echo $botao;
                          }                      
 
@@ -278,6 +288,7 @@
                          else{
                              $status = 'Confirmada';
                              $botao = "Desativar reserva";
+                             echo "<script> M.toast({html: 'Reserva Ativada!'});</script>";
                              echo $botao;
                          } 
                     }

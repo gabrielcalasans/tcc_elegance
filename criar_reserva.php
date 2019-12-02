@@ -47,10 +47,47 @@ include 'conn.php';
                         $c = 0;
 						while($linha = $tipo->fetch_object())
 						{
-                            
+                  $cquartos = 0;
+                  $codquarto = $linha->cd_tipo;
+                  $consulta = "SELECT * FROM tb_quarto WHERE id_tipo = $codquarto AND id_status = '1'";
+                  $resultado = $mysqli->query($consulta);
+                  while($row = $resultado->fetch_object())
+                  {
+                    $cquartos+=1;
+                  }
+                    if($cquartos == 0)
+                    {
+                      echo '<label  id="tipo" for='.$linha->cd_tipo.'>
+                                    <div  class="card-panel"  id="panel">
+                                            
+                                            <span id="indisponivel" value="'.$linha->cd_tipo.'">'.$linha->nm_tipo.'</span>
+                                            <span data-target="modal'.$linha->cd_tipo.'"  class="modal-trigger" id="detalhes indisponivel">
+                                              <i class="material-icons">add_circle_outline</i>
+                                            </span>
 
-                           
-                        echo '<label  id="tipo" for='.$linha->cd_tipo.'>
+                                </div>
+                            </label>';  
+                            echo '<div id="modal'.$linha->cd_tipo.'" class="modal">
+                                    <div class="modal-content">
+                                      <h4>'.$linha->nm_tipo.'</h4>
+                                      <p>O quarto possui: <br>'.$linha->ds_tipo.'</p>
+                                      <p>Valor: '.number_format($linha->vl_quarto, 2, ',', '.').'</p>
+                                    </div>
+                                    <p>
+                                    <div class="img-box">
+                                        <p><img id="imagemtipo" src="'.$linha->ds_imagem.'"></p>
+                                    </div>                             
+                                    <div class="modal-footer">
+
+                                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
+                                    </div>
+                                  </div>';                     
+                         
+
+                    }
+                    else
+                    {
+                      echo '<label  id="tipo" for='.$linha->cd_tipo.'>
                                     <div  class="card-panel"  id="panel">
                                         <input type="radio" class="with-gap tipodequarto" value= '.$linha->cd_tipo.' name="quarto" id='.$linha->cd_tipo.' />
                                             <span>'.$linha->nm_tipo.'</span>
@@ -75,14 +112,16 @@ include 'conn.php';
                                       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
                                     </div>
                                   </div>';                     
-                           $c++;
+                          
+                    }     
+                      $c++;
                            if($c%3==0)
                            {
                             echo '<br>';
-                           }
+                           }     
                         
-                        }
-                    }
+      }
+     }
 						// INFORMAÇÕES DO QUARTO --- (da página php.php)
 					 // '<label for="num'.$row->cd_quarto.'">
       //                   <div class="card-panel">
@@ -166,7 +205,7 @@ include 'conn.php';
 </div>
 </form>
 <?php 
-  if(isset($_POST['checkin']))
+  if(isset($_POST['checkin'])&&isset($_POST['checkout'])&&isset($_POST['opcgaragem']))
   {
     $idcliente = $_SESSION['cliente'];
     $idquarto = $_POST['numdoquarto'];
@@ -280,6 +319,10 @@ include 'conn.php';
 #espacodiv
 {
   width: 5%;
+}
+#indisponivel
+{
+ color:red;
 }
 
 

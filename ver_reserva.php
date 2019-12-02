@@ -13,12 +13,13 @@
 <script>
     $(document).on("click","#situacao",function(){
        var cdreserva = {cdreserva: $(this).val()}; 
+       var codreserva = $(this).val();
       $.ajax({
             type: 'POST',
             url: 'php.php',
             data: cdreserva,
             success: function(response){
-              $("#streserva").html(response);
+              $("#streserva"+codreserva).html(response);
                 
             }        
         });
@@ -38,7 +39,7 @@
     #imgquarto{
       position: relative;
       margin-left: 0%;
-      width: 200px;
+      width: 400px;
       height: 300px;
     }
     #informacoes{
@@ -156,10 +157,16 @@
                             Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " 
                             <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>".""."
                             <p>Número: ".$num." | Tipo de Quarto: ".$tipo."</span><p>
-                            <img id='imgquarto' src='images/$endimagem''>
+                            <img id='imgquarto' src='$endimagem''>
                             <p>";
         $botoes = "<p>
-              <button type='button' class='waves-effect waves-light btn-small blue' id='situacao' value=".$codres."><span id='streserva'>$botao</span></button>
+              <button type='button' class='waves-light btn-small blue' id='situacao' value=".$codres.">
+                <span data-target='modal".$codres."'  class='modal-trigger' id='detalhes'>
+                  <span id='streserva".$codres."'>
+                    $botao
+                  </span>
+                </span>
+              </button>
               <a class='btn-small waves-effect waves-light blue' href=alteracao.php?idreserva=".$codres.">Alterar</a>
               </div>
         </div>";
