@@ -29,12 +29,12 @@
 		include('conn.php');
 		
 		if(empty($_SESSION['cliente'])){
-			header('Location: index.php');
-		}
-		if(isset($_GET['id']) and $_GET['id'] == 0){
-			session_destroy();
-			header('Location: index.php');
-		}
+            header('Location: login.php?log=0');
+        }
+        if(isset($_GET['id']) and $_GET['id'] == 0){
+            session_destroy();
+            header('Location: index.php');
+        }
 	?>
 	<body>
 		<!-- Modal Structure -->
@@ -99,6 +99,7 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                 	<li class="active"><a href="reservas_cliente.php" title="Área de reserva">Área de reserva</a></li>
                 	<li><a href="cliente.php" title="Minha conta">Minha conta</a></li>
+                    <li><a href="contato_cliente.php" title="Contato">Contato</a></li>
                 	<li><a href="#" title="Histórico">Histórico</a></li>
                    	<li><a class="modal-trigger" href="#sair" title="Sair">Sair</a></li>
                 </ul>

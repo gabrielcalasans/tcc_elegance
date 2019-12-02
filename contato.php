@@ -117,10 +117,15 @@
                 box-shadow: 0 1px 0 0 #fbc02d !important
             }
         </style>
-		<?php include('conn.php'); ?>
-    </head
+    </head>
     <body>
-        <?php include('menu.php'); ?>
+        <?php
+            include('conn.php');
+            if(isset($_GET['men']) && $_GET['men'] == 1) {
+                echo "<script>M.toast({html: 'Depoimento enviado com sucesso!'});</script>";
+            }
+            include('menu.php');
+        ?>
 		<div class="container-fluid" style="margin-left: -11px;">
         <div class="row">
             <div class="col s12">
@@ -193,7 +198,7 @@
 							</div>
                             <div class="row">
                                 <div class="col s12">
-                                    <center><button title="Enviar" class="btn waves-effect waves-light yellow darken-2" type="submit" id="enviar" name="action">
+                                    <center><button title="Enviar" class="btn yellow darken-2" type="submit" id="enviar" name="action">
                                         Enviar
                                     </button></center>
                                 </div>
@@ -211,7 +216,7 @@
                         $datetime = date('Y-m-d H:i:s');
                         $sql = "INSERT into tb_comentario values(null, '$comentario', '$cliente', '$nota', '$datetime', '')";
                         if($mysqli->query($sql)){
-                            echo "<script type='text/javascript'>alert('Depoimento enviado com sucesso.'); window.location.href='contato.php';</script>";
+                            echo "<script type='text/javascript'>window.location.href='contato.php?men=1';</script>";
                         }
                         else{
                             echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
