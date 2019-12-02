@@ -10,6 +10,7 @@
   ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
 <script>
     $(document).on("click","#situacao",function(){
        var cdreserva = {cdreserva: $(this).val()}; 
@@ -22,10 +23,17 @@
               $("#streserva"+codreserva).html(response);
                 
             }        
-        });
+        });        
+   });
 
-        
-   }); 
+   $(document).ready(function(){
+    $('.modal').modal();
+    $("#cpf").mask("999.999.999-99");
+    $("#cep").mask("99999-999");
+    $("#celular").mask("(99) 99999-9999");
+    $("#tel").mask("(99) 9999-9999");
+    $("#rg").mask("99.999.999-9");
+  }); 
 
 
 
@@ -62,6 +70,12 @@
     .lobster-font{
       font-family: "Lobster"; 
     }
+    #avatar{
+          width: 140px;
+          height: 140px;
+          border-radius: 100%;
+          box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
+        }
   </style>
   <?php
     $consulta = "SELECT * FROM tb_reserva";
@@ -94,6 +108,7 @@
         $idcliente = $row->id_cliente;
         $registro = $row->dthr_registro;
 
+        
         if($streserva == "Confirmado"){
             $botao = "Desativar reserva";
         }
@@ -104,7 +119,7 @@
         
 
         //Consulta nome do usuário----------------------
-        $consultausuario = "SELECT nm_cliente, nm_sobrenome FROM tb_cliente WHERE cd_cliente = \"$idcliente\"";
+        $consultausuario = "SELECT * FROM tb_cliente WHERE cd_cliente = \"$idcliente\"";
         //echo $consultausuario.'<p>';
         $resultado = $mysqli->query($consultausuario);
         if($resultado->num_rows > 0)
@@ -113,6 +128,41 @@
           {               
             $nome=$dado->nm_cliente;
             $sobrenome = $dado->nm_sobrenome;
+            $codcliente = $dado->cd_cliente;
+            $cpfcliente = $dado->nr_cpf;
+            $nomecompleto = $nome." ".$sobrenome;
+            $email = $dado->nm_email;
+            $celular = $dado->nr_celular;
+            $rg = $dado->nr_rg;
+            $org = $dado->ds_orgao;
+            $nascimento = date("d/m/Y", strtotime($dado->dt_nascimento));
+            $nacio = $dado->ds_nacionalidade;
+            $avatar = $dado->ds_avatar;
+
+            $idprof = $dado->id_profissao;
+            $idgenero = $dado->id_genero;
+
+            $consultaprof = "SELECT * FROM tb_profissao WHERE cd_profissao = $idprof";
+            $resul = $mysqli->query($consultaprof);
+            while($val = $resul->fetch_object())
+            {
+              $profisson = $val->nm_profissao; 
+            }
+            $consultagen = "SELECT * FROM tb_genero WHERE cd_genero = $idgenero";
+            $resul = $mysqli->query($consultagen);
+            while($val = $resul->fetch_object())
+            {
+              $genero = $val->nm_genero; 
+            }
+
+            if($dado->nr_telefone == "")
+            {
+              $telefone = "Não cadastrado";              
+            }
+            else
+            {
+              $telefone = $dado->nr_telefone;
+            }
             //echo $nome;
           }
         }         
@@ -120,6 +170,7 @@
         {
           $nome = "Cliente não cadastrado";
           $sobrenome = "";
+          $nomecompleto = $nome." ".$sobrenome;
         }  
         
          
@@ -150,26 +201,104 @@
           //------------------------------------------------- fim consulta tipo de quarto
         }
         //---------------------------------------------- fim consulta quarto
-
+        
         $div="<div class='container'>
                         <div class='card-panel' >
-                            <legend><span id='informacoes'><span id='titulo'>Informações Reserva</span></legend>
-                            Cód. Reserva: ".$codres." Cliente: ".$nome." ".$sobrenome. " 
-                            <p> Check-in: ".$checkin." | Check-out: ".$checkout."<p>".""."
-                            <p>Número: ".$num." | Tipo de Quarto: ".$tipo."</span><p>
+                            <legend><span id='informacoes'><span id='titulo'>INFORMAÇÕES DA RESERVA</span></legend>
+                            <b>Cód. Reserva:</b> ".$codres." <p>
+                            <b>Cliente:</b> 
+                            <span class='modal-trigger' data-target='modal-ficha".$idcliente."'>
+                                  ".$nomecompleto. " <i class='material-icons'>zoom_in</i>
+                            </span>
+                            <p> <b>Check-in:</b> ".date("d/m/Y", strtotime($checkin))." | <b>Check-out:</b> ".date("d/m/Y", strtotime($checkout))."<p>".""."
+                            <p><b>Número:</b> ".$num." | <b>Tipo de Quarto:</b> ".$tipo."</span><p>
                             <img id='imgquarto' src='$endimagem''>
                             <p>";
         $botoes = "<p>
-              <button type='button' class='waves-light btn-small blue' id='situacao' value=".$codres.">
-                <span data-target='modal".$codres."'  class='modal-trigger' id='detalhes'>
+         <span data-target='modal".$codres."'  class='modal-trigger' id='detalhes'>
+              <button type='button' class='waves-light btn-small blue' value=".$codres.">               
                   <span id='streserva".$codres."'>
-                    $botao
-                  </span>
+                    $botao                 
                 </span>
               </button>
+           </span>
               <a class='btn-small waves-effect waves-light blue' href=alteracao.php?idreserva=".$codres.">Alterar</a>
               </div>
         </div>";
+         echo '<div id="modal'.$codres.'" class="modal">
+                  <div class="modal-content">
+                    <center><h4>Deseja alterar o status  <br> da reserva?</h4></center>
+                  </div>
+                <p>                                           
+               <div class="modal-footer">
+                  <center>
+                    <button class="btn modal-close green accent-4" title="Sim" value='.$codres.' id="situacao">Sim</button>
+                    <a href="#!" title="Não" class="btn modal-close red">Não</a>
+                  </center>
+                </div>
+              </div>';
+        echo '<div id="modal-ficha'.$idcliente.'" class="modal">
+                  <div class="modal-content">
+                    <div class="row">                    
+                      <div align="center" class="col s12">
+                              <img id="avatar" src='.$avatar.'>                         
+                     </div>
+                    </div>
+                    <div align="center" class="col s12">
+                          <h4>Informações do Cliente</h4>
+                      </div>
+                      <div class="row">
+                      <div class="col s6">
+                          Nome completo: '.$nomecompleto.'
+                      </div>
+                      <div class="col s6">
+                          CPF: <span id="cpf">'.$cpfcliente.'</span>
+                      </div>
+                    </div>
+                    <div class="row">                      
+                      <div class="col s6">
+                         Gênero: '.$genero.'
+                      </div>                      
+                      <div class="col s6">
+                          Profissão: '.$profisson.'
+                      </div>
+                    </div>
+                    <div class="row">                      
+                      <div class="col s6">
+                         Nacionalidade: '.$nacio.'
+                      </div>                      
+                      <div class="col s6">
+                          Nascimento: '.$nascimento.'
+                      </div>
+                    </div>
+                    <div class="row">                      
+                      <div class="col s2">
+                         Órgão: '.$org.'
+                      </div>
+                      <div class="col s4">
+                          RG: <span id="rg">'.$rg.'</span>
+                      </div>
+                      <div class="col s6">
+                          Celular: <span id="celular">'.$celular.'</span>
+                      </div>
+                    </div>                  
+                  <div class="row">                      
+                      <div class="col s6">
+                         Telefone: <span id="tel">'.$telefone.'</span>
+                      </div>                      
+                      <div class="col s6">
+                          Email: '.$email.'
+                      </div>                      
+                  </div>
+                </div>
+                <p>                                           
+               <div class="modal-footer">
+                  <center>
+                    <a href="#!" title="Imprimir" class="btn modal-close green accent-4">Imprimir</a>                    
+                    <a href="#!" title="Não" class="btn modal-close red">Fechar</a>
+                  </center>
+                </div>
+              </div>';
         echo $div.$botoes;
 
         

@@ -67,7 +67,11 @@
        		}
        		#cartao
        		{
-       			height: 230px;
+       			height: 210px;
+       		}
+       		#footer-card
+       		{
+       			height: 70px;
        		}
 
 	    </style>
@@ -137,7 +141,7 @@
 												<div class="card-content">
 													<p>'.$linha->ds_tipo.'</p>
 												</div>
-												<div class="card-action">
+												<div  id="footer-card" class="card-action">
 									          		<label>
 												        <input name="tipoquarto" type="radio" id='.$linha->cd_tipo.' value='.$linha->cd_tipo.' class="with-gap" />
 												    	<span style="color: black;"><b>'.$linha->nm_tipo.'</b></span>

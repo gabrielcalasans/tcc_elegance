@@ -74,6 +74,14 @@
     		.lobster-font{
     			font-family: "Lobster"; 
        		}
+       		#cartao
+       		{
+       			height: 210px;
+       		}
+       		#footer-card
+       		{
+       			height: 70px;
+       		}
 	    </style>
 	</head>
 	<body>
@@ -96,8 +104,8 @@
     						<input id="numero" type="number" name="numeroquarto" class="validate" value="<?php echo $nrquarto; ?>"><label for="numero">Número do Quarto </label>
     					</div>
     					<div class="input-field col s6 m6">
-					    	<select name="status">
-					      		<option value="" disabled selected></option>
+					    	<select class="browser-default" name="status">
+					      		<option value="" disabled selected>Escolha...</option>
 					      		<?php
 									$consultastatus="SELECT * FROM tb_status";
 									$resultado=$mysqli->query($consultastatus);
@@ -111,7 +119,7 @@
 									}
 								?>
 					    	</select>
-					    	<label>Status do quarto</label>
+					    	
 					  	</div>
     				</div>
     				<div class="row">
@@ -130,13 +138,13 @@
 										echo '<div class="col s4 m4">
 											<label for='.$linha->cd_tipo.'>
 												<div class="card">
-													<div class="card-image">
-														<img id="foto" src="images/x.png">
+													<div id="cartao" class="card-image">
+														<img id="foto" src="'.$linha->ds_imagem.'">
 													</div>
 													<div class="card-content">
 														<p>'.$linha->ds_tipo.'</p>
 													</div>
-													<div class="card-action">
+													<div id="footer-card" class="card-action">
 										          		<label>
 													        <input name="tipoquarto" type="radio" checked id='.$linha->cd_tipo.' value='.$linha->cd_tipo.' class="with-gap" />
 													    	<span style="color: black;"><b>'.$linha->nm_tipo.'</b></span>
@@ -151,7 +159,7 @@
 											<label for='.$linha->cd_tipo.'>
 												<div class="card">
 													<div class="card-image">
-														<img id="foto" src="images/x.png">
+														<img id="foto" src='.$linha->ds_imagem.'>
 													</div>
 													<div class="card-content">
 														<p>'.$linha->ds_tipo.'</p>
