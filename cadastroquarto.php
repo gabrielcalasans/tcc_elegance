@@ -175,14 +175,16 @@
 			if(isset($_FILES['imagem'])){
 		    	$extensao = strtolower(substr($_FILES['imagem']['name'], -4)); //pega a extensao do arquivo
 		    	if($extensao = "jpeg"){
-		    		$imagem = time() .".". $extensao; //define o nome do arquivo
+		    		
 					$diretorio = "images/"; //define o diretorio para onde enviaremos o arquivo
-					move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio.$imagem); //efetua o upload
+					$imagem = $diretorio.time() .".". $extensao; //define o nome do arquivo
+					move_uploaded_file($_FILES['imagem']['tmp_name'], $imagem); //efetua o upload
 		    	}
 		    	else{
-		    		$imagem = time() . $extensao; //define o nome do arquivo
-			    	$diretorio = "images/"; //define o diretorio para onde enviaremos o arquivo
-			    	move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio.$imagem); //efetua o upload
+		    		$imagem = "images/".time() . $extensao; //define o nome do arquivo
+			    	//$diretorio = "images/"; //define o diretorio para onde enviaremos o arquivo
+			    	move_uploaded_file($_FILES['imagem']['tmp_name'], $imagem); //efetua o upload
+			    	
 		    	} 
 	    	}
     		else{
@@ -204,7 +206,7 @@
 					echo "Error: " . $inserir . "<br>" . mysqli_error($mysqli);
 				}
 				else{
-					echo "<script type='text/javascript'>alert('QUARTO CADASTRADO COM SUCESSO!!');window.location.href='cadastroquarto.php';</script>";
+					echo "<script type='text/javascript'>alert('CADASTRADO COM SUCESSO!!');window.location.href='cadastroquarto.php';</script>";
 				}
 			}
 		}

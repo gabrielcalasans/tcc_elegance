@@ -94,6 +94,7 @@
     		<h1 class="lobster-font">Alterar Acomodação</h1>
     		<h4>Código do quarto: <?php echo $codquarto; ?></h4>
     		<a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
+    		<a href="ver_quarto.php" class="waves-effect waves-light indigo darken-3 btn">Ver quartos</a>
     		<br><br>
     	</center>
     	<div class="container">
@@ -123,9 +124,21 @@
 					  	</div>
     				</div>
     				<div class="row">
-    					<div class="input-field col s12 m12">
+    					<div class="input-field col s6 m6">
     						<textarea id="digite" class="materialize-textarea" name="descricao"><?php echo $dsquarto; ?></textarea>
 						    <label for="digite">Descrição do quarto</label>
+    					</div>
+    					<div class="input-field col s5 m5">
+    						<label>Adicione a foto do tipo</label>
+				       		<div class="file-field input-field s6 m6">
+				           		<div class="btn-small waves-effect waves-light blue">
+			                  		<span>Procurar fotos<i class='material-icons right'>add_to_photos</i></span>
+				               		<input type="file" id="img" name="imagem" accept="image/x-png,image/gif,image/jpeg" />
+			             		</div>
+		                  		<div class="file-path-wrapper">
+				               		<input class="file-path validate" type="text" placeholder="Carregue seu arquivo" />
+				           		</div>
+				       		</div>
     					</div>
     				</div>
     				<div class="row">
@@ -184,7 +197,7 @@
 	    						<button class="btn waves-effect waves-light blue" type="submit" name="enviar">Enviar
 									<i class="material-icons right">send</i>
 								</button>
-	    						<a href="ver_quarto.php" class="waves-effect waves-light btn blue">Ver quartos</a>
+	    						
     						</center>
     					</div>
     				</div>
