@@ -1,36 +1,4 @@
-#tabela
+td
 {
-	border: 2px solid #3C4142;
-}
-th
-{
-	border: 1px solid #3C4142;
-	padding: 2px;
-}
-.meio
-{
-	border: 1px solid #3C4142;
-	font-size: 12px;
-	padding: 2px;
-}
-#logo
-{
-	width: 30%;
-}
-#cedente
-{
-	width: 35%;
-}
-#contacedente
-{
-	width: 11.6666666667%;
-}
-#dtemissao
-{
-	width: 11.6666666667%;
-}
-
-#final
-{
-	border: none;
+	height: 50px;
 }
