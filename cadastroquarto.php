@@ -85,6 +85,7 @@
     	<center>
     		<h1 class="lobster-font">Cadastrar Acomodações</h1>
     		<a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
+    		<a href="ver_quarto.php" class="waves-effect waves-light indigo darken-3 btn">Ver quartos</a>
     		<br><br>
     	</center>
     	<div class="container">
@@ -160,7 +161,7 @@
 	    						<button class="btn waves-effect waves-light blue" type="submit" name="enviar">Enviar
 									<i class="material-icons right">send</i>
 								</button>
-	    						<a href="ver_quarto.php" class="waves-effect waves-light btn blue">Ver quartos</a>
+	    						
     						</center>
     					</div>
     				</div>

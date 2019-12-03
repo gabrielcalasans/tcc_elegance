@@ -298,6 +298,21 @@
        } 
 
            
+    }
+
+
+    if(isset($_POST['cdquarto'])){
+        $cdquarto = $_POST['cdquarto'];
+        $sql = "DELETE FROM tb_quarto WHERE cd_quarto =$cdquarto";
+        if(!$mysqli->query($sql)){
+            echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+        }
+        else
+        {
+            echo "<script> M.toast({html: 'Quarto Excluído!'});</script>";
+            echo "<script> M.toast({html: 'Atualizando a Página!'});</script>";
+
+        }
     }  
 
      if(isset($_POST['id_tipo'])){
