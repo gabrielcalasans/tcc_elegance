@@ -310,7 +310,7 @@
         else
         {
             echo "<script> M.toast({html: 'Quarto Excluído!'});</script>";
-            echo "<script> M.toast({html: 'Atualizando a Página!'});</script>";
+            echo '<script> M.toast({html: "Atualizando a Página!"});</script>';
 
         }
     }  

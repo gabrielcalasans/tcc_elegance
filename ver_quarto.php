@@ -50,18 +50,17 @@
     });
     $(document).on("click","#confirmado",function(){
        var cdquarto = {cdquarto: $(this).val()}; 
-      $.ajax({
-            type: 'POST',
-            url: 'php.php',
-            data: cdquarto,
-            success: function(response){
-              $("#scripts_ajax").html(response);
-              setTimeout(function () {
-                   window.location.href= 'ver_quarto.php'; // the redirect goes here
-
-                },1500);
-            }        
-        });
+        $.ajax({
+              type: 'POST',
+              url: 'php.php',
+              data: cdquarto,
+              success: function(response){
+                  $("#scripts_ajax").html(response);
+                  setTimeout(function () {
+                       window.location.href= 'ver_quarto.php'; // the redirect goes here
+                    },1500);
+                }        
+          });
                  
    });
   </script>
@@ -143,27 +142,63 @@
         $div="<div class='container'>
                   <div>
                     <div class='card-panel' style='width: 100%;'>
-                      <legend><b><h3>Informações do Quarto</h3></b></legend>
-                      <b> Cód. Quarto: </b>".$codquarto." <p>
-                      <b> Número: </b> ".$nrquarto."<p>
-                      <b> Status: </b> ".$status."<p>
-                      <b> Descrição: </b>".$dsquarto." <p>
-                      <b> Reservado por: </b>".$nome."<p>
-                      <b> Check-in: </b>".$checkin. "<p>
-                      <b> Check-out: </b>".$checkout;
+                      <div class='row'>
+                        <div class='col s12'>
+                        <b><h4>Informações do Quarto</h4></b>
+                        </div>
+                      </div>
+
+                      
+                      <div class='row'>  
+                        <div class='col s3'>
+                          <b> Cód. Quarto: </b>".$codquarto."
+                        </div>
+                      </div>
+                      <div class='row'>
+                        <div class='col s3'>
+                          <b> Nº: </b> ".$nrquarto." 
+                        </div>
+                        <div class='col s3'>
+                         <b> Status: </b> ".$status."
+                        </div>
+                      </div>
+                      <div class='row'>
+                        <div class='col s3'>
+                          <b> Cliente: </b>".$nome." 
+                        </div>
+                        <div class='col s5'>
+                          <b> Descrição: </b>".$dsquarto." 
+                        </div>
+                      </div>
+                      <div class='row'>
+                        <div class='col s3'>
+                          <b> Check-in: </b>".$checkin. "
+                        </div>
+                        <div class='col s3'>
+                          <b> Check-out: </b>".$checkout."
+                        </div>
+                      </div>
+                     ";
+                        
+                        
+                        
 
         if($status == "Disponível" || $nome == "Não reservado" )
         {
-          $botoes = "<p>
-                     <span data-target='modal".$codquarto."'  class='modal-trigger' id='detalhes'>
-                          <button type='button' class='waves-light btn-small blue' value=".$codquarto.">              
+          $botoes = "<div class='row'>
+                      <div class='col s6'>
+                        <span data-target='modal".$codquarto."'  class='modal-trigger' id='detalhes'>
+                          <button type='button' class='waves-light btn-small red' value=".$codquarto.">              
                               Excluir
                           </button>
                        </span>
                           <a class='btn-small waves-effect waves-light blue' href=alteracao_quarto.php?idquarto".$codquarto.">Alterar</a>
                           </div>
+                     </div>
                     </div>
-                    </div>";
+                   
+                  </div>
+                </div>";
 
 
           // $botoes = "<p><a class='waves-effect waves-light red accent-4 btn' href=ver_quarto.php?idquarto_del=".$codquarto.">Excluir</a>
@@ -174,7 +209,16 @@
         }
         else
         {
-          $botoes = "<p><b>Não é possível alterar ou excluir um quarto com reserva ativa</b><p><button class='btn disabled' disabled>Excluir</button> <button class='btn disabled' disabled>Alterar</button></div></div></div>";
+          $botoes = "<div class='row'>
+                      <div class='col s6'>
+                        <b>Não é possível alterar ou excluir um quarto com reserva ativa</b><p>
+                        <button class='btn disabled' disabled>Excluir</button>
+                        <button class='btn disabled' disabled>Alterar</button>
+                      </div>
+                    </div>
+                        </div>
+                      </div>
+                    </div>";
         }
         echo $div.$botoes;
 
@@ -192,29 +236,7 @@
                 </div>
               </div>';
 
-      }
-
-      if(isset($_GET['idquarto_del']))
-      {
-        $codquarto=$_GET['idquarto_del'];
-        //
-        //Juntar na mesma página;
-        //
-        $deletar_quarto="DELETE FROM tb_quarto WHERE cd_quarto=\"$codquarto\"";
-
-        if(!$mysqli->query($deletar_quarto))
-        {
-          echo "<script>alert('Não é possível excluir, há uma reserva ativa!!');
-            window.location.href='ver_quarto.php';
-          </script>";
-        }
-        else
-        {
-          echo "<script>alert('Quarto excluído!!');
-            window.location.href='ver_quarto.php';
-          </script>";
-        }
-      }
+      }     
     ?>
 	</body>
 </html>
