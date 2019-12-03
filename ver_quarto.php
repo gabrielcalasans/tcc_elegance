@@ -38,6 +38,15 @@
       .lobster-font{
         font-family: "Lobster"; 
       }
+      .modal
+      {
+        width: 35%;
+
+      }
+      #caixa
+      {
+        padding:25px;
+      }
     </style>
     <?php
       $consulta = "SELECT * FROM tb_quarto";
@@ -48,6 +57,9 @@
     $(document).ready(function(){
       $('.modal').modal();    
     });
+     $(document).ready(function(){
+    $('.materialboxed').materialbox();
+  });
     $(document).on("click","#confirmado",function(){
        var cdquarto = {cdquarto: $(this).val()}; 
         $.ajax({
@@ -58,7 +70,7 @@
                   $("#scripts_ajax").html(response);
                   setTimeout(function () {
                        window.location.href= 'ver_quarto.php'; // the redirect goes here
-                    },1500);
+                    },1100);
                 }        
           });
                  
@@ -86,7 +98,7 @@
         $nrquarto = $row->nr_quarto;
         $dsquarto = $row->ds_quarto;
         $id_status = $row->id_status;
-          
+        $endimagem = $row->ds_imagem;
         $consulta_status = "SELECT * FROM tb_status WHERE cd_status = \"$id_status\"";
         $resultado_status = $mysqli->query($consulta_status);
         while($rw = $resultado_status->fetch_object())
@@ -147,38 +159,43 @@
                         <b><h4>Informações do Quarto</h4></b>
                         </div>
                       </div>
+                      <div class='row'>
+                        <div class='col s6'>
+                            <img class='materialboxed' height='270' width='100%' src='$endimagem'>
+                        </div>
+                        <div class='col s6'>
 
-                      
                       <div class='row'>  
-                        <div class='col s3'>
+                        <div class='col s12'>
                           <b> Cód. Quarto: </b>".$codquarto."
                         </div>
                       </div>
                       <div class='row'>
-                        <div class='col s3'>
+                        <div class='col s5'>
                           <b> Nº: </b> ".$nrquarto." 
                         </div>
-                        <div class='col s3'>
+                        <div class='col s7'>
                          <b> Status: </b> ".$status."
                         </div>
                       </div>
                       <div class='row'>
-                        <div class='col s3'>
+                        <div class='col s5'>
                           <b> Cliente: </b>".$nome." 
                         </div>
-                        <div class='col s5'>
+                        <div class='col s7'>
                           <b> Descrição: </b>".$dsquarto." 
                         </div>
                       </div>
                       <div class='row'>
-                        <div class='col s3'>
+                        <div class='col s5'>
                           <b> Check-in: </b>".$checkin. "
                         </div>
-                        <div class='col s3'>
+                        <div class='col s7'>
                           <b> Check-out: </b>".$checkout."
                         </div>
                       </div>
-                     ";
+                     </div>
+                    </div>";
                         
                         
                         
@@ -192,7 +209,7 @@
                               Excluir
                           </button>
                        </span>
-                          <a class='btn-small waves-effect waves-light blue' href=alteracao_quarto.php?idquarto".$codquarto.">Alterar</a>
+                          <a class='btn-small waves-effect waves-light blue' href=alteracao_quarto.php?idquarto=".$codquarto.">Alterar</a>
                           </div>
                      </div>
                     </div>
@@ -224,8 +241,9 @@
 
 
         echo '<div id="modal'.$codquarto.'" class="modal">
+              <div id="caixa">
                   <div class="modal-content">
-                    <center><h4>Deseja excluir <br> o quarto  de número '.$nrquarto.'?</h4></center>
+                    <center><h4>Deseja excluir <br> o quarto  Nº'.$nrquarto.'?</h4></center>
                   </div>
                 <p>                                           
                <div class="modal-footer">
@@ -233,6 +251,7 @@
                     <button class="btn modal-close green accent-4" title="Sim" value='.$codquarto.' id="confirmado">Sim</button>
                     <a href="#!" title="Não" class="btn modal-close red">Não</a>
                   </center>
+                </div>
                 </div>
               </div>';
 
