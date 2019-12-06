@@ -21,8 +21,16 @@
             data: cdreserva,
             success: function(response){
               $("#streserva"+codreserva).html(response);
-                
-            }        
+              var classe = $("#btn_status").attr("class");
+              if(classe=="btn modal-close green accent-4")
+              {
+                $("#btn_status").attr("class","btn modal-close red accent-4");                
+              } 
+              else{
+                $("#btn_status").attr("class","btn modal-close green accent-4"); 
+              } 
+
+              }
         });        
    });
 
@@ -33,6 +41,9 @@
     $("#celular").mask("(99) 99999-9999");
     $("#tel").mask("(99) 9999-9999");
     $("#rg").mask("99.999.999-9");
+  });
+   $(document).ready(function(){
+    $('.materialboxed').materialbox();
   }); 
 
 
@@ -107,15 +118,20 @@
         $valor = $row->vl_reserva;
         $idcliente = $row->id_cliente;
         $registro = $row->dthr_registro;
+        $idgaragem = $row->id_garagem;
 
         
         if($streserva == "Confirmado"){
             $botao = "Desativar reserva";
+            $classe = "btn modal-close red accent-4";
         }
         else
         {
           $botao="Ativar reserva";
+          $classe="btn modal-close green accent-4";
         }
+
+        $consultagaragem = "SELECT * FROM tb_garagem WHERE cd_garagem =\"$idgaragem\"";
         
 
         //Consulta nome do usuário----------------------
@@ -204,25 +220,71 @@
         
         $div="<div class='container'>
                         <div class='card-panel' >
-                            <legend><span id='informacoes'><span id='titulo'>INFORMAÇÕES DA RESERVA</span></legend>
-                            <b>Cód. Reserva:</b> ".$codres." <p>
-                            <b>Cliente:</b> 
-                            <span class='modal-trigger' data-target='modal-ficha".$idcliente."'>
-                                  ".$nomecompleto. " <i class='material-icons'>zoom_in</i>
-                            </span>
-                            <p> <b>Check-in:</b> ".date("d/m/Y", strtotime($checkin))." | <b>Check-out:</b> ".date("d/m/Y", strtotime($checkout))."<p>".""."
-                            <p><b>Número:</b> ".$num." | <b>Tipo de Quarto:</b> ".$tipo."</span><p>
-                            <img id='imgquarto' src='$endimagem''>
+                          <div class='row'>
+                            <div align='center' class='col s12'>
+                              <legend><span id='informacoes'><span id='titulo'>INFORMAÇÕES DA RESERVA</span></legend>
+                            </div>
+                            </div>
+                            <div class='row'>
+                              <div class='col s6'>
+                              <div class='row'>
+                                <div class='col s12'>
+                                  <b>Cód. Reserva:</b> ".$codres."
+                                </div>
+                              </div>
+                               <div class='row'>
+                                <div class='col s12'>
+                                  <b>Cliente:</b>
+
+                                  <span class='modal-trigger' data-target='modal-ficha".$idcliente."'>
+                                        ".$nomecompleto. " <i class='material-icons'>zoom_in</i>
+                                  </span>
+                                </div>
+                                </div>
+                                <div class='row'> 
+                                  <div class='col s6'>
+                                    <b>Check-in:</b> ".date("d/m/Y", strtotime($checkin))." 
+                                  </div>
+                                  <div class='col s6'>
+                                     <b>Check-out:</b> ".date("d/m/Y", strtotime($checkout))."".""."
+                                  </div>
+                                </div>
+                                <div class='row'>
+                                  <div class='col s6'>
+                                   <b>Número:</b> ".$num."
+                                  </div>
+                                  <div class='col s6'>
+                                    <b>Tipo de Quarto:</b> ".$tipo."</span>
+                                  </div>
+                                </div>
+                                <div class='row'>
+                                  <div class='col s6'>
+                                    <b>Valor da reserva:</b> R$".number_format($valor, 2, ',', '.')."
+                                  </div>
+                                  <div class='col s6'>
+                                    <b>Valor da garagem:</b> R$".number_format($valor, 2, ',', '.')."
+                                  </div>
+                                </div>
+
+                            </div>
+                            <div class='col s6'>                          
+                             <img id='imgquarto' class='materialboxed' src='$endimagem''>
+                             </div>
+                            </div>
                             <p>";
         $botoes = "<p>
-         <span data-target='modal".$codres."'  class='modal-trigger' id='detalhes'>
-              <button type='button' class='waves-light btn-small blue' value=".$codres.">               
-                  <span id='streserva".$codres."'>
-                    $botao                 
-                </span>
-              </button>
-           </span>
-              <a class='btn-small waves-effect waves-light blue' href=alteracao.php?idreserva=".$codres.">Alterar</a>
+        <div class='row'>
+          <div class='col s12'>
+           <span data-target='modal".$codres."'  class='modal-trigger' id='detalhes'>
+                <button type='button' id='btn_status' class='".$classe."' value=".$codres.">               
+                    <span id='streserva".$codres."'>
+                      $botao                 
+                  </span>
+                </button>
+             </span>             
+                <a class='btn waves-effect waves-light blue accent-4' href=alteracao.php?idreserva=".$codres.">Alterar</a>
+              </div>
+            </div>
               </div>
         </div>";
          echo '<div id="modal'.$codres.'" class="modal">
