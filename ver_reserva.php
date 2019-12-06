@@ -132,6 +132,26 @@
         }
 
         $consultagaragem = "SELECT * FROM tb_garagem WHERE cd_garagem =\"$idgaragem\"";
+        $resultado_garagem = $mysqli->query($consultagaragem);
+        while($row_garagem = $resultado_garagem->fetch_object())
+        {
+            $data_inicial = $checkin;
+            $data_final = $checkout;
+            $diferenca = strtotime($data_final) - strtotime($data_inicial);
+            if($diferenca == 0)
+            {
+              $dias = 1;
+            }
+            else
+            {
+             $dias = floor($diferenca / (60 * 60 * 24));
+            }
+            $qtdevagas = $row_garagem->nr_vagas;
+            $valor_garagem = 50*($qtdevagas-1)*$dias;
+
+
+
+        }
         
 
         //Consulta nome do usuário----------------------
@@ -259,12 +279,18 @@
                                 </div>
                                 <div class='row'>
                                   <div class='col s6'>
-                                    <b>Valor da reserva:</b> R$".number_format($valor, 2, ',', '.')."
+                                    <b>Valor do quarto:</b> R$".number_format(($valor-$valor_garagem), 2, ',', '.')."
                                   </div>
                                   <div class='col s6'>
-                                    <b>Valor da garagem:</b> R$".number_format($valor, 2, ',', '.')."
+                                    <b>Valor da garagem:</b> R$".number_format($valor_garagem, 2, ',', '.')."
                                   </div>
                                 </div>
+                                <div class='row'>
+                                  <div class='col s6'>
+                                    <b>Valor da reserva:</b> R$".number_format($valor, 2, ',', '.')."
+                                  </div>                                  
+                                </div>
+
 
                             </div>
                             <div class='col s6'>                          

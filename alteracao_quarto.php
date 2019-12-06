@@ -12,6 +12,7 @@
 				$dsquarto = $dados->ds_quarto;
 				$idtipo = $dados->id_tipo;
 				$idstatus = $dados->id_status;
+				$endimagem = $dados->ds_imagem;
 			}
 		?>
 		<meta charset="utf-8">
@@ -99,7 +100,7 @@
     	</center>
     	<div class="container">
     		<div class="card-panel">
-    			<form method="post">
+    			<form method="post"  enctype="multipart/form-data">
     				<div class="row">
     					<div class="input-field col s6 m6">
     						<input id="numero" type="number" name="numeroquarto" class="validate" value="<?php echo $nrquarto; ?>"><label for="numero">Número do Quarto </label>
@@ -133,10 +134,10 @@
 				       		<div class="file-field input-field s6 m6">
 				           		<div class="btn-small waves-effect waves-light blue">
 			                  		<span>Procurar fotos<i class='material-icons right'>add_to_photos</i></span>
-				               		<input type="file" id="img" name="imagem" accept="image/x-png,image/gif,image/jpeg" />
+				               		<input type="file" id="img" name="imagem" value="<?php echo $endimagem; ?>" accept="image/x-png,image/gif,image/jpeg" />
 			             		</div>
 		                  		<div class="file-path-wrapper">
-				               		<input class="file-path validate" type="text" placeholder="Carregue seu arquivo" />
+				               		<input class="file-path validate" type="text" name="checar" value="<?php echo $endimagem; ?>" placeholder="Carregue seu arquivo" />
 				           		</div>
 				       		</div>
     					</div>
@@ -211,12 +212,43 @@
 	    	$statusquarto=$_POST['status'];
 	   		$descricaoquarto=$_POST['descricao'];
 	   		$tipodequarto = $_POST['tipoquarto'];
+	   		$checar=$_POST['checar'];
+	   		if($checar==$endimagem)
+			{
+				$imagem=$endimagem;
+			}
+			else{
+				if(isset($_FILES['imagem']))
+				{
+			    	$extensao = strtolower(substr($_FILES['imagem']['name'], -4)); //pega a extensao do arquivo
+			    	if($extensao = "jpeg")
+			    	{
+			    		$imagem = time() .".". $extensao; //define o nome do arquivo
+						$diretorio = "images/"; //define o diretorio para onde enviaremos o arquivo
+						move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio.$imagem); //efetua o upload
+						$imagem=$diretorio.$imagem;
+			    	}
+			    	else
+			    	{
+			    		$imagem = time() . $extensao; //define o nome do arquivo
+				    	$diretorio = "images/"; //define o diretorio para onde enviaremos o arquivo
+				    	move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio.$imagem); //efetua o upload
+				    	$imagem = $diretorio.$imagem;
+			    	}
+		    	}
+		    	else
+		    	{
+			    	$imagem = "";
+			    }
+			}
 	        $sql = "UPDATE tb_quarto
 	                SET   nr_quarto = \"$numquarto\",
 	                      id_status = \"$statusquarto\",
 	                      ds_quarto = \"$descricaoquarto\",
-	                      id_tipo = \"$tipodequarto\"                    
+	                      id_tipo = \"$tipodequarto\",
+	                      ds_imagem = \"$imagem\"                    
 	                WHERE cd_quarto = \"$codquarto\"";
+
 
 	        if(!$mysqli->query($sql)){
 	        	echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
