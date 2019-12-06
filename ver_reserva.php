@@ -24,10 +24,16 @@
               var classe = $("#btn_status").attr("class");
               if(classe=="btn modal-close green accent-4")
               {
-                $("#btn_status").attr("class","btn modal-close red accent-4");                
+                $("#btn_status"+codreserva).attr("class","btn modal-close red accent-4");
+                 setTimeout(function () {
+                       window.location.href= 'ver_reserva.php'; // the redirect goes here
+                  });                
               } 
               else{
-                $("#btn_status").attr("class","btn modal-close green accent-4"); 
+                $("#btn_status"+codreserva).attr("class","btn modal-close green accent-4");
+                  setTimeout(function () {
+                       window.location.href= 'ver_reserva.php'; // the redirect goes here
+                  });   
               } 
 
               }
@@ -286,8 +292,11 @@
                                   </div>
                                 </div>
                                 <div class='row'>
+                                 <div class='col s6'>
+                                    <b>Quantidade de vagas:</b> ".$qtdevagas."
+                                  </div> 
                                   <div class='col s6'>
-                                    <b>Valor da reserva:</b> R$".number_format($valor, 2, ',', '.')."
+                                    <b>Valor da reserva:</b> R$ ".number_format($valor, 2, ',', '.')."
                                   </div>                                  
                                 </div>
 
@@ -302,7 +311,7 @@
         <div class='row'>
           <div class='col s12'>
            <span data-target='modal".$codres."'  class='modal-trigger' id='detalhes'>
-                <button type='button' id='btn_status' class='".$classe."' value=".$codres.">               
+                <button type='button' id='btn_status".$codres."' class='".$classe."' value=".$codres.">               
                     <span id='streserva".$codres."'>
                       $botao                 
                   </span>

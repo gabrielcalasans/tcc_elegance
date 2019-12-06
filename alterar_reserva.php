@@ -27,8 +27,10 @@
    ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-   
-   <div class="card-panel">   
+  <style>
+        .numerodo    
+  </style>
+   <div id="fundo" class="card-panel">   
      <form method="POST">
      <div class="row">
           <div class="col s3">                    
@@ -71,10 +73,19 @@
                        </select>
                 </div>
        </div>
+       <style>
+         #quartoespacos{
+          overflow: ;
+          height: 5%;
+         }
+         #fundo{
+          height:70%;
+         }
+       </style>
 
        <div class="row">
                        
-                <div id="quartoespacos" class="col s12">
+                <div id="quartoespacos" class="col s6">
                     <?php 
                     
                     $sql = "SELECT * FROM tb_quarto WHERE id_tipo = '$cd_tipo'";                
@@ -87,8 +98,8 @@
                             $ds_tipo = $rows->nm_tipo;                
                         }
                         if($row->cd_quarto == $_SESSION['codquarto']){
-                             echo '
-                                        <div class="col s4 m3">
+                             echo ' 
+                                        <div class="col s2 m2">
                                           <div class="card">
                                             <div class="card-image">
                                               <img src="images/x.png">
@@ -115,54 +126,56 @@
               ?>
                       
                 </div>   
-       </div>
+       
 
-       <div class="row">                       
-                <div id="garagemespaco" class="col s2">
-                Espaço na garagem:
-                <?php 
-                $consultagaragem = "SELECT * FROM tb_garagem WHERE cd_garagem = '$db_garagem'";
-                $resultado = $mysqli->query($consultagaragem); 
-                while($row = $resultado->fetch_object())
-                { 
+                             
+                <div id="garagemespaco" class="col s6">
+                  <div class="col s6">
+                    Espaço na garagem:
+                    <?php 
+                    $consultagaragem = "SELECT * FROM tb_garagem WHERE cd_garagem = '$db_garagem'";
+                    $resultado = $mysqli->query($consultagaragem); 
+                    while($row = $resultado->fetch_object())
+                    { 
 
-                   $qtdevagas = $row->nr_vagas;                                   
-                }
-                if($qtdevagas == 0)
-                {
-                  echo '<label for="sim">
-                        <div class="card-panel">
-                           <input type="radio" class="with-gap" name="opcgaragem" id="sim">
-                           <span>Sim</span>
-                       </div>
-                      </label>
-                      <label for="nao">
-                        <div class="card-panel">
-                           <input type="radio" class="with-gap" checked name="opcgaragem" id="nao">
-                           <span>Não</span>
-                       </div>
-                      </label><br>';
-                }
-                else
-                {
-                  echo '<label for="sim">
-                        <div class="card-panel">
-                           <input type="radio" class="with-gap" checked name="opcgaragem" id="sim">
-                           <span>Sim</span>
-                       </div>
-                      </label>
-                      <label for="nao">
-                        <div class="card-panel">
-                           <input type="radio" class="with-gap" name="opcgaragem" id="nao">
-                           <span>Não</span>
-                       </div>
-                      </label><br>';
-                }
+                       $qtdevagas = $row->nr_vagas;                                   
+                    }
+                    if($qtdevagas == 0)
+                    {
+                      echo '<label for="sim">
+                            <div class="card-panel">
+                               <input type="radio" class="with-gap" name="opcgaragem" id="sim">
+                               <span>Sim</span>
+                           </div>
+                          </label>
+                          <label for="nao">
+                            <div class="card-panel">
+                               <input type="radio" class="with-gap" checked name="opcgaragem" id="nao">
+                               <span>Não</span>
+                           </div>
+                          </label><br>';
+                    }
+                    else
+                    {
+                      echo '<label for="sim">
+                            <div class="card-panel">
+                               <input type="radio" class="with-gap" checked name="opcgaragem" id="sim">
+                               <span>Sim</span>
+                           </div>
+                          </label>
+                          <label for="nao">
+                            <div class="card-panel">
+                               <input type="radio" class="with-gap" name="opcgaragem" id="nao">
+                               <span>Não</span>
+                           </div>
+                          </label><br>';
+                    }
 
 
 
-                ?>
-                </div>
+                    ?>
+                  </div>
+                
                 <div class="col s3" id="espacogaragem">
                   Quantidade máxima: <span id="max"></span><br>
                   Reservar
@@ -173,7 +186,7 @@
                 
 
                 </div>  
-       </div>
+        </div>
 
 
 

@@ -333,7 +333,7 @@
                             if($row->cd_quarto == $_SESSION['codquarto'])
                             {
                                 echo '
-                                    <div class="col s4 m3">
+                                    <div class="col s4 m4">
                                       <div class="card">
                                         <div class="card-image">
                                           <img src="images/x.png">
@@ -355,7 +355,7 @@
                     else if($row->id_status=='1')
                     {
                         echo '
-                            <div class="col s4 m3">
+                            <div class="col s4 m4">
                               <div class="card">
                                 <div class="card-image">
                                   <img src="images/x.png">
