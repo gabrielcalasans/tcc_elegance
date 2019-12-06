@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 26-Nov-2019 às 14:03
+-- Data de Criação: 06-Dez-2019 às 20:44
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`cd_admin`, `nm_admin`, `nm_login`, `ds_senha`) VALUES
-(1, 'Carlos Alberto', 'carlosalberto', 'carlos123');
+(1, 'Carlos Alberto', 'carlosalberto', '9ad48828b0955513f7cf0f7f6510c8f8');
 
 -- --------------------------------------------------------
 
@@ -5839,7 +5839,14 @@ CREATE TABLE IF NOT EXISTS `tb_garagem` (
   `cd_garagem` int(11) NOT NULL AUTO_INCREMENT,
   `nr_vagas` int(10) NOT NULL,
   PRIMARY KEY (`cd_garagem`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `tb_garagem`
+--
+
+INSERT INTO `tb_garagem` (`cd_garagem`, `nr_vagas`) VALUES
+(1, 0);
 
 -- --------------------------------------------------------
 
@@ -5973,7 +5980,7 @@ INSERT INTO `tb_quarto` (`cd_quarto`, `nr_quarto`, `ds_quarto`, `id_tipo`, `id_s
 (14, 32, 'Quarto com dois aparelhos de ar condicionado', 7, 1, 0, 'images/q6.jpg'),
 (15, 1234, 'Quarto de frente pro mar', 2, 2, 0, 'images/q1.jpg'),
 (16, 600, 'Quarto com jacuzi', 2, 2, 0, 'images/q3.jpg'),
-(17, 13, 'Quarto em frente a praia', 2, 1, 0, ''),
+(17, 13, 'Quarto em frente a praia', 2, 2, 0, ''),
 (18, 17, 'Quarto com televisão', 4, 1, 0, '');
 
 -- --------------------------------------------------------
@@ -5995,7 +6002,14 @@ CREATE TABLE IF NOT EXISTS `tb_reserva` (
   PRIMARY KEY (`cd_reserva`),
   KEY `fk_id_quarto` (`id_quarto`),
   KEY `FK_reserva_cliente` (`id_garagem`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `tb_reserva`
+--
+
+INSERT INTO `tb_reserva` (`cd_reserva`, `st_reserva`, `id_quarto`, `dt_checkin`, `dt_checkout`, `vl_reserva`, `id_cliente`, `id_garagem`, `dthr_registro`) VALUES
+(1, 'Cancelado', 17, '2019-12-19', '2019-12-27', '1512.00', 8, 1, '2019-12-06 05:20:25');
 
 -- --------------------------------------------------------
 

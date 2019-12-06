@@ -64,7 +64,7 @@
 		            	<th>Cliente</th>
 		            	<th>Depoimento</th>
 		            	<th>Nota (1-5)</th>
-		            	<th>Data</th>
+		            	<th>Data/Horário</th>
 		            	<th>Status</th>
 		            	<th>Ação</th>
 		          	</tr>
@@ -75,11 +75,12 @@
 		        		$result = $mysqli->query($sql);
 		        		if($result->num_rows > 0){
 		        			while($row = $result->fetch_object()){
+		        				$date = date_create($row->dthr_comentario);
 			        			echo '<tr>
 						            	<td>'.$row->cd_cliente.' - '.$row->nm_cliente.' '.$row->nm_sobrenome.'</td>
 						            	<td>"<i>'.$row->ds_comentario.'</i>"</td>
 						            	<td>'.$row->nr_nota.'</td>
-						            	<td>'.$row->dthr_comentario.'</td>';
+						            	<td>'.date_format($date, "H:i - d/m/Y").'</td>';
 						    	if($row->st_comentario == 1){
 						        	echo '<td><i style="color: blue;">Exibido</i></td>
 						        		<td><a class="btn-small green" title="Exibir" href="painel_admin.php?exibir='.$row->cd_comentario.'" disabled><i class="tiny material-icons">visibility</i></a> <a class="btn-small orange" title="Ocultar" href="painel_admin.php?ocultar='.$row->cd_comentario.'"><i class="tiny material-icons">visibility_off</i></a> <a class="btn-small red" title="Excluir" href="painel_admin.php?apagar='.$row->cd_comentario.'"><i class="tiny material-icons">delete_forever</i></a>
