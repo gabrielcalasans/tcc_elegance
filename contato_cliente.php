@@ -24,6 +24,38 @@
             margin-top: 5px;
             margin-bottom: 0;
         }
+
+        .input-field input:focus + label {
+            color: #fbc02d !important;
+        }
+
+        .input-field input:focus {
+            border-bottom: 1px solid #fbc02d !important;
+            box-shadow: 0 1px 0 0 #fbc02d !important;
+        }
+
+        [type="radio"]:checked + span:after,
+        [type="radio"].with-gap:checked + span:before,
+        [type="radio"].with-gap:checked + span:after {
+            border: 2px solid #fbc02d;
+        }
+
+        [type="radio"]:checked + span:after,
+        [type="radio"].with-gap:checked + span:after {
+            background-color: #fbc02d;
+        }
+
+        .dropdown-content li > a, .dropdown-content li > span {
+            color: #fbc02d !important;
+        }
+
+        .input-field textarea:focus + label {
+            color: #fbc02d !important;
+        }
+        .input-field textarea:focus {
+            border-bottom: 1px solid #fbc02d !important;
+            box-shadow: 0 1px 0 0 #fbc02d !important
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
