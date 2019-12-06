@@ -236,19 +236,19 @@
 					<input class="inpute" id="senha2" type="password" name="senhatual" value=""><label for="senha">Senha atual</label><span class="helper-text a1" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s1">
-					<a class="btn darken-2" id="senhatual" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
+					<a class="btn orange darken-2" id="senhatual" title="Visualizar"><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 	        	<div class="input-field col s3">
 					<input class="inpute" id="senha" type="password" name="senha" value="" disabled=""><label for="senha">Nova senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s1">
-					<a class="btn darken-2 iu" id="novasenha" title="Visualizar" disabled=""><i class="material-icons large">remove_red_eye</i></a>
+					<a class="btn orange darken-2 iu" id="novasenha" title="Visualizar" disabled=""><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 				<div class="input-field col s3">
 					<input class="inpute" id="senha1" type="password" name="senha1" value="" disabled=""><label for="senha1">Confirmar senha</label><span class="helper-text a2" data-error="wrong" data-success="right"></span>
 				</div>
 				<div class="input-field col s1">
-					<a class="btn darken-2 iu" id="confirmarsenha" title="Visualizar" disabled=""><i class="material-icons large">remove_red_eye</i></a>
+					<a class="btn orange darken-2 iu" id="confirmarsenha" title="Visualizar" disabled=""><i class="material-icons large">remove_red_eye</i></a>
 				</div>
 	        </div>
 	        <center><a id="botaosenha" class="btn orange darken-2" title="Alterar senha">Alterar senha<i class='material-icons right'>edit</i></a>
