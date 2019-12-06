@@ -116,42 +116,44 @@
     </nav>
 	<center>
 		<h1 class="lobster-font">Área do Administrador</h1>
-		<?php	
-			$nmfuncionario = $_SESSION['nmadmin'];
-		?>
-		<h4>Funcionário: <?php echo $nmfuncionario; ?></p></h4>
 		<div class="container">
-			<div class="row" style="width: 80%;">
-				<div class="input-field col s4 m4">
-					<a id="but" href="ver_reserva.php" title="Visualizar reservas" class="waves-effect waves-light indigo darken-3 btn">Visualizar reservas</a>
+			<div class="card-panel z-depth-3 blue lighten-5">
+				<?php	
+					$nmfuncionario = $_SESSION['nmadmin'];
+				?>
+				<h4>Funcionário: <?php echo $nmfuncionario; ?></p></h4>
+				<div class="row" style="width: 80%;">
+					<div class="input-field col s4 m4">
+						<a id="but" href="ver_reserva.php" title="Visualizar reservas" class="waves-effect waves-light indigo darken-3 btn">Visualizar reservas</a>
+					</div>
+					<div class="input-field col s4 m4">
+						<a id="but" href="ver_quarto.php" title="Visualizar quartos" class="waves-effect waves-light indigo darken-3 btn">Visualizar quartos</a>
+					</div>
+					<div class="input-field col s4 m4">
+						<a id="but" href="estatisticas.php" title="Visualizar estatísticas" class="waves-effect waves-light indigo darken-3 btn">Visualizar estatísticas</a>
+					</div>
 				</div>
-				<div class="input-field col s4 m4">
-					<a id="but" href="ver_quarto.php" title="Visualizar quartos" class="waves-effect waves-light indigo darken-3 btn">Visualizar quartos</a>
+				<div class="row" style="width: 80%;">
+					<div class="input-field col s4 m4">
+						<a id="but" href="ver_tipos.php" title="Visualizar tipos" class="waves-effect waves-light indigo darken-3 btn">Visualizar tipos</a>
+					</div>
+					<div class="input-field col s4 m4">
+						<a id="but" href="addfotos.php" title="Adicionar fotos" class="waves-effect waves-light indigo darken-3 btn">Adicionar fotos</a>
+					</div>
+					<div class="input-field col s4 m4">
+						<a class="indigo darken-3 btn modal-trigger" href="#modal1" title="Depoimentos">Depoimentos
+						<?php 
+							$sql = "SELECT * from tb_comentario where st_comentario <> 1";
+							$result = $mysqli->query($sql);
+							if($result->num_rows > 0){
+								$linhas = $result->num_rows;
+								echo "<i class='right'>".$linhas."</i>";
+							}
+						?>
+						</a>
+					</div>
 				</div>
-				<div class="input-field col s4 m4">
-					<a id="but" href="estatisticas.php" title="Visualizar estatísticas" class="waves-effect waves-light indigo darken-3 btn">Visualizar estatísticas</a>
-				</div>
-			</div>
-			<div class="row" style="width: 80%;">
-				<div class="input-field col s4 m4">
-					<a id="but" href="ver_tipos.php" title="Visualizar tipos" class="waves-effect waves-light indigo darken-3 btn">Visualizar tipos</a>
-				</div>
-				<div class="input-field col s4 m4">
-					<a id="but" href="addfotos.php" title="Adicionar fotos" class="waves-effect waves-light indigo darken-3 btn">Adicionar fotos</a>
-				</div>
-				<div class="input-field col s4 m4">
-					<a class="indigo darken-3 btn modal-trigger" href="#modal1" title="Depoimentos">Depoimentos
-					<?php 
-						$sql = "SELECT * from tb_comentario where st_comentario <> 1";
-						$result = $mysqli->query($sql);
-						if($result->num_rows > 0){
-							$linhas = $result->num_rows;
-							echo "<i class='right'>".$linhas."</i>";
-						}
-					?>
-					</a>
-				</div>
-			<a href="#sair" title="Sair" class="modal-trigger indigo darken-3 btn">Sair</a>
+				<a href="#sair" title="Sair" class="modal-trigger red btn">Sair</a>
 			</div>
 		</div>
 	</center>
