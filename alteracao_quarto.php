@@ -93,8 +93,8 @@
     	<center>
     		<h1 class="lobster-font">Alterar Acomodação</h1>
     		<h4>Código do quarto: <?php echo $codquarto; ?></h4>
-    		<a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
     		<a href="ver_quarto.php" class="waves-effect waves-light indigo darken-3 btn">Ver quartos</a>
+    		<a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
     		<br><br>
     	</center>
     	<div class="container">
@@ -171,13 +171,13 @@
 										echo '<div class="col s4 m4">
 											<label for='.$linha->cd_tipo.'>
 												<div class="card">
-													<div class="card-image">
-														<img id="foto" src='.$linha->ds_imagem.'>
+													<div id="cartao" class="card-image">
+														<img id="foto" src="'.$linha->ds_imagem.'">
 													</div>
 													<div class="card-content">
 														<p>'.$linha->ds_tipo.'</p>
 													</div>
-													<div class="card-action">
+													<div id="footer-card" class="card-action">
 										          		<label>
 													        <input name="tipoquarto" type="radio" id='.$linha->cd_tipo.' value='.$linha->cd_tipo.' class="with-gap" />
 													    	<span style="color: black;"><b>'.$linha->nm_tipo.'</b></span>
