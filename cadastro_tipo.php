@@ -70,8 +70,8 @@
     	</nav>
     	<center>
     		<h1 class="lobster-font">Cadastrar Tipo de Quarto</h1>
+    		<a href="ver_tipos.php" class="waves-effect waves-light indigo darken-3 btn">Voltar visualizar tipos <i class="material-icons left">arrow_back</i></a>
     		<a class="waves-effect waves-light indigo darken-3 btn" href="painel_admin.php" id="but">Painel de controle</a>
-    		<a href="ver_tipos.php" class="waves-effect waves-light indigo darken-3 btn">Voltar visualizar tipos <i class="material-icons right">arrow_back</i></a>
     		<br><br>
     	</center>
     	<div class="container">
@@ -105,7 +105,7 @@
 						
 		    		</div>
 					<div class="row">
-						<div class="col s5">
+						<div class="col s12 m12">
 			    			<label>Adicione a foto do tipo</label>
 				       		<div class="file-field input-field s6 m6">
 				           		<div class="btn-small waves-effect waves-light blue">
