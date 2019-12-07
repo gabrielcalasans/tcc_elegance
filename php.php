@@ -332,47 +332,63 @@
                     }
                             if($row->cd_quarto == $_SESSION['codquarto'])
                             {
-                                echo '
-                                    <div class="col s4 m4">
-                                      <div class="card">
-                                        <div class="card-image">
-                                          <img src="images/x.png">
-                                          <span class="card-title">Nº '.$row->nr_quarto.'</span>
-                                        </div>
-                                        <div class="card-content">
-                                              <label class="labelquarto" for="num'.$row->cd_quarto.'">                             
-                                                 <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" checked id="num'.$row->cd_quarto.'">
-                                                 <span>'.$row->ds_quarto.'</span>                   
-                                              </label><br>
-                                        </div> 
-                                         <div class="card-action">
-                                          Valor:'.$vl_quarto.'
-                                        </div>                      
-                                      </div>
-                                    </div>
-                                  ';
+                                echo ' <div class="row">
+                                                  <div class="col s12">
+                                                    <label class="labelquarto" for="num'.$row->cd_quarto.'">
+                                                           <div id="listagem" class="card-panel">
+                                                               <div class="col s3">
+                                                                   <img class="materialboxed" id="img_quarto" src="'.$row->ds_imagem.'">
+                                                               </div>
+                                                               
+                                                               <div class="col s6">
+                                                               
+                                                               
+                                                                  '.$row->ds_quarto.'<br>
+                                                                  R$ '.number_format($vl_quarto, 2, ',', '.').'
+                                                                 
+                                                                </div>
+                                                                <div class="col s3">
+                                                                    <input type="radio" checked value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
+                                                                       <span>Nº '.$row->nr_quarto.'</span>                 
+                                                                       
+                                                                </div>
+                                                                </label>
+                                                              
+                                                         </div>
+                                                   
+                                                 </div>
+                                              </div>                                       
+                                            ';
                             }
                     else if($row->id_status=='1')
                     {
-                        echo '
-                            <div class="col s4 m4">
-                              <div class="card">
-                                <div class="card-image">
-                                  <img src="images/x.png">
-                                  <span class="card-title">Nº '.$row->nr_quarto.'</span>
-                                </div>
-                                <div class="card-content">
-                                      <label class="labelquarto" for="num'.$row->cd_quarto.'">                             
-                                         <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
-                                         <span>'.$row->ds_quarto.'</span>                   
-                                      </label><br>
-                                </div> 
-                                 <div class="card-action">
-                                  Valor:'.$vl_quarto.'
-                                </div>                      
-                              </div>
-                            </div>
-                          ';
+                        echo ' <div class="row">
+                                                  <div class="col s12">
+                                                   <label class="labelquarto" for="num'.$row->cd_quarto.'">  
+                                                           <div id="listagem" class="card-panel">
+                                                               <div class="col s3">
+                                                                   <img class="materialboxed" id="img_quarto" src="'.$row->ds_imagem.'">
+                                                               </div>
+                                                              
+                                                               <div class="col s6">
+                                                               
+                                                                 
+                                                                  '.$row->ds_quarto.'<br>
+                                                                  R$ '.number_format($vl_quarto, 2, ',', '.').'
+                                                                 
+                                                                </div>
+                                                                <div class="col s3">
+                                                                    <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
+                                                                       <span>Nº '.$row->nr_quarto.'</span>                 
+                                                                       
+                                                                </div>
+                                                                </label>
+                                                              
+                                                         </div>
+                                                   
+                                                 </div>
+                                              </div>                                       
+                                            ';
                     }
                     
                }
@@ -391,53 +407,70 @@
             }
             if($row->cd_quarto == $_SESSION['codquarto'])
             {
-                echo '
-                    <div class="col s4 m3">
-                      <div class="card">
-                        <div class="card-image">
-                          <img src="images/x.png">
-                          <span class="card-title">Nº '.$row->nr_quarto.'</span>
-                        </div>
-                        <div class="card-content">
-                              <label class="labelquarto" for="num'.$row->cd_quarto.'">                             
-                                 <input type="radio" checked value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
-                                 <span>'.$row->ds_quarto.'</span>                   
-                              </label><br>
-                        </div> 
-                         <div class="card-action">
-                          Valor:'.$vl_quarto.'
-                        </div>                      
-                      </div>
-                    </div>
-                 ';
+                echo ' <div class="row">
+                                                  <div class="col s12">
+                                                   <label class="labelquarto" for="num'.$row->cd_quarto.'">
+                                                           <div id="listagem" class="card-panel">
+                                                               <div class="col s3">
+                                                                   <img class="materialboxed" id="img_quarto" src="'.$row->ds_imagem.'">
+                                                               </div>
+                                                                
+                                                               <div class="col s6">
+                                                               
+                                                                
+                                                                  '.$row->ds_quarto.'<br>
+                                                                  R$ '.number_format($vl_quarto, 2, ',', '.').'
+                                                                 
+                                                                </div>
+                                                                <div class="col s3">
+                                                                    <input type="radio" checked value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
+                                                                       <span>Nº '.$row->nr_quarto.'</span>                 
+                                                                       
+                                                                </div>
+                                                                </label>
+                                                              
+                                                         </div>
+                                                   
+                                                 </div>
+                                              </div>                                       
+                                            ';
             }
             else if($row->id_status == '1')
             {
-                echo '
-                    <div class="col s4 m3">
-                      <div class="card">
-                        <div class="card-image">
-                          <img src="images/x.png">
-                          <span class="card-title">Nº '.$row->nr_quarto.'</span>
-                        </div>
-                        <div class="card-content">
-                              <label class="labelquarto" for="num'.$row->cd_quarto.'">                             
-                                 <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
-                                 <span>'.$row->ds_quarto.'</span>                   
-                              </label><br>
-                        </div> 
-                         <div class="card-action">
-                          Valor:'.$vl_quarto.'
-                        </div>                      
-                      </div>
-                    </div>
-                 ';
+                echo ' <div class="row">
+                                                  <div class="col s12">
+                                                    <label class="labelquarto" for="num'.$row->cd_quarto.'">  
+                                                           <div id="listagem" class="card-panel">
+                                                               <div class="col s3">
+                                                                   <img class="materialboxed" id="img_quarto" src="'.$row->ds_imagem.'">
+                                                               </div>
+                                                             
+                                                               <div class="col s6">
+                                                               
+                                                               
+                                                                  '.$row->ds_quarto.'<br>
+                                                                  R$ '.number_format($vl_quarto, 2, ',', '.').'
+                                                                 
+                                                                </div>
+                                                                <div class="col s3">
+                                                                    <input type="radio" value="'.$row->cd_quarto.'" class="with-gap numerodoquarto" name="numdoquarto" id="num'.$row->cd_quarto.'">
+                                                                       <span>Nº '.$row->nr_quarto.'</span>                 
+                                                                       
+                                                                </div>
+                                                                </label>
+                                                              
+                                                         </div>
+                                                   
+                                                 </div>
+                                              </div>                                       
+                                            ';
             }
           }
         }
 
            
     }
+
 
     if(isset($_POST['senhadm']) && isset($_POST['loginadm'])){
         $login = implode("", $_POST['loginadm']);

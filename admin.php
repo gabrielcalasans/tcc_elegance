@@ -1,5 +1,5 @@
 <?php include('header.php'); ?>
-	<title>Login administrador | Pousada Elegance<</title>
+	<title>Login administrador | Pousada Elegance</title>
 	<style type="text/css">
 		body{
 				background-color: #758DA3;

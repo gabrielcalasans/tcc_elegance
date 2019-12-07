@@ -151,9 +151,15 @@
             else
             {
              $dias = floor($diferenca / (60 * 60 * 24));
-            }
+            }            
             $qtdevagas = $row_garagem->nr_vagas;
-            $valor_garagem = 50*($qtdevagas-1)*$dias;
+            if($qtdevagas == 0){
+              $valor_garagem=0;
+            }
+            else{
+              $valor_garagem = 50*($qtdevagas-1)*$dias;
+
+            }
 
 
 
@@ -293,7 +299,7 @@
                                 </div>
                                 <div class='row'>
                                  <div class='col s6'>
-                                    <b>Quantidade de vagas:</b> ".$qtdevagas."
+                                    <b>Vagas na garagem:</b> ".$qtdevagas."
                                   </div> 
                                   <div class='col s6'>
                                     <b>Valor da reserva:</b> R$ ".number_format($valor, 2, ',', '.')."
@@ -317,7 +323,7 @@
                   </span>
                 </button>
              </span>             
-                <a class='btn waves-effect waves-light blue accent-4' href=alteracao.php?idreserva=".$codres.">Alterar</a>
+                <a class='btn waves-effect waves-light blue accent-4' href=alterar_reserva.php?reserva=".$codres.">Alterar</a>
               </div>
             </div>
               </div>
@@ -391,7 +397,7 @@
                 <p>                                           
                <div class="modal-footer">
                   <center>
-                    <a href="#!" title="Imprimir" class="btn modal-close green accent-4">Imprimir</a>                    
+                    <a href="ficha.php?cli='.$idcliente.'" title="Imprimir" target="_blank"  class="btn modal-close green accent-4">Imprimir</a>                    
                     <a href="#!" title="Não" class="btn modal-close red">Fechar</a>
                   </center>
                 </div>
