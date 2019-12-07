@@ -7,7 +7,7 @@
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	    <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
-
+	    <link rel="shortcut icon" href="images/Logo.png" type="image/png" />
 		<title>Cadastrar tipos de quarto | Elegance</title>
 		<?php
 			include('conn.php');
