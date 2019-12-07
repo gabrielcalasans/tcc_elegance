@@ -111,6 +111,7 @@
       <h1 class="lobster-font">Reservas</h1>
       <a href="painel_admin.php" class="waves-effect waves-light indigo darken-3 btn">Painel de controle</a>
     </center>
+    <p></p>
     <?php
 
       while($row = $executar->fetch_object())
