@@ -62,6 +62,9 @@
 			<?php
 				include('conn.php');
 				date_default_timezone_set('UTC');
+				$ano = date("Y");
+				$resto = date("m-d");
+				$anomin = $ano - 18;
 			?>
 			</br>
 			<b style="font-size: 24px;">CADASTRO</b>
@@ -120,7 +123,7 @@
 						</div>
 						<div class="input-field col s6">
 							<i class="material-icons prefix">date_range</i>
-							<input id="data" type="date" name="datanasc" required="" class="validate"><label for="data">Data de Nascimento</label>
+							<input id="data" type="date" name="datanasc" required="" max="<?php echo $anomin.'-'.$resto; ?>" class="validate"><label for="data">Data de Nascimento</label>
 						</div>
 						<div class="input-field col s6">
 							<select name="profissao" id="profissao">

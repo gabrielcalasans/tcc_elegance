@@ -5,13 +5,8 @@ td
 table{
  	width: 100%;
 }
-#p1{
+.tabela{
  	border: 1px solid black;
  	padding-left: 10px;
  	padding-right: 10px;
 }
-#p2{
- 	border: 1px solid black;
- 	padding-left: 10px;
- 	padding-right: 10px;
- }
