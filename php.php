@@ -472,6 +472,32 @@
     }
 
 
+
+     if(isset($_POST['inicio'])&&($_POST['fim']))
+    {
+        $inicio = implode($_POST['inicio']);
+        $fim = implode($_POST['fim']);
+        $consulta = "SELECT count(cd_reserva) as reserva , sum(vl_reserva) as lucro
+                               FROM tb_reserva
+                               WHERE DATE(dthr_registro)
+                               BETWEEN '$inicio'
+                               AND '$fim'";
+        $resultado = $mysqli->query($consulta);
+        while($dados = $resultado->fetch_object())
+        {         
+          $lucro_mes =  number_format($dados->lucro, 2, ',', '.');
+          $reservas_mes = $dados->reserva;          
+          echo "<script>
+                            $('#ultimas_reservas').html($reservas_mes);
+                            $('#ultimos_lucros').html('R$ '+$lucro_mes);
+
+
+
+                    </script>";
+        }
+    }
+
+
     if(isset($_POST['senhadm']) && isset($_POST['loginadm'])){
         $login = implode("", $_POST['loginadm']);
         $senha = md5(implode("", $_POST['senhadm']));
