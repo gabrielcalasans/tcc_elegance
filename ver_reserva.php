@@ -12,29 +12,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
 <script>
-    $(document).on("click","#situacao",function(){
-       var cdreserva = {cdreserva: $(this).val()}; 
-       var codreserva = $(this).val();
+    $(document).on("click","#confirmando",function(){
+       var cdreservaconf = {cdreservaconf: $(this).val()}; 
+       var codreservaconf = $(this).val();
       $.ajax({
             type: 'POST',
             url: 'php.php',
-            data: cdreserva,
+            data: cdreservaconf,
             success: function(response){
-              $("#streserva"+codreserva).html(response);
-              var classe = $("#btn_status").attr("class");
-              if(classe=="btn modal-close green accent-4")
-              {
-                $("#btn_status"+codreserva).attr("class","btn modal-close red accent-4");
-                 setTimeout(function () {
+              M.toast({html: 'Reserva confirmada!'});
+               setTimeout(function () {
                        window.location.href= 'ver_reserva.php'; // the redirect goes here
-                  });                
-              } 
-              else{
-                $("#btn_status"+codreserva).attr("class","btn modal-close green accent-4");
-                  setTimeout(function () {
+                    });
+
+              }
+        });        
+   });
+
+   $(document).on("click","#cancelando",function(){
+       var cdreservacanc = {cdreservacanc: $(this).val()}; 
+       var codreservacanc = $(this).val();
+      $.ajax({
+            type: 'POST',
+            url: 'php.php',
+            data: cdreservacanc,
+            success: function(response){
+              M.toast({html: 'Reserva cancelada!'});
+              setTimeout(function () {
                        window.location.href= 'ver_reserva.php'; // the redirect goes here
-                  });   
-              } 
+                    });
 
               }
         });        
@@ -95,7 +101,7 @@
         }
   </style>
   <?php
-    $consulta = "SELECT * FROM tb_reserva";
+    $consulta = "SELECT * FROM tb_reserva ORDER BY cd_reserva DESC";
     $executar = $mysqli->query($consulta);     
   ?>
 	</head>
@@ -118,7 +124,7 @@
       {
         //echo $row->cd_reserva.'<p>';
         $codres = $row->cd_reserva;
-        $streserva = $row->st_reserva;
+        $streserva = $row->id_streserva;
         $idquarto = $row->id_quarto;
         $checkin = $row->dt_checkin;
         $checkout = $row->dt_checkout;
@@ -128,14 +134,49 @@
         $idgaragem = $row->id_garagem;
 
         
-        if($streserva == "Confirmado"){
-            $botao = "Desativar reserva";
-            $classe = "btn modal-close red accent-4";
+        if($streserva == "1"){
+
+            $st="Confirmado"; 
+            $confirmar = "<button disabled type='button' id='btn_status".$codres."' class='btn modal-close green accent-4' value=".$codres.">               
+                                        <span id='streserva".$codres."'>
+                                          Confirmar reserva                 
+                                      </span>
+                                    </button>";
+            $cancelar = "<button type='button' id='btn_status".$codres."' class='btn modal-close red accent-4' value=".$codres.">               
+                                        <span id='streserva".$codres."'>
+                                         Cancelar reserva               
+                                      </span>
+                                    </button>";
+
+        }
+        elseif($streserva =="2")
+        {
+          $st="Pendente";
+          $confirmar = "<button type='button' id='btn_status".$codres."' class='btn modal-close green accent-4'' value=".$codres.">
+                                        <span id='streserva".$codres."'>
+                                          Confirmar reserva                 
+                                      </span>
+                                    </button>";
+            $cancelar = "<button type='button' id='btn_status".$codres."' class='btn modal-close red accent-4' value=".$codres.">
+                                        <span id='streserva".$codres."'>
+                                         Cancelar reserva               
+                                      </span>
+                                    </button>";
+          
         }
         else
         {
-          $botao="Ativar reserva";
-          $classe="btn modal-close green accent-4";
+          $st="Cancelada";
+          $confirmar = "<button type='button' id='btn_status".$codres."' class='btn modal-close green accent-4'' value=".$codres.">
+                                        <span id='streserva".$codres."'>
+                                          Confirmar reserva                 
+                                      </span>
+                                    </button>";
+           $cancelar = "<button type='button' id='btn_status".$codres."' disabled class='btn modal-close red accent-4' value=".$codres.">
+                                        <span id='streserva".$codres."'>
+                                         Cancelar reserva               
+                                      </span>
+                                    </button>";
         }
 
         $consultagaragem = "SELECT * FROM tb_garagem WHERE cd_garagem =\"$idgaragem\"";
@@ -266,12 +307,16 @@
                                 </div>
                               </div>
                                <div class='row'>
-                                <div class='col s12'>
+                                <div class='col s6'>
                                   <b>Cliente:</b>
 
                                   <span class='modal-trigger' data-target='modal-ficha".$idcliente."'>
                                         ".$nomecompleto. " <i class='material-icons'>zoom_in</i>
                                   </span>
+                                </div>
+                                <div class='col s6'>
+                                  <b>Status: </b><i>".$st."</i>
+                                                                  
                                 </div>
                                 </div>
                                 <div class='row'> 
@@ -315,28 +360,39 @@
                             </div>
                             <p>";
         $botoes = "<p>
-        <div class='row'>
-          <div class='col s12'>
-           <span data-target='modal".$codres."'  class='modal-trigger' id='detalhes'>
-                <button type='button' id='btn_status".$codres."' class='".$classe."' value=".$codres.">               
-                    <span id='streserva".$codres."'>
-                      $botao                 
-                  </span>
-                </button>
-             </span>             
-                <a class='btn waves-effect waves-light blue accent-4' href=alterar_reserva.php?reserva=".$codres.">Alterar</a>
-              </div>
-            </div>
-              </div>
-        </div>";
-         echo '<div id="modal'.$codres.'" class="modal">
+                            <div class='row'>
+                              <div class='col s12'>
+                               <span data-target='modal-confirmar".$codres."'  class='modal-trigger' id='detalhes'>
+                                      ".$confirmar."
+                                 </span>
+                                 <span data-target='modal-cancelar".$codres."'  class='modal-trigger' id='detalhes'>
+                                        ".$cancelar."
+                                 </span>                   
+                                    <a class='btn waves-effect waves-light blue accent-4' href=alterar_reserva.php?reserva=".$codres.">Alterar</a>
+                                  </div>
+                                </div>
+                                  </div>
+                            </div>";
+         echo '<div id="modal-confirmar'.$codres.'" class="modal">
                   <div class="modal-content">
-                    <center><h4>Deseja alterar o status  <br> da reserva?</h4></center>
+                    <center><h4>Deseja confirmar  a reserva?</h4></center>
                   </div>
                 <p>                                           
                <div class="modal-footer">
                   <center>
-                    <button class="btn modal-close green accent-4" title="Sim" value='.$codres.' id="situacao">Sim</button>
+                    <button class="btn modal-close green accent-4" title="Sim" value='.$codres.' id="confirmando">Sim</button>
+                    <a href="#!" title="Não" class="btn modal-close red">Não</a>
+                  </center>
+                </div>
+              </div>';
+        echo '<div id="modal-cancelar'.$codres.'" class="modal">
+                  <div class="modal-content">
+                    <center><h4>Deseja cancelar  a reserva?</h4></center>
+                  </div>
+                <p>                                           
+               <div class="modal-footer">
+                  <center>
+                    <button class="btn modal-close green accent-4" title="Sim" value='.$codres.' id="cancelando">Sim</button>
                     <a href="#!" title="Não" class="btn modal-close red">Não</a>
                   </center>
                 </div>

@@ -261,43 +261,27 @@
            
     }
 
-    if(isset($_POST['cdreserva'])){
-        $cd_reserva = $_POST['cdreserva'];
-        $sql = "SELECT * FROM tb_reserva WHERE cd_reserva = $cd_reserva";
-        $resultado = $mysqli->query($sql); 
-        while($rows = $resultado->fetch_object()){
-                    $status = $rows->st_reserva;
-                    if($status == "Confirmado"){
-                        $sql2 = "UPDATE tb_reserva SET st_reserva = 'Cancelado' WHERE cd_reserva=$cd_reserva";
-                        if(!$mysqli->query($sql2)){
-                              echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-                         }
-                         else{
-                             $status = 'Cancelada';
-                             $botao = "Ativar reserva";
-                             echo "<script> M.toast({html: 'Reserva Desativada!'});</script>";
-                             echo $botao;
-                         }                      
-
-                    }
-                    else{
-                        $sql2 = "UPDATE tb_reserva SET st_reserva = 'Confirmado' WHERE cd_reserva=$cd_reserva";
-                        if(!$mysqli->query($sql2)){
-                              echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-                         }
-                         else{
-                             $status = 'Confirmada';
-                             $botao = "Desativar reserva";
-                             echo "<script> M.toast({html: 'Reserva Ativada!'});</script>";
-                             echo $botao;
-                         } 
-                    }
-
-                     
-                                  
-       } 
-
-           
+    if(isset($_POST['cdreservaconf'])){
+        $cd_reserva = $_POST['cdreservaconf'];
+        $sql = "UPDATE tb_reserva SET id_streserva ='1' WHERE cd_reserva = $cd_reserva";
+        if(!$mysqli->query($sql)){
+            echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+        }
+        else
+        {
+            echo "<script> M.toast({html: 'Reserva confirmada!'});</script>";
+        } 
+    }
+    if(isset($_POST['cdreservacanc'])){
+        $cd_reserva = $_POST['cdreservacanc'];
+        $sql = "UPDATE tb_reserva SET id_streserva ='3' WHERE cd_reserva = $cd_reserva";
+        if(!$mysqli->query($sql)){
+            echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+        }
+        else
+        {
+            echo "<script> M.toast({html: 'Reserva cancelada!'});</script>";
+        } 
     }
 
 

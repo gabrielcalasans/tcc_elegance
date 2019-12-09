@@ -131,7 +131,7 @@
 						<a id="but" href="ver_quarto.php" title="Visualizar quartos" class="waves-effect waves-light indigo darken-3 btn">Visualizar quartos</a>
 					</div>
 					<div class="input-field col s4 m4">
-						<a id="but" href="estatisticas.php" title="Visualizar estatísticas" class="waves-effect waves-light indigo darken-3 btn">Visualizar estatísticas</a>
+						<a id="but" href="estatisticas.php" title="Visualizar estatísticas" class="waves-effect waves-light indigo darken-3 btn">Estatísticas</a>
 					</div>
 				</div>
 				<div class="row" style="width: 80%;">

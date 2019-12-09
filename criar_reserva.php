@@ -241,7 +241,7 @@ include 'conn.php';
         {
             $regdate = date('Y-m-d h:i:s a', time());
             $idgaragem= $row->cd_garagem;
-            $sql3 = "INSERT INTO tb_reserva VALUES(null,'Cancelado','$idquarto','$checkin','$checkout','$valor_final_reserva','$idcliente','$idgaragem','$regdate')";
+            $sql3 = "INSERT INTO tb_reserva VALUES(null,'$idquarto','$checkin','$checkout','$valor_final_reserva','$idcliente','$idgaragem','$regdate','2')";
             if(!$mysqli->query($sql3))
             {
               echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);

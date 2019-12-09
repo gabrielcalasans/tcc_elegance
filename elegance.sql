@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 06-Dez-2019 às 20:44
+-- Data de Criação: 09-Dez-2019 às 15:19
 -- Versão do servidor: 5.6.13
 -- versão do PHP: 5.4.17
 
@@ -5839,14 +5839,16 @@ CREATE TABLE IF NOT EXISTS `tb_garagem` (
   `cd_garagem` int(11) NOT NULL AUTO_INCREMENT,
   `nr_vagas` int(10) NOT NULL,
   PRIMARY KEY (`cd_garagem`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Extraindo dados da tabela `tb_garagem`
 --
 
 INSERT INTO `tb_garagem` (`cd_garagem`, `nr_vagas`) VALUES
-(1, 0);
+(1, 0),
+(2, 3),
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -5974,7 +5976,7 @@ CREATE TABLE IF NOT EXISTS `tb_quarto` (
 INSERT INTO `tb_quarto` (`cd_quarto`, `nr_quarto`, `ds_quarto`, `id_tipo`, `id_status`, `id_pedido`, `ds_imagem`) VALUES
 (1, 16, 'Quarto com banheira', 2, 2, 0, 'images/q1.jpg'),
 (2, 22, 'Quarto sem chao', 7, 1, 0, 'images/q2.jpg'),
-(5, 45, 'Quarto do frati', 3, 1, 0, 'images/q3.jpg'),
+(5, 45, 'Quarto do frati', 3, 2, 0, 'images/q3.jpg'),
 (6, 34, 'Não tem descrição', 4, 2, 0, 'images/q4.jpg'),
 (9, 80, 'Sem nada', 5, 2, 0, 'images/q5.jpg'),
 (14, 32, 'Quarto com dois aparelhos de ar condicionado', 7, 1, 0, 'images/q6.jpg'),
@@ -5991,7 +5993,6 @@ INSERT INTO `tb_quarto` (`cd_quarto`, `nr_quarto`, `ds_quarto`, `id_tipo`, `id_s
 
 CREATE TABLE IF NOT EXISTS `tb_reserva` (
   `cd_reserva` int(11) NOT NULL AUTO_INCREMENT,
-  `st_reserva` varchar(225) NOT NULL,
   `id_quarto` int(11) NOT NULL,
   `dt_checkin` date NOT NULL,
   `dt_checkout` date NOT NULL,
@@ -5999,17 +6000,20 @@ CREATE TABLE IF NOT EXISTS `tb_reserva` (
   `id_cliente` int(11) NOT NULL,
   `id_garagem` int(11) DEFAULT NULL,
   `dthr_registro` datetime NOT NULL,
+  `id_streserva` int(11) NOT NULL,
   PRIMARY KEY (`cd_reserva`),
   KEY `fk_id_quarto` (`id_quarto`),
-  KEY `FK_reserva_cliente` (`id_garagem`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  KEY `FK_reserva_cliente` (`id_garagem`),
+  KEY `FK_status_reserva` (`id_streserva`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Extraindo dados da tabela `tb_reserva`
 --
 
-INSERT INTO `tb_reserva` (`cd_reserva`, `st_reserva`, `id_quarto`, `dt_checkin`, `dt_checkout`, `vl_reserva`, `id_cliente`, `id_garagem`, `dthr_registro`) VALUES
-(1, 'Cancelado', 17, '2019-12-19', '2019-12-27', '1512.00', 8, 1, '2019-12-06 05:20:25');
+INSERT INTO `tb_reserva` (`cd_reserva`, `id_quarto`, `dt_checkin`, `dt_checkout`, `vl_reserva`, `id_cliente`, `id_garagem`, `dthr_registro`, `id_streserva`) VALUES
+(1, 17, '2019-12-19', '2019-12-27', '1512.00', 8, 1, '2019-12-06 05:20:25', 2),
+(2, 5, '2019-12-09', '2019-12-11', '678.00', 13, 3, '2019-12-09 01:06:22', 3);
 
 -- --------------------------------------------------------
 
@@ -6030,6 +6034,27 @@ CREATE TABLE IF NOT EXISTS `tb_status` (
 INSERT INTO `tb_status` (`cd_status`, `ds_status`) VALUES
 (1, 'Disponível'),
 (2, 'Não disponível');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_status_reserva`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_status_reserva` (
+  `cd_streserva` int(11) NOT NULL AUTO_INCREMENT,
+  `ds_status` varchar(25) NOT NULL,
+  PRIMARY KEY (`cd_streserva`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Extraindo dados da tabela `tb_status_reserva`
+--
+
+INSERT INTO `tb_status_reserva` (`cd_streserva`, `ds_status`) VALUES
+(1, 'Confirmado'),
+(2, 'Pendente'),
+(3, 'Cancelado');
 
 -- --------------------------------------------------------
 
@@ -6149,6 +6174,7 @@ ALTER TABLE `tb_quarto`
 -- Limitadores para a tabela `tb_reserva`
 --
 ALTER TABLE `tb_reserva`
+  ADD CONSTRAINT `FK_status_reserva` FOREIGN KEY (`id_streserva`) REFERENCES `tb_status_reserva` (`cd_streserva`),
   ADD CONSTRAINT `fk_id_quarto` FOREIGN KEY (`id_quarto`) REFERENCES `tb_quarto` (`cd_quarto`),
   ADD CONSTRAINT `FK_reserva_cliente` FOREIGN KEY (`id_garagem`) REFERENCES `tb_garagem` (`cd_garagem`);
 
