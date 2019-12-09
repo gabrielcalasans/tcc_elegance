@@ -149,7 +149,8 @@
                               </label><br>
                         </div> 
                          <div class="card-action">
-                          Valor:'.$vl_quarto.'
+                          Valor: R$ '.number_format($vl_quarto, 2, ',', '.').'
+
                         </div>                      
                       </div>
                     </div>
@@ -162,6 +163,10 @@
         // Checagem das vagas da garagem        
         $entrada = implode("",$_POST['entrada']);
         $saida = implode("",$_POST['saida']);
+        $checkin = create_data($entrada);
+        $checkout = create_data($saida);
+        $data1=date_format($checkin, 'd/m/Y');
+        $data2=date_format($checkout, 'd/m/Y');
         $sql ="SELECT * FROM tb_reserva WHERE dt_checkin >='$entrada' AND dt_checkin <='$saida'";
         $result = $mysqli->query($sql); 
         while($row = $result->fetch_object()){ 
@@ -173,6 +178,7 @@
                     $totalvagas += $vagas;
                 } 
             }
+        
         $qtdemaxima = 5 - $totalvagas;
         // if($qtdemaxima=0){
         //     echo '<script></script>';
@@ -181,7 +187,7 @@
         echo "<script>vagas_maximas = $qtdemaxima;
                      if(vagas_maximas<= 0)
                     {
-                       
+                      
                        $('#sim').attr('disabled','disabled');
                        $('#sim').attr('onclick',M.toast({html: 'Não é possível reservar vagas: Garagem lotada!'}));
                        $('#mensagem5').fadeIn();

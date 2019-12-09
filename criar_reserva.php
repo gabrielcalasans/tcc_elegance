@@ -1,26 +1,69 @@
-<meta charset="utf-8">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-<link href="SmartWizard-master/SmartWizard-master/dist/css/smart_wizard.css" rel="stylesheet" type="text/css" /> 
-<link href="SmartWizard-master/SmartWizard-master/dist/css/smart_wizard_theme_dots.css" rel="stylesheet" type="text/css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-<script type="text/javascript" src="SmartWizard-master/SmartWizard-master/dist/js/jquery.smartWizard.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
-
 <head>
+    <meta charset="utf-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="SmartWizard-master/SmartWizard-master/dist/css/smart_wizard.css" rel="stylesheet" type="text/css" /> 
+    <link href="SmartWizard-master/SmartWizard-master/dist/css/smart_wizard_theme_dots.css" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+    <script type="text/javascript" src="SmartWizard-master/SmartWizard-master/dist/js/jquery.smartWizard.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Criar reserva</title>
+    <style type="text/css">
+      #logo{
+        width: 9%;
+      }
+
+      body{
+        background-color: #FFF7D9;
+      }
+
+      #painel{
+        margin-top: 5%;
+      }
+    </style>
 </head>
 <?php 
-include 'conn.php';
- ?>
- <div id="scripts_ajax"></div>
+  include 'conn.php';
+?>
+<div id="scripts_ajax"></div>
+<!-- Modal Structure -->
+<div id="sair" class="modal" style="width: 40%;">
+  <div class="modal-content">
+    <center><h4>Deseja sair?</h4></center> 
+    <?php 
+      if(!empty($_SESSION['cliente'])){
+        $sql = "SELECT * from tb_cliente where cd_cliente = ".$_SESSION['cliente'];
+        $result = $mysqli->query($sql);
+        $row = $result->fetch_object();
+        echo '<p align="center"><img style="width: 140px; height: 140px; border-radius: 100%; box-shadow: 5px 5px 5px rgba(0,0,0,0.3);" src="'.$row->ds_avatar.'"></p>';
+        echo '<p align="center">'.$row->nm_cliente.' '.$row->nm_sobrenome.'</p>';
+      } 
+    ?>           
+  </div>
+  <div class="modal-footer">
+    <center>
+      <a href="cliente.php?id=0" title="Sim" class="btn modal-close green accent-4">Sim</a>
+      <a href="#!" title="Não" class="btn modal-close red">Não</a>
+    </center>
+  </div>
+</div>
+<nav class="grey darken-2">
+  <div class="nav-wrapper">
+    <a href="index.php"><img id="logo" src="images/logotipo.png"></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li class="active"><a href="reservas_cliente.php" title="Área de reserva" style="text-decoration: none; color: white;">Área de reserva</a></li>
+      <li><a href="cliente.php" title="Minha conta" style="text-decoration: none; color: white;">Minha conta</a></li>
+      <li><a href="contato_cliente.php" title="Contato" style="text-decoration: none; color: white;">Contato</a></li>
+      <li><a href="historico.php" title="Histórico" style="text-decoration: none; color: white;">Histórico</a></li>
+      <li><a class="modal-trigger" href="#sair" title="Sair" style="text-decoration: none; color: white;">Sair</a></li>
+    </ul>
+  </div>
+</nav>
 <form method="POST">
-<div class="card-panel col s12" id="painel">
-<div id="smartwizard">
+  <div class="card-panel col s12 z-depth-1" id="painel">
+  <div id="smartwizard">
     <ul>
         <li><a href="#step-1">Check-in e Check-out<br /><small>Aqui você escolherá<br> os dias que ficará em nossa pousada!</small></a></li>
         <li><a href="#step-2">Tipo de quarto<br /><small>Aqui você escolherá<br> o tipo de quarto</small></a></li>
@@ -248,7 +291,10 @@ include 'conn.php';
             }
             else
             {
-              echo '<script>alert("Reserva efetuada, aguardar confirmação")</script>';
+              echo '<script>
+                            
+                            window.location.href= "reservas_cliente.php?res=1";
+                    </script>';
             }
         }
         $atualizarquarto = "UPDATE tb_quarto SET id_status = '2' WHERE cd_quarto =\"$idquarto\"";

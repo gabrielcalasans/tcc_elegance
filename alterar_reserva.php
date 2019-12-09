@@ -419,8 +419,7 @@
 	           
 	        	}
 	    		$sql_update = "UPDATE tb_reserva
-	                           SET st_reserva= 'Cancelado',
-	                               id_quarto = $quarto,
+	                           SET  id_quarto = $quarto,
 	                               dt_checkin = '$entrada',
 	                               dt_checkout ='$saida',
 	                               vl_reserva = '$valor_total',
