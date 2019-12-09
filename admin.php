@@ -51,7 +51,7 @@
 	<center>
 		<nav class="black darken-2">
 			<div class="nav-wrapper">
-				<a href="admin.php"><img id="logo" src="images/logotipo2.png"></a>
+				<a href="index.php"><img id="logo" src="images/logotipo2.png"></a>
 			</div>			
 		</nav>
 		<br>

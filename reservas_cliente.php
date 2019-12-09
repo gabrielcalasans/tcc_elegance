@@ -1,5 +1,5 @@
 <?php include('header.php'); ?>
-		<title>Cliente | Hospedagem Elegance</title>
+		<title>Área de reserva | Hospedagem Elegance</title>
 	</head>
 	<style type="text/css">
 		#logo{
@@ -24,19 +24,28 @@
             margin-top: 5px;
             margin-bottom: 0;
         }
-	</style>
-	<?php
-		include('conn.php');
-		
-		if(empty($_SESSION['cliente'])){
-            header('Location: login.php?log=0');
+
+        #foto{
+            width: 50%;
+            border-radius: 3px;
         }
-        if(isset($_GET['id']) and $_GET['id'] == 0){
-            session_destroy();
-            header('Location: index.php');
-        }
-	?>
+	</style><script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	
 	<body>
+        <?php
+            include('conn.php');
+            
+            if(empty($_SESSION['cliente'])){
+                header('Location: login.php?log=0');
+            }
+            if(isset($_GET['id']) and $_GET['id'] == 0){
+                session_destroy();
+                header('Location: index.php');
+            }    
+            if(isset($_GET['res']) and $_GET['res'] == 1){
+                echo "<script>M.toast({html: 'Reserva cadastrada! Aguardar confirmação do Administrador.'});</script>";
+            }
+        ?>
 		<!-- Modal Structure -->
         <div id="sair" class="modal" style="width: 40%;">
             <div class="modal-content">
@@ -62,23 +71,35 @@
 
         <div id="reservas" class="modal modal-fixed-footer" style="width: 80%;">
             <div class="modal-content">
-                <center><h4>Visualizar reserva</h4></center>
-                
+                <center><h4>Visualizar reservas</h4></center>
+                <hr>
                 <?php 
                     if(!empty($_SESSION['cliente'])){
                         $sql = "SELECT * from tb_reserva re
                         inner join tb_quarto qua on (qua.cd_quarto = re.id_quarto)
                         inner join tb_tipo tip on (tip.cd_tipo = qua.id_tipo)
                         inner join tb_cliente cli on (cli.cd_cliente = re.id_cliente)
-                        where cd_cliente = ".$_SESSION['cliente'];
+                        inner join tb_status_reserva stre on (stre.cd_streserva = re.id_streserva)
+                        where cd_cliente = ".$_SESSION['cliente']." and id_streserva <> 3
+                        order by dt_checkout asc";
                         $result = $mysqli->query($sql);
                         if ($result->num_rows > 0) {
-                        	$row = $result->fetch_object();
-                        	echo '<p align="left"><b>Check out</b>: '.$row->dt_checkout.'</p>';
-                        	echo '<p align="left"><b>Quarto</b>: '.$row->nm_tipo.' Nº: '.$row->nr_quarto.'</p>';
-                        	echo '<p align="left"><b>Tipo</b>: '.$row->ds_tipo.'</p>';
-                        	echo '<p align="left"><b>Valor</b>: '.$row->vl_reserva.'</p>';
-                            echo '<p align="left"><b>Foto</b>: <img src="'.$row->ds_imagem.'"></p>';
+                            $c = 0;
+                            while($row = $result->fetch_object()){
+                                $checkin = date_create($row->dt_checkin);
+                                $checkout = date_create($row->dt_checkout);
+                                if ($c > 0) {
+                                    echo "<br><hr><br>";
+                                }
+                                echo '<p align="left"><b>Status</b>: '.$row->ds_status.'.</p>';
+                                echo '<p align="left"><b>Check-in</b>: '.date_format($checkin, 'd/m/Y').'</p>';
+                                echo '<p align="left"><b>Check-out</b>: '.date_format($checkout, 'd/m/Y').'</p>';
+                                echo '<p align="left"><b>Quarto</b>: '.$row->nm_tipo.' <b>Nº</b>: '.$row->nr_quarto.'</p>';
+                                echo '<p align="left"><b>Descrição</b>: '.$row->ds_tipo.'</p>';
+                                echo '<p align="left"><b>Valor</b>: R$'.number_format($row->vl_reserva, 2, ",", ".").'</p>';
+                                echo '<p align="center"><img id="foto" src="'.$row->ds_imagem.'"></p>';
+                                $c++;
+                            }
                         }
                        	else{
                        		echo "Nenhuma reserva efetuada até o momento.";
@@ -100,7 +121,7 @@
                 	<li class="active"><a href="reservas_cliente.php" title="Área de reserva">Área de reserva</a></li>
                 	<li><a href="cliente.php" title="Minha conta">Minha conta</a></li>
                     <li><a href="contato_cliente.php" title="Contato">Contato</a></li>
-                	<li><a href="#" title="Histórico">Histórico</a></li>
+                	<li><a href="historico.php" title="Histórico">Histórico</a></li>
                    	<li><a class="modal-trigger" href="#sair" title="Sair">Sair</a></li>
                 </ul>
             </div>
@@ -122,12 +143,12 @@
 		                </div></a>
 				    </div>
 				    <div class="col s6">
-				    	<a style="color: black;" title="Visualizar reserva" class="modal-trigger" href="#reservas"><div id="panel" class="card-panel yellow darken-3">
+				    	<a style="color: black;" title="Visualizar reservas" class="modal-trigger" href="#reservas"><div id="panel" class="card-panel yellow darken-3">
 		                    <span>
 		                        <div class="center promo promo-example">
 		                            <i class="large material-icons">remove_red_eye</i>
 		                            <br>
-		                            <p class="promo-caption">Visualizar reserva</p>  
+		                            <p class="promo-caption">Visualizar reservas</p>  
 		                        </div>
 		                    </span>
 		                </div></a>
@@ -137,7 +158,7 @@
 	        </div>
 		</div>
 	</body>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	
 	<script>
         $(document).ready(function(){
         	$('.modal').modal();

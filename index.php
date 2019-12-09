@@ -123,18 +123,18 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i id="datas1" class="material-icons prefix">date_range</i>
-                                        <input id="entrada" type="date" name="checkin" min="<?php echo date("Y-m-d"); ?>">
+                                        <input id="entrada" type="date" name="checkin" min="<?php echo date("Y-m-d"); ?>" required>
                                         <label for="entrada">Data de entrada</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i id="datas2" class="material-icons prefix">date_range</i>
-                                        <input id="saida" type="date" readonly="" name="checkout" min="<?php echo date("Y-m-d"); ?>">
+                                        <input id="saida" type="date" readonly="" name="checkout" min="<?php echo date("Y-m-d"); ?>" required>
                                         <label for="saida">Data de saída</label>
                                     </div>
                                 </div>
-                                <button class="btn waves-effect waves-light yellow darken-2" id="logar" type="submit" name="reservar" title="Reservar">Reservar
+                                <button class="btn yellow darken-2" id="logar" type="submit" name="reservar" title="Reservar">Reservar
                                 </button>
                             </form>
                         </div>

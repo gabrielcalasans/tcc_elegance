@@ -1,5 +1,5 @@
 <?php include('header.php'); ?>
-		<title>Cliente | Hospedagem Elegance</title>
+		<title>Minha conta | Hospedagem Elegance</title>
 	</head>
 	<script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
 	<style type="text/css">
@@ -76,7 +76,7 @@
                 	<li><a href="reservas_cliente.php" title="Área de reserva">Área de reserva</a></li>
                 	<li class="active"><a href="cliente.php" title="Minha conta">Minha conta</a></li>
                 	<li><a href="contato_cliente.php" title="Contato">Contato</a></li>
-                	<li><a href="#" title="Histórico">Histórico</a></li>
+                	<li><a href="historico.php" title="Histórico">Histórico</a></li>
                    	<li><a class="modal-trigger" href="#sair" title="Sair">Sair</a></li>
                 </ul>
             </div>

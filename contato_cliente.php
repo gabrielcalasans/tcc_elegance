@@ -1,5 +1,5 @@
 <?php include('header.php'); setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese'); date_default_timezone_set('America/Sao_Paulo');?>
-        <title>Cliente | Hospedagem Elegance</title>
+        <title>Contato | Hospedagem Elegance</title>
     </head>
     <style type="text/css">
         #logo{
@@ -103,7 +103,7 @@
                     <li><a href="reservas_cliente.php" title="Área de reserva">Área de reserva</a></li>
                     <li><a href="cliente.php" title="Minha conta">Minha conta</a></li>
                     <li class="active"><a href="contato_cliente.php" title="Contato">Contato</a></li>
-                    <li><a href="#" title="Histórico">Histórico</a></li>
+                    <li><a href="historico.php" title="Histórico">Histórico</a></li>
                     <li><a class="modal-trigger" href="#sair" title="Sair">Sair</a></li>
                 </ul>
             </div>
